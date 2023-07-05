@@ -11,32 +11,32 @@ import { Link, Navigate } from 'react-router-dom';
 import React from 'react';
 
 const Landing = () => {
-    //const { user } = useAppContext()
-    return (
-        <React.Fragment>
-            {/*user && <Navigate to='/' />*/}
-            <Wrapper>
-                <nav>
-                    <Logo />
-                </nav>
-                <div className="container page">
-                    {/*info*/}
-                    <div className="info">
-                        <h1>
-                            job <span>tracking</span> app
-                        </h1>
-                        <p>
-                            Next '23 is our global exhibition of inspiration, innovation, and education. It’s where decision makers, developers, and anyone passionate about an accessible, scalable, socially responsible cloud come together to share challenges, solutions, 10x ideas, and game-changing technologies.
-                        </p>
-                        <Link to="/register" className="btn btn-hero">
-                            Login/Register
-                        </Link>
-                    </div>
-                    <img src={main} alt="job hunt" className="img main-img" />
-                </div>
-            </Wrapper>
-        </React.Fragment>
-    )
+  //const { user } = useAppContext()
+  return (
+    <React.Fragment>
+      {/*user && <Navigate to='/' />*/}
+      <Wrapper>
+        <nav>
+          <Logo />
+        </nav>
+        <div className="container page">
+          {/*info*/}
+          <div className="info">
+            <h1>
+              job <span>tracking</span> app
+            </h1>
+            <p>
+              Next '23 is our global exhibition of inspiration, innovation, and education. It’s where decision makers, developers, and anyone passionate about an accessible, scalable, socially responsible cloud come together to share challenges, solutions, 10x ideas, and game-changing technologies.
+            </p>
+            <Link to="/register" className="btn btn-hero">
+              Login/Register
+            </Link>
+          </div>
+          <img src={main} alt="job hunt" className="img main-img" />
+        </div>
+      </Wrapper>
+    </React.Fragment>
+  )
 }
 
 export default Landing
