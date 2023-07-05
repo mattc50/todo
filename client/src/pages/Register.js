@@ -52,6 +52,7 @@ function Register() {
           handleChange={handleChange}
         />
 
+        {/*password field*/}
         <FormRow
           type="password"
           name="password"
