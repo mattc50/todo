@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Logo, Alert, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
+import { useAppContext } from '../context/appContext';
 
 const initialState = {
   name: '',
@@ -11,15 +12,23 @@ const initialState = {
 
 function Register() {
   const [values, setValues] = useState(initialState);
+  const { isLoading, showAlert, displayAlert } = useAppContext()
 
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({
+      ...values, [e.target.name]: e.target.value
+    });
   }
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(e.target);
-  };
+    const { name, email, password, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      displayAlert();
+      return;
+    }
+    console.log(values);
+  }
 
   const toggleMember = () => {
     setValues({
@@ -34,7 +43,7 @@ function Register() {
         {/*control h3 depending on whether user is logging in or registering*/}
         <h3>{values.isMember ? "Login" : "Register"}</h3>
 
-        {values.showAlert && <Alert />}
+        {showAlert && <Alert />}
 
         {/*name field; shown only is user is logging in*/}
         {values.isMember && (<FormRow
@@ -52,6 +61,7 @@ function Register() {
           handleChange={handleChange}
         />
 
+        {/*password field*/}
         <FormRow
           type="password"
           name="password"
