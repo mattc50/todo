@@ -5,6 +5,7 @@ import {
   NotFoundError,
   UnauthenticatedError
 } from '../errors/index.js'
+import attachCookies from '../utils/attachCookies.js';
 
 const register = async (req, res) => {
   const { name, email, password } = req.body
@@ -24,6 +25,7 @@ const register = async (req, res) => {
   const user = await User.create(req.body)
 
   const token = user.createJWT();
+  attachCookies({ res, token })
 
   res.status(StatusCodes.CREATED).json({
     //select: false does not work with User.create; therefore, to omit the password from responses, we have to hard-code the values we want to retrieve
@@ -37,13 +39,50 @@ const register = async (req, res) => {
 }
 
 const login = async (req, res) => {
-  res.send('login user')
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new BadRequestError('Please provide all values')
+  }
+
+  const user = await User.findOne({ email }).select('+password')
+  if (!user) {
+    throw new UnauthenticatedError('Invalid credentials')
+  }
+
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new UnauthenticatedError('Invalid credentials')
+  }
+
+  const token = user.createJWT();
+  user.password = undefined;
+  attachCookies({ res, token })
+
+  res.status(StatusCodes.OK).json({ user, token })
+
 }
 
 const updateUser = async (req, res) => {
-  res.send('update user')
+  const { email, name, lastName } = req.body;
+  if (!email || !name || !lastName) {
+    throw new BadRequestError('Please provide all values')
+  }
+
+  const user = await User.findOne({ _id: req.user.userId });
+
+  user.email = email;
+  user.name = name;
+  user.lastName = lastName;
+
+  await user.save()
   // later, we will have user.save, and this will run the UserSchema.pre('save'...) function in User.js.
   // if we instead used User.findOneAndUpdate, the hook/middleware would not be run.
+
+  // this new token is created to keep it up-to-date with the information.
+  const token = user.createJWT();
+  attachCookies({ res, token })
+
+  res.status(StatusCodes.OK).json({ user, token })
 }
 
 export { register, login, updateUser }

@@ -19,7 +19,8 @@ const Register = () => {
     isLoading,
     showAlert,
     displayAlert,
-    registerUser
+    registerUser,
+    loginUser
   } = useAppContext()
 
   const handleChange = (e) => {
@@ -37,7 +38,7 @@ const Register = () => {
     }
     const currentUser = { name, email, password }
     if (isMember) {
-      console.log('Already a member')
+      loginUser(currentUser)
     } else {
       registerUser(currentUser)
     }
@@ -100,6 +101,7 @@ const Register = () => {
 
         {/*button to toggle login/register action*/}
         <p>
+          {values.isMember ? "Not a member yet?" : "Already a member?"}
           <button
             type="button"
             onClick={toggleMember}
