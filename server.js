@@ -1,4 +1,5 @@
 //console.log("server running...")
+//import cors from 'cors'
 
 import express from 'express';
 const app = express();
@@ -18,13 +19,14 @@ import authRouter from './routes/authRoutes.js';
 import notFoundMiddleWare from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 
-// makes JSOB data available in the controllers
-app.use(express.json())
+//app.use(cors())
 
+// makes JSON data available in the controllers
+app.use(express.json())
 app.use('/api/v1/auth', authRouter)
 
-app.get('/', (req, res) => {
-  res.send('Welcome!');
+app.get('/api/v1', (req, res) => {
+  res.json({ msg: 'API' });
 });
 
 app.use(notFoundMiddleWare)

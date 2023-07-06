@@ -2,14 +2,20 @@ import React, { useState, useReducer, useContext } from 'react';
 import reducer from './reducer';
 import {
   DISPLAY_ALERT,
-  CLEAR_ALERT
+  CLEAR_ALERT,
+  REGISTER_USER_BEGIN,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_ERROR
 } from './actions';
+import axios from 'axios';
 
 export const initialState = {
   isLoading: false,
   showAlert: false,
   alertText: '',
-  alerttype: '',
+  alertType: '',
+  user: null,
+  token: null
 };
 
 const AppContext = React.createContext();
@@ -27,11 +33,35 @@ const AppProvider = ({ children }) => {
     }, 3000);
   }
 
+  const registerUser = async (currentUser) => {
+    dispatch({ type: REGISTER_USER_BEGIN });
+    try {
+      // POST method will be used, as we are sending data to the server
+      const response = await axios.post(
+        '/api/v1/auth/register', currentUser
+      )
+      console.log(response)
+      const { user, token } = response.data
+      dispatch({
+        type: REGISTER_USER_SUCCESS,
+        payload: { user, token }
+      })
+    } catch (error) {
+      console.log(error.response);
+      dispatch({
+        type: REGISTER_USER_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+    clearAlert();
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
-        displayAlert
+        displayAlert,
+        registerUser
       }}
     >
       {children}
