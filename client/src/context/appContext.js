@@ -161,6 +161,15 @@ const AppProvider = ({ children }) => {
     clearAlert();
   }
 
+  const testGet = async () => {
+    try {
+      const { data } = await authFetch('/todo');
+      console.log(data)
+    } catch (error) {
+      logoutUser()
+    }
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -170,7 +179,8 @@ const AppProvider = ({ children }) => {
         loginUser,
         logoutUser,
         toggleSidebar,
-        updateUser
+        updateUser,
+        testGet
       }}
     >
       {children}
