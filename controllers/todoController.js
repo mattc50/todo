@@ -2,8 +2,7 @@ import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
 
 const testGet = async (req, res) => {
-  console.log('running from testGet in controller')
-  const user = await User.findOne({ _id: "64a6d75d68e31e512669892f" })
+  const user = await User.findOne({ _id: req.user.userId })
   res.status(StatusCodes.OK).json({ msg: user ? 'user found' : 'could not find user' })
 }
 

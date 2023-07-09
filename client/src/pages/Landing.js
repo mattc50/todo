@@ -6,16 +6,18 @@ import main from '../assets/images/main.svg'
 // For a default export we do not use { } when we import.
 import { Logo } from '../components';
 import { Link, Navigate } from 'react-router-dom';
-//import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../context/appContext';
 
 import React from 'react';
 
 const Landing = () => {
-  //const { user } = useAppContext()
+  const { userLoading } = useAppContext()
+
   return (
+    // React.Fragment is used to return 2 adjacent components
     <React.Fragment>
-      {/*user && <Navigate to='/' />*/}
-      <Wrapper>
+      {userLoading && <Navigate to='/' />}
+      {!userLoading && <Wrapper>
         <nav>
           <Logo />
         </nav>
@@ -34,7 +36,7 @@ const Landing = () => {
           </div>
           <img src={main} alt="job hunt" className="img main-img" />
         </div>
-      </Wrapper>
+      </Wrapper>}
     </React.Fragment>
   )
 }

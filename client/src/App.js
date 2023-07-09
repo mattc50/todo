@@ -3,7 +3,8 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link
+  Link,
+  Navigate
 } from 'react-router-dom'
 import {
   Todo,
@@ -12,7 +13,11 @@ import {
   SharedLayout
 } from './pages/dashboard'
 
+import { useAppContext } from './context/appContext'
+
 function App() {
+  const { user } = useAppContext()
+  console.log(user)
   return (
     <BrowserRouter>
       <Routes>
@@ -29,8 +34,8 @@ function App() {
           <Route path="/progress" element={<Progress />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="/register" element={<Register />} />
-        <Route path="/landing" element={<Landing />} />
+        <Route path="/register" element={user ? <Navigate to='/' /> : <Register />} />
+        <Route path="/landing" element={user ? <Navigate to='/' /> : <Landing />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

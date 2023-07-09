@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useContext } from 'react';
+import React, { useEffect, useReducer, useContext, useState } from 'react';
 import reducer from './reducer';
 import {
   DISPLAY_ALERT,
@@ -13,20 +13,21 @@ import {
   LOGOUT_USER,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR
+  UPDATE_USER_ERROR,
+  GET_CURRENT_USER_BEGIN,
+  GET_CURRENT_USER_SUCCESS,
 } from './actions';
 import axios from 'axios';
 
-const token = localStorage.getItem('token');
-const user = localStorage.getItem('user');
-
 export const initialState = {
+  // userLoading will be for when the app is refreshed and the user is being retrieved/validated.
+  // it is set to true to prevent being immediately logged out.
+  userLoading: true,
   isLoading: false,
   showAlert: false,
   alertText: '',
   alertType: '',
-  user: user ? JSON.parse(user) : null,
-  token: token,
+  user: null,
   showSidebar: false
 };
 
@@ -39,15 +40,15 @@ const AppProvider = ({ children }) => {
   })
 
   // request interceptor
-  authFetch.interceptors.request.use(
-    (config) => {
-      config.headers['Authorization'] = `Bearer ${state.token}`;
-      return config;
-    },
-    (error) => {
-      return Promise.reject(error);
-    }
-  );
+  // authFetch.interceptors.request.use(
+  //   (config) => {
+  //     config.headers['Authorization'] = `Bearer ${state.token}`;
+  //     return config;
+  //   },
+  //   (error) => {
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   // response interceptor
   authFetch.interceptors.response.use(
@@ -74,16 +75,6 @@ const AppProvider = ({ children }) => {
     }, 3000);
   }
 
-  const addUserToLocalStorage = ({ user, token }) => {
-    localStorage.setItem('user', JSON.stringify(user));
-    localStorage.setItem('token', token);
-  };
-
-  const removeUserFromLocalStorage = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-  };
-
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
@@ -92,12 +83,11 @@ const AppProvider = ({ children }) => {
         '/api/v1/auth/register', currentUser
       )
       console.log(response)
-      const { user, token } = response.data
+      const { user } = response.data
       dispatch({
         type: REGISTER_USER_SUCCESS,
-        payload: { user, token }
+        payload: { user }
       })
-      addUserToLocalStorage({ user, token })
     } catch (error) {
       console.log(error.response);
       dispatch({
@@ -112,12 +102,11 @@ const AppProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGIN });
     try {
       const { data } = await axios.post('/api/v1/auth/login', currentUser);
-      const { user, token } = data;
+      const { user } = data;
       dispatch({
         type: LOGIN_USER_SUCCESS,
-        payload: { user, token }
+        payload: { user }
       })
-      addUserToLocalStorage({ user, token })
     } catch (error) {
       dispatch({
         type: LOGIN_USER_ERROR,
@@ -131,10 +120,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: TOGGLE_SIDEBAR });
   };
 
-  const logoutUser = () => {
-    dispatch({ type: LOGOUT_USER })
-    removeUserFromLocalStorage()
-  }
+  const logoutUser = async () => {
+    await authFetch.get('/auth/logout');
+    dispatch({ type: LOGOUT_USER });
+  };
 
   const updateUser = async (currentUser) => {
     dispatch({ type: UPDATE_USER_BEGIN });
@@ -142,14 +131,13 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch.patch(
         '/auth/update', currentUser
       )
-      const { user, token } = data;
+      const { user } = data;
 
       dispatch({
         type: UPDATE_USER_SUCCESS,
-        payload: { user, token }
+        payload: { user }
       });
 
-      addUserToLocalStorage({ user, token })
     } catch (error) {
       if (error.response.status !== 401) {
         dispatch({
@@ -161,14 +149,37 @@ const AppProvider = ({ children }) => {
     clearAlert();
   }
 
+  const getCurrentUser = async () => {
+    dispatch({ type: GET_CURRENT_USER_BEGIN });
+    try {
+      const { data } = await authFetch('/auth/getCurrentUser');
+      const { user } = data
+      dispatch({
+        type: GET_CURRENT_USER_SUCCESS,
+        payload: { user }
+      })
+      console.log(user)
+    } catch (error) {
+      if (error.response.status === 401) return;
+      logoutUser();
+    }
+  }
+
   const testGet = async () => {
     try {
       const { data } = await authFetch('/todo');
-      console.log(data)
+      //console.log(data)
     } catch (error) {
       logoutUser()
     }
   }
+
+  useEffect(() => {
+    async function awaitUser() {
+      await getCurrentUser()
+    }
+    awaitUser()
+  }, [])
 
   return (
     <AppContext.Provider

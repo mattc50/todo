@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import { Logo, Alert, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
+
+import React from 'react';
 
 const initialState = {
   name: '',
@@ -16,6 +18,7 @@ const Register = () => {
   const navigate = useNavigate();
   const {
     user,
+    userLoading,
     isLoading,
     showAlert,
     displayAlert,
@@ -59,59 +62,62 @@ const Register = () => {
   }
 
   return (
-    <Wrapper className="full-page">
-      <form className="form" onSubmit={onSubmit}>
-        <Logo />
-        {/*control h3 depending on whether user is logging in or registering*/}
-        <h3>{values.isMember ? "Login" : "Register"}</h3>
+    <React.Fragment>
+      {userLoading && <Navigate to='/' />}
+      {!userLoading && <Wrapper className="full-page">
+        <form className="form" onSubmit={onSubmit}>
+          <Logo />
+          {/*control h3 depending on whether user is logging in or registering*/}
+          <h3>{values.isMember ? "Login" : "Register"}</h3>
 
-        {showAlert && <Alert />}
+          {showAlert && <Alert />}
 
-        {/*name field; shown only is user is logging in*/}
-        {!values.isMember && (<FormRow
-          type="text"
-          name="name"
-          value={values.name}
-          handleChange={handleChange}
-        />)}
+          {/*name field; shown only is user is logging in*/}
+          {!values.isMember && (<FormRow
+            type="text"
+            name="name"
+            value={values.name}
+            handleChange={handleChange}
+          />)}
 
-        {/*email field*/}
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-        />
+          {/*email field*/}
+          <FormRow
+            type="email"
+            name="email"
+            value={values.email}
+            handleChange={handleChange}
+          />
 
-        {/*password field*/}
-        <FormRow
-          type="password"
-          name="password"
-          value={values.password}
-          handleChange={handleChange}
-        />
+          {/*password field*/}
+          <FormRow
+            type="password"
+            name="password"
+            value={values.password}
+            handleChange={handleChange}
+          />
 
-        <button
-          type="submit"
-          className="btn btn-block"
-          disabled={isLoading}
-        >
-          submit
-        </button>
-
-        {/*button to toggle login/register action*/}
-        <p>
-          {values.isMember ? "Not a member yet?" : "Already a member?"}
           <button
-            type="button"
-            onClick={toggleMember}
-            className="member-btn"
+            type="submit"
+            className="btn btn-block"
+            disabled={isLoading}
           >
-            {values.isMember ? "Register" : "Login"}
+            submit
           </button>
-        </p>
-      </form>
-    </Wrapper>
+
+          {/*button to toggle login/register action*/}
+          <p>
+            {values.isMember ? "Not a member yet?" : "Already a member?"}
+            <button
+              type="button"
+              onClick={toggleMember}
+              className="member-btn"
+            >
+              {values.isMember ? "Register" : "Login"}
+            </button>
+          </p>
+        </form>
+      </Wrapper>}
+    </React.Fragment>
   )
 }
 
