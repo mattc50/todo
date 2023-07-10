@@ -15,7 +15,8 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   GET_CURRENT_USER_BEGIN,
-  GET_CURRENT_USER_SUCCESS
+  GET_CURRENT_USER_SUCCESS,
+  PROMPT_FIELD_ERRORS
 } from './actions';
 import axios from 'axios';
 
@@ -31,8 +32,9 @@ export const initialState = {
   alertText: '',
   alertType: '',
   user: null,
-  showSidebar: false
-};
+  showSidebar: false,
+  errors: {}
+}
 
 const AppProvider = ({ children }) => {
 
@@ -86,14 +88,27 @@ const AppProvider = ({ children }) => {
       const response = await axios.post(
         '/api/v1/auth/register', currentUser
       )
-      console.log(response)
+      //console.log(response)
       const { user } = response.data
       dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: { user }
       })
     } catch (error) {
-      console.log(error.response);
+      //console.log(error);
+
+      // ADDITION:  an action has been added to store any errors raised in 
+      //            a new global context value, errors. This list is 
+      //            retrieved from the data inside the response when an 
+      //            error is raised from the err-handler middleware.
+      //            This value is used by the Register and Login forms to 
+      //            display validation errors alongside the fields they 
+      //            belong to. 
+      dispatch({
+        type: PROMPT_FIELD_ERRORS,
+        payload: { errors: error.response.data.list }
+      })
+
       dispatch({
         type: REGISTER_USER_ERROR,
         payload: { msg: error.response.data.msg }

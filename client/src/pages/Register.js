@@ -10,7 +10,7 @@ const initialState = {
   name: '',
   email: '',
   password: '',
-  isMember: true
+  isMember: true,
 };
 
 const Register = () => {
@@ -35,10 +35,14 @@ const Register = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const { name, email, password, isMember } = values;
-    if (!email || !password || (!isMember && !name)) {
-      displayAlert();
-      return;
-    }
+
+    // COMMENT OUT THE CONDITON BELOW TO THROW BACKEND-HANDLED ERRORS
+
+    // if (!email || !password || (!isMember && !name)) {
+    //   displayAlert();
+    //   return;
+    // }
+
     const currentUser = { name, email, password }
     if (isMember) {
       loginUser(currentUser)

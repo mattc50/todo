@@ -17,14 +17,20 @@ const auth = async (req, res, next) => {
   // ADDITION:  if there is no token, the page is either landing or 
   //            register, and the request URL is getCurrentUser, the next 
   //            middleware will be run, and the auth will be exited out of.
+  //            NOTE: by checking if there is a token and in only that
+  //            condition verifying the token, not only is an 
+  //            Authentication Error prevented upon start of the server, 
+  //            but the below condition may not be required.
   if ((page === 'landing' || page === 'register') && !token && req.url === '/getCurrentUser') {
     next()
     return
   };
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = payload
+    if (token) {
+      const payload = jwt.verify(token, process.env.JWT_SECRET)
+      req.user = payload
+    }
     next()
   } catch (error) {
     console.log('this ran')

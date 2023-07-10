@@ -15,7 +15,8 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   GET_CURRENT_USER_BEGIN,
-  GET_CURRENT_USER_SUCCESS
+  GET_CURRENT_USER_SUCCESS,
+  PROMPT_FIELD_ERRORS
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -149,6 +150,13 @@ const reducer = (state, action) => {
       userLoading: false,
       user: action.payload.user
     };
+  }
+
+  if (action.type === PROMPT_FIELD_ERRORS) {
+    return {
+      ...state,
+      errors: action.payload.errors
+    }
   }
 
   throw new Error(`no such action: ${action.type}`);

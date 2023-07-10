@@ -5,7 +5,7 @@ import { Loading } from '../components'
 const ProtectedLogReg = ({ children }) => {
   const { user, userLoading } = useAppContext();
   if (userLoading) {
-    console.log(userLoading)
+    //console.log(userLoading)
     return
   }
   if (!userLoading && !user) {
