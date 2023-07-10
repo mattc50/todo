@@ -1,4 +1,4 @@
-import { Landing, Register, Error, ProtectedRoute } from './pages'
+import { Landing, Register, Error, ProtectedRoute, ProtectedLogReg } from './pages'
 import {
   BrowserRouter,
   Routes,
@@ -13,11 +13,7 @@ import {
   SharedLayout
 } from './pages/dashboard'
 
-import { useAppContext } from './context/appContext'
-
 function App() {
-  const { user } = useAppContext()
-  console.log(user)
   return (
     <BrowserRouter>
       <Routes>
@@ -34,8 +30,16 @@ function App() {
           <Route path="/progress" element={<Progress />} />
           <Route path="profile" element={<Profile />} />
         </Route>
-        <Route path="/register" element={user ? <Navigate to='/' /> : <Register />} />
-        <Route path="/landing" element={user ? <Navigate to='/' /> : <Landing />} />
+        <Route path="/register" element={
+          <ProtectedLogReg>
+            <Register />
+          </ProtectedLogReg>
+        } />
+        <Route path="/landing" element={
+          <ProtectedLogReg>
+            <Landing />
+          </ProtectedLogReg>
+        } />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

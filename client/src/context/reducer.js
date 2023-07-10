@@ -15,7 +15,7 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   GET_CURRENT_USER_BEGIN,
-  GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_SUCCESS
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -79,7 +79,7 @@ const reducer = (state, action) => {
       user: action.payload.user,
       showAlert: true,
       alertType: 'success',
-      alertText: 'Login Successful! Ridrecting...'
+      alertText: 'Login Successful! Redirecting...'
     }
   }
 
@@ -103,7 +103,7 @@ const reducer = (state, action) => {
   if (action.type === LOGOUT_USER) {
     return {
       ...initialState,
-      userLoading: false,
+      userLoading: false
     };
   }
 
@@ -138,6 +138,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       userLoading: true,
+      fetch: true,
       showAlert: false
     };
   }
@@ -146,18 +147,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       userLoading: false,
-      user: action.payload.user,
-      userLocation: action.payload.location,
-      jobLocation: action.payload.location,
+      user: action.payload.user
     };
   }
-
-  // if (action.type === REDIRECT_PAGE) {
-  //   return {
-  //     ...state,
-  //     pageLoading: true
-  //   }
-  // }
 
   throw new Error(`no such action: ${action.type}`);
 }

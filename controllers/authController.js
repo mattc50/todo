@@ -85,8 +85,24 @@ const updateUser = async (req, res) => {
 }
 
 const getCurrentUser = async (req, res) => {
-  //console.log(req)
+
+  // ADDITION:    we check if there is a token present in the request 
+  //              cookies.
+  //              if there is NOT a cookie present, then the response is 
+  //              OK, because we do not want to respond with a 401 error 
+  //              if the user is on the login or register page, which 
+  //              would only be possible without a token.
+  //              Then, we return to prevent user from being retrieved, as 
+  //              this would throw an error and be responded with 401, 
+  //              which is not what we want.
+  const token = req.cookies.token;
+  if (!token) {
+    res.status(StatusCodes.OK).json({ msg: 'OK' })
+    return
+  }
+
   const user = await User.findOne({ _id: req.user.userId })
+
   res.status(StatusCodes.OK).json({ user })
 }
 

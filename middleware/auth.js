@@ -1,7 +1,12 @@
 import jwt from 'jsonwebtoken'
 import { UnauthenticatedError } from "../errors/index.js";
+import { StatusCodes } from 'http-status-codes'
 
 const auth = async (req, res, next) => {
+
+  // ADDITION:  the below code will split the referer (essentially the 
+  //            full URL of the request) and find which page the request 
+  //            is coming from.
   const tail = req.headers.referer;
   const urlSplit = tail.split('/');
   const page = urlSplit[urlSplit.length - 1];
@@ -9,18 +14,20 @@ const auth = async (req, res, next) => {
   //console.log(req.cookies)
   const token = req.cookies.token
 
-  //console.log(token) 
-  //if ((page === 'landing' || page === 'register') && !token && req.url === '/getCurrentUser') return;
-
-  if (!token) {
-    throw new UnauthenticatedError('Authentication Failed')
-  }
+  // ADDITION:  if there is no token, the page is either landing or 
+  //            register, and the request URL is getCurrentUser, the next 
+  //            middleware will be run, and the auth will be exited out of.
+  if ((page === 'landing' || page === 'register') && !token && req.url === '/getCurrentUser') {
+    next()
+    return
+  };
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET)
     req.user = payload
     next()
   } catch (error) {
+    console.log('this ran')
     throw new UnauthenticatedError('Authentication Failed')
   }
 }

@@ -63,8 +63,8 @@ const Register = () => {
 
   return (
     <React.Fragment>
-      {userLoading && <Navigate to='/' />}
-      {!userLoading && <Wrapper className="full-page">
+      {user && <Navigate to='/' />}
+      <Wrapper className="full-page">
         <form className="form" onSubmit={onSubmit}>
           <Logo />
           {/*control h3 depending on whether user is logging in or registering*/}
@@ -116,7 +116,7 @@ const Register = () => {
             </button>
           </p>
         </form>
-      </Wrapper>}
+      </Wrapper>
     </React.Fragment>
   )
 }

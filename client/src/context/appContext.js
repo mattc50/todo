@@ -15,14 +15,17 @@ import {
   UPDATE_USER_SUCCESS,
   UPDATE_USER_ERROR,
   GET_CURRENT_USER_BEGIN,
-  GET_CURRENT_USER_SUCCESS,
+  GET_CURRENT_USER_SUCCESS
 } from './actions';
 import axios from 'axios';
+
+const AppContext = React.createContext();
 
 export const initialState = {
   // userLoading will be for when the app is refreshed and the user is being retrieved/validated.
   // it is set to true to prevent being immediately logged out.
   userLoading: true,
+  userFetched: false,
   isLoading: false,
   showAlert: false,
   alertText: '',
@@ -31,9 +34,7 @@ export const initialState = {
   showSidebar: false
 };
 
-const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
 
   const authFetch = axios.create({
     baseURL: '/api/v1',
@@ -58,11 +59,14 @@ const AppProvider = ({ children }) => {
     (error) => {
       //console.log(error.response);
       if (error.response.status === 401) {
+        console.log('logging out')
         logoutUser();
       }
       return Promise.reject(error);
     }
   );
+
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
@@ -158,11 +162,13 @@ const AppProvider = ({ children }) => {
         type: GET_CURRENT_USER_SUCCESS,
         payload: { user }
       })
-      console.log(user)
     } catch (error) {
-      if (error.response.status === 401) return;
+      if (error.response.status === 401) {
+        return;
+      }
       logoutUser();
-    }
+    };
+
   }
 
   const testGet = async () => {
@@ -175,10 +181,7 @@ const AppProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    async function awaitUser() {
-      await getCurrentUser()
-    }
-    awaitUser()
+    getCurrentUser()
   }, [])
 
   return (
