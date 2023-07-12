@@ -21,11 +21,7 @@ const Wrapper = styled.section`
     margin-top: 1rem;
     text-align: center;
   }
-
-  .feedback {
-    color: red;
-    text-align: left;
-  }
+  
   .btn {
     margin-top: 1rem;
   }

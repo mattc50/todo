@@ -100,18 +100,21 @@ const AppProvider = ({ children }) => {
       // ADDITION:  an action has been added to store any errors raised in 
       //            a new global context value, errors. This list is 
       //            retrieved from the data inside the response when an 
-      //            error is raised from the err-handler middleware.
+      //            error is raised from the error-handler middleware.
       //            This value is used by the Register and Login forms to 
       //            display validation errors alongside the fields they 
       //            belong to. 
-      dispatch({
-        type: PROMPT_FIELD_ERRORS,
-        payload: { errors: error.response.data.list }
-      })
+      // dispatch({
+      //   type: PROMPT_FIELD_ERRORS,
+      //   payload: { errors: error.response.data.list }
+      // })
 
       dispatch({
         type: REGISTER_USER_ERROR,
-        payload: { msg: error.response.data.msg }
+        payload: {
+          msg: error.response.data.msg,
+          errors: error.response.data.list
+        }
       })
     }
     clearAlert();
@@ -127,9 +130,16 @@ const AppProvider = ({ children }) => {
         payload: { user }
       })
     } catch (error) {
+      // dispatch({
+      //   type: PROMPT_FIELD_ERRORS,
+      //   payload: { errors: error.response.data.list }
+      // })
       dispatch({
         type: LOGIN_USER_ERROR,
-        payload: { msg: error.response.data.msg }
+        payload: {
+          msg: error.response.data.msg,
+          errors: error.response.data.list
+        }
       });
     }
     clearAlert();

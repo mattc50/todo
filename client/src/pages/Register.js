@@ -4,6 +4,9 @@ import { Logo, Alert, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
 
+import blurHelper from '../utils/blurHelper';
+import submitHelper from '../utils/submitHelper';
+
 import React from 'react';
 
 const initialState = {
@@ -15,21 +18,39 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+
   const {
     user,
-    userLoading,
+    // errors,
+    // userLoading,
     isLoading,
     showAlert,
-    displayAlert,
+    // displayAlert,
     registerUser,
     loginUser
   } = useAppContext()
 
+  const initialErrs = ({
+    name: false,
+    email: false,
+    password: false
+  })
+
+  const [showErrs, setShowErrs] = useState(initialErrs)
+
+  const errs = showErrs;
+
   const handleChange = (e) => {
     setValues({
-      ...values, [e.target.name]: e.target.value
+      ...values,
+      [e.target.name]: e.target.value,
     });
+  }
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    blurHelper(name, value, errs, showErrs, setShowErrs);
   }
 
   const onSubmit = (e) => {
@@ -43,27 +64,45 @@ const Register = () => {
     //   return;
     // }
 
+    submitHelper(errs, showErrs, setShowErrs)
+
     const currentUser = { name, email, password }
     if (isMember) {
       loginUser(currentUser)
     } else {
       registerUser(currentUser)
     }
-  }
 
-  useEffect(() => {
-    if (user) {
-      setTimeout(() => {
-        navigate('/');
-      }, 3000)
-    }
-  }, [user, navigate])
+    // ADDITION:    This was added to set changed to false every time the 
+    //              form is submitted. This effectively resets the tracking 
+    //              of whether the email field is changed or not.
+    // setValues({
+    //   ...values,
+    //   changed: false
+    // })
+  }
 
   const toggleMember = () => {
     setValues({
-      ...values, isMember: !values.isMember
+      ...values,
+      isMember: !values.isMember
     });
+    setShowErrs({
+      name: false,
+      email: false,
+      password: false
+    })
   }
+
+  useEffect(() => {
+    setShowErrs({
+      name: showErrs.name,
+      email: showErrs.email,
+      password: showErrs.password
+    })
+  }, [
+    setShowErrs
+  ])
 
   return (
     <React.Fragment>
@@ -82,6 +121,9 @@ const Register = () => {
             name="name"
             value={values.name}
             handleChange={handleChange}
+            handleBlur={handleBlur}
+            isError={showErrs.name}
+            feedback="Please provide a name (at least 3 characters)"
           />)}
 
           {/*email field*/}
@@ -90,6 +132,9 @@ const Register = () => {
             name="email"
             value={values.email}
             handleChange={handleChange}
+            handleBlur={handleBlur}
+            isError={showErrs.email}
+            feedback="Please provide an email"
           />
 
           {/*password field*/}
@@ -98,6 +143,9 @@ const Register = () => {
             name="password"
             value={values.password}
             handleChange={handleChange}
+            handleBlur={handleBlur}
+            isError={showErrs.password}
+            feedback="Please provide a password (at least 6 characters)"
           />
 
           <button

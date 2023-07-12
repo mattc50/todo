@@ -10,12 +10,16 @@ import attachCookies from '../utils/attachCookies.js';
 const register = async (req, res) => {
   const { name, email, password } = req.body
 
-  // the following 2 conditions serve to provide more succinct and user-friendly error messages.
-  // if they are omitted, the line under ⚑ in error-handler.js would be run
-  // if (!name || !email || !password) {
-  //   // instead of going we next, we throw an error; this is because express-async-errors does the passing of the error to the next middleware for us
-  //   throw new BadRequestError('Please provide all values');
-  // }
+  //  ⚑
+  //  the following condition serves to provide more succinct and 
+  //  user-friendly error messages. They also allow the per-field 
+  //  validation to work correctly.
+  //  if they are omitted, the line under ⚑ in error-handler.js would be 
+  //  run.
+  if (!name || !email || !password) {
+    // instead of going we next, we throw an error; this is because express-async-errors does the passing of the error to the next middleware for us
+    throw new BadRequestError('Please provide all values');
+  }
 
   const userAlreadyExists = await (User.findOne({ email }))
   if (userAlreadyExists) {

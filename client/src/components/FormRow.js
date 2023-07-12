@@ -1,7 +1,15 @@
+import { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
 
 const FormRow = ({
-  type, name, value, handleChange, labelText
+  type,
+  name,
+  value,
+  handleChange,
+  handleBlur,
+  labelText,
+  isError,
+  feedback
 }) => {
 
   // ADDITION:    the errors value in the global context is used to 
@@ -9,13 +17,28 @@ const FormRow = ({
   //              below them. Then, the feedback text is shown only if the 
   //              field has an error, as determined by the && operator for 
   //              the <p> tag.
-  const { errors } = useAppContext()
-  let hasError = errors.hasOwnProperty(name)
-  if (value !== '') {
-    if (name === 'name' && value.length > 2) hasError = false;
-    if (name === 'password' && value.length > 5) hasError = false;
-    if (name === 'email') hasError = false;
-  }
+  //              If disabled, please see if error-handler.js ⚑ code has 
+  //              been commented out.
+
+  // ADDITION:    This useEffect is used to re-render the component with 
+  //              initialError, since the error state variable will initialize as 
+  //              false regardless of the value of initialError. 
+  //              Therefore, the useEffect provides the re-render and therefore 
+  //              updates the state with the right value.
+  //              Useful link: https://stackoverflow.com/a/60510422
+
+  // useEffect(() => {
+  //   //   // console.log(frontEndErrHandler.errShow)
+
+  //   //   // setFrontEndErrHandler({
+  //   //   //   ...frontEndErrHandler,
+  //   //   //   errShow: true
+  //   //   // })
+  //   // setError(initialError)
+  // }, [
+  //   setError
+  //   //   //setFrontEndErrHandler
+  // ])
 
   return (
     <div className="form-row">
@@ -27,10 +50,11 @@ const FormRow = ({
         value={value}
         name={name}
         onChange={handleChange}
-        className="form-input"
+        onBlur={handleBlur}
+        className={isError ? "form-input error" : "form-input"}
       />
-      {hasError && <small className="feedback">
-        {errors[name]}
+      {isError && <small className="feedback">
+        {feedback}
       </small>}
     </div>
   )

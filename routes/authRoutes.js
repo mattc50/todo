@@ -9,6 +9,7 @@ import {
   logout
 } from '../controllers/authController.js'
 import authenticateUser from '../middleware/auth.js'
+import errorHandlerMiddleware from '../middleware/error-handler.js';
 import userHandler from '../middleware/user-handler.js'
 
 router.route('/register').post(register);
