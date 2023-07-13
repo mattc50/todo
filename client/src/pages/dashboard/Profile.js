@@ -30,8 +30,14 @@ const Profile = () => {
   const [lastName, setLastName] = useState(user?.lastName);
 
   const handleBlur = (e) => {
-    const nm = e.target.name;
-    blurHelper(nm, name, errs, showErrs, setShowErrs);
+    const { name, value } = e.target;
+    blurHelper(name, value, errs, showErrs, setShowErrs);
+    // if (e.target.value === '') {
+    //   setShowErrs({
+    //     ...showErrs,
+    //     [name]: true
+    //   })
+    // }
   }
 
   const handleSubmit = (e) => {
@@ -49,7 +55,7 @@ const Profile = () => {
     <Wrapper>
       <form className='form' onSubmit={handleSubmit}>
         <h3>profile </h3>
-        {showAlert && <Alert />}
+        {showAlert && (!showErrs.name && !showErrs.email && !showErrs.lastName) && <Alert />}
 
         {/* name */}
         <div className='form-center'>
@@ -58,7 +64,13 @@ const Profile = () => {
             name='name'
             value={name}
             handleBlur={handleBlur}
-            handleChange={(e) => setName(e.target.value)}
+            handleChange={(e) => {
+              setName(e.target.value)
+              // setShowErrs({
+              //   ...showErrs,
+              //   [e.target.name]: false
+              // })
+            }}
             isError={showErrs.name}
             feedback="Please provide a name (at least 3 characters)"
           />
@@ -68,7 +80,13 @@ const Profile = () => {
             name='lastName'
             value={lastName}
             handleBlur={handleBlur}
-            handleChange={(e) => setLastName(e.target.value)}
+            handleChange={(e) => {
+              setLastName(e.target.value)
+              // setShowErrs({
+              //   ...showErrs,
+              //   [e.target.name]: false
+              // })
+            }}
             isError={showErrs.lastName}
             feedback="Please provide a last name (at most 20 characters)"
           />
@@ -77,7 +95,13 @@ const Profile = () => {
             name='email'
             value={email}
             handleBlur={handleBlur}
-            handleChange={(e) => setEmail(e.target.value)}
+            handleChange={(e) => {
+              setEmail(e.target.value)
+              // setShowErrs({
+              //   ...showErrs,
+              //   [e.target.name]: false
+              // })
+            }}
             isError={showErrs.email}
             feedback="Please provide an email"
           />

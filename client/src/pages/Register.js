@@ -28,8 +28,11 @@ const Register = () => {
     showAlert,
     // displayAlert,
     registerUser,
-    loginUser
+    loginUser,
+    clearAlertInstant
   } = useAppContext()
+
+  const alert = showAlert
 
   const initialErrs = ({
     name: false,
@@ -46,11 +49,23 @@ const Register = () => {
       ...values,
       [e.target.name]: e.target.value,
     });
+    if (e.target.name === 'password' && values.isMember) {
+      setShowErrs({
+        ...showErrs,
+        password: false
+      })
+    }
   }
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
     blurHelper(name, value, errs, showErrs, setShowErrs);
+    if (name === 'password' && value !== '' && values.isMember) {
+      setShowErrs({
+        ...showErrs,
+        password: false
+      })
+    }
   }
 
   const onSubmit = (e) => {
@@ -65,6 +80,13 @@ const Register = () => {
     // }
 
     submitHelper(errs, showErrs, setShowErrs)
+
+    if (values.password !== '' && values.isMember) {
+      setShowErrs({
+        ...showErrs,
+        password: false
+      })
+    }
 
     const currentUser = { name, email, password }
     if (isMember) {
@@ -92,6 +114,7 @@ const Register = () => {
       email: false,
       password: false
     })
+    clearAlertInstant();
   }
 
   useEffect(() => {
@@ -113,7 +136,7 @@ const Register = () => {
           {/*control h3 depending on whether user is logging in or registering*/}
           <h3>{values.isMember ? "Login" : "Register"}</h3>
 
-          {showAlert && <Alert />}
+          {showAlert && (!showErrs.name && !showErrs.email && !showErrs.password) && <Alert />}
 
           {/*name field; shown only is user is logging in*/}
           {!values.isMember && (<FormRow

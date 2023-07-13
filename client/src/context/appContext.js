@@ -81,6 +81,10 @@ const AppProvider = ({ children }) => {
     }, 3000);
   }
 
+  const clearAlertInstant = () => {
+    dispatch({ type: CLEAR_ALERT })
+  }
+
   const registerUser = async (currentUser) => {
     dispatch({ type: REGISTER_USER_BEGIN });
     try {
@@ -214,6 +218,7 @@ const AppProvider = ({ children }) => {
       value={{
         ...state,
         displayAlert,
+        clearAlertInstant,
         registerUser,
         loginUser,
         logoutUser,

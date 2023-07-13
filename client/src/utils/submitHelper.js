@@ -32,7 +32,6 @@ const submitHelper = (errs, showErrs, setShowErrs) => {
     }
 
     if (name === 'lastName') {
-      console.log('ran 2')
       if (value === '' || value.length > 20) {
         errs[name] = 'Please provide a last name (at most 20 characters)'
         setShowErrs({ ...showErrs, [name]: true })
