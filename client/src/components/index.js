@@ -6,6 +6,7 @@ import Logo from './Logo.js'
 import Navbar from './Navbar.js'
 import SmallSidebar from './SmallSidebar.js'
 import TextArea from './TextArea.js'
+import TodoNew from './TodoNew.js'
 import TodosContainer from './TodosContainer.js'
 
 export {
@@ -17,5 +18,6 @@ export {
   BigSidebar,
   Loading,
   TextArea,
-  TodosContainer
+  TodosContainer,
+  TodoNew
 }

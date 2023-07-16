@@ -22,7 +22,10 @@ import {
   // SET_EDIT_TODO,
   EDIT_TODO_BEGIN,
   EDIT_TODO_SUCCESS,
-  EDIT_TODO_ERROR
+  EDIT_TODO_ERROR,
+  CREATE_TODO_BEGIN,
+  CREATE_TODO_SUCCESS,
+  CREATE_TODO_ERROR
 } from './actions';
 import axios from 'axios';
 
@@ -238,12 +241,12 @@ const AppProvider = ({ children }) => {
   const updateStatus = async (
     id,
     status,
-    item
-    // animIn
+    item,
+    animIn
   ) => {
     const el = document.getElementById(`todo-${item}`);
 
-    const animIn = status ? 'c-in-in' : 'c-out-in'
+    // const animIn = status ? 'c-in-in' : 'c-out-in'
     el.classList.add(animIn);
 
     dispatch({ type: EDIT_TODO_BEGIN })
@@ -294,6 +297,25 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const createTodo = async (task) => {
+    dispatch({ type: CREATE_TODO_BEGIN })
+    try {
+      await authFetch.post('/todo', { task })
+      dispatch({ type: CREATE_TODO_SUCCESS })
+      await getTodos()
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: CREATE_TODO_ERROR,
+        payload: {
+          msg: error.response.data.msg
+        }
+      })
+    }
+  }
+
   useEffect(() => {
     getCurrentUser()
   }, [])
@@ -312,7 +334,8 @@ const AppProvider = ({ children }) => {
         testGet,
         getTodos,
         updateStatus,
-        updateTask
+        updateTask,
+        createTodo
       }}
     >
       {children}

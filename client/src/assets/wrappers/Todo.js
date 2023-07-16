@@ -20,24 +20,26 @@ form:hover {
   background-color: var(--grey-100);
 }
 
-.task-field {
+.task {
   /* -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none; */
+
   height: 2.5rem;
   width: 100%;
-  border: none;
-  background-color: var(--grey-100);
+  /* border: none; */
+  outline: none;
+  background-color: var(--grey-50);
   border-radius: 0.5rem;
   padding: 0 0 0 0.5rem;
 }
 
-.task-field:hover {
+.task:hover {
   background-color: var(--grey-200);
 }
 
-.task-field:is(:focus, :active, :focus-visible) {
+.task:is(:focus, :active, :focus-visible) {
   /* -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
@@ -76,16 +78,13 @@ form:hover {
   transition: box-shadow 0.2s;
   outline: 2px solid var(--primary-400);
   box-shadow: 0px 0px 10px 2px rgba(189, 189, 189, 0.20);
-  }
-
-.status-container:hover {
 }
 
 .checkbox-container {
   width: 2.5rem;
   height: 2.5rem;
-  clip-path: circle(46% at 50% 50%);
-  /* border-radius: 50%; */
+  /* clip-path: circle(44% at 50% 50%); */
+  border-radius: 50%;
   position: relative;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -102,56 +101,101 @@ form:hover {
 }
 
 .checkbox-container input {
-  
   -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none;
   cursor: pointer;
   z-index: 1;
-
-    position: absolute;
-
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border: none;
-
+  outline: none;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-
-
-
 .checkbox-container:hover {
-  box-shadow: var(--input-shadow);
+  /* box-shadow: var(--input-shadow); */
   transition: 0.2s;
-  background-color: var(--primary-200) !important
+  background-color: var(--primary-200);
 }
 
 .checkbox-container:hover .checkmark {
   transition: 0.2s;
-  opacity: 50% !important
+  opacity: 50% !important;
 }
-/* .checkbox-container:active {
-  transition: 0.2s;
-  background-color: var(--grey-300)
-} */
 
 .checkbox-container:checked:is(:hover, :active) {
   transition: 0.5s;
-  background-color: var(--primary-600)
+  background-color: var(--primary-600);
 }
 
 .checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;   
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  }
 
+  .new {
+    margin-right: 0.5rem;
+  }
+
+  .add {
+    height: 2.5rem;
+    width: 2.5rem;
+    margin-right: 0.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .add * {
+    height: 1.5rem;
+    width: 1.5rem;
+    color: var(--grey-700);
+  }
+
+  .submit-task {
+    -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  border: none;
+  display: flex;
+  justify-content: center;
+    align-items: center;
+  border-radius: 50%;
+  height: 2.5rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0;
+  background-color: var(--grey-200);
+  }
+
+  .submit-task:hover {
+    transition: 0.2s;
+    background-color: var(--grey-300);
+  }
+
+  .submit-task:is(:focus, :active, :focus-visible) {
+    transition: background-color 0.2s;
+    background-color: var(--grey-300);
+    outline: 2px solid var(--primary-400);
+  }
+
+  .submit-task * {
+    color: var(--primary-400);
   }
 
 /* .checkbox-container:hover input ~ .checkmark {
@@ -183,11 +227,11 @@ form:hover {
 }
 
 .c-in-out {
-  animation: checkInOut 0.2s linear forwards;
+  animation: checkInOut 0.5s linear forwards;
 }
 
 .c-out-out {
-  animation: checkOutOut 0.2s linear forwards;
+  animation: checkOutOut 0.5s linear forwards;
 }
 
 .c-out-in {

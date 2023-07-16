@@ -20,7 +20,7 @@ const TodosContainer = ({ todos }) => {
     <Wrapper>
       {showAlert && <Alert />}
       <h5>{totalTodos} todo{todos.length > 1 && 's'} found</h5>
-      <div className="jobs">
+      <div className="todos">
         {todos.map((todo, index) => {
           return <Todo key={todo._id} item={index} {...todo} />
         })}

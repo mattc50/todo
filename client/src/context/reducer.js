@@ -21,7 +21,10 @@ import {
   // PROMPT_FIELD_ERRORS,
   EDIT_TODO_BEGIN,
   EDIT_TODO_SUCCESS,
-  EDIT_TODO_ERROR
+  EDIT_TODO_ERROR,
+  CREATE_TODO_BEGIN,
+  CREATE_TODO_SUCCESS,
+  CREATE_TODO_ERROR
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -205,6 +208,34 @@ const reducer = (state, action) => {
       // showAlert: true,
       // alertType: 'success',
       // alertText: 'Job Updated!'
+    }
+  }
+
+  if (action.type === EDIT_TODO_ERROR) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
+  if (action.type === CREATE_TODO_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+
+  if (action.type === CREATE_TODO_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
+  if (action.type === CREATE_TODO_ERROR) {
+    return {
+      ...state,
+      isLoading: false
     }
   }
 

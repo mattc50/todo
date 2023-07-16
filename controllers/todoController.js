@@ -56,6 +56,4 @@ const updateTodo = async (req, res) => {
 
 // deleteTodo
 
-// updateTodo
-
 export { testGet, createTodo, getTodos, updateTodo }
