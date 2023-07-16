@@ -7,13 +7,14 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 
     // ADDITION:  list stores a list of errors, which is sent in the data 
     //            of the response and is then stored in global context.
-    list: {}
+    // list: {}
   }
 
   const errList = {};
 
   if (err.name === 'ValidationError') {
     defaultError.statusCode = StatusCodes.BAD_REQUEST
+
     // ⚑
     defaultError.msg = Object.values(err.errors)
       .map((item) => item.message)
@@ -30,17 +31,18 @@ const errorHandlerMiddleware = (err, req, res, next) => {
       errList[key] = propVal;
     }
   }
+
   if (err.code && err.code === 11000) {
     defaultError.statusCode = StatusCodes.BAD_REQUEST
     defaultError.msg = `${Object.keys(err.keyValue)} field has to be unique`
-    errList['email'] = "Email already in use"
+    // errList['email'] = "Email already in use"
   }
-  // console.log(errList)
-  defaultError.list = errList
+  // defaultError.list = errList
+
   //res.status(defaultError.statusCode).json({ msg: err })
   res.status(defaultError.statusCode).json({
     msg: defaultError.msg,
-    list: defaultError.list
+    //list: defaultError.list
   })
 }
 

@@ -1,15 +1,25 @@
 import { useEffect } from "react"
 import { useAppContext } from "../../context/appContext"
+import { TextArea, TodosContainer } from "../../components"
 
 const Todo = () => {
-  const { testGet } = useAppContext()
+  const { testGet, getTodos, todos, totalTodos, updateTodo } = useAppContext()
 
   useEffect(() => {
-    testGet()
+    getTodos()
   }, [])
 
   return (
-    <h1>Todo Page</h1>
+    <>
+      <h1>Todo Page</h1>
+      <TodosContainer todos={todos} />
+      <TextArea
+        type='text'
+        name="Freeform"
+      >
+      </TextArea>
+    </>
+
   )
 }
 

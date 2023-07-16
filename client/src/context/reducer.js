@@ -16,7 +16,12 @@ import {
   UPDATE_USER_ERROR,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
-  PROMPT_FIELD_ERRORS
+  GET_TODOS_BEGIN,
+  GET_TODOS_SUCCESS,
+  // PROMPT_FIELD_ERRORS,
+  EDIT_TODO_BEGIN,
+  EDIT_TODO_SUCCESS,
+  EDIT_TODO_ERROR
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -152,10 +157,54 @@ const reducer = (state, action) => {
     };
   }
 
-  if (action.type === PROMPT_FIELD_ERRORS) {
+  // if (action.type === PROMPT_FIELD_ERRORS) {
+  //   return {
+  //     ...state,
+  //     errors: action.payload.errors
+  //   }
+  // }
+
+  if (action.type === GET_TODOS_BEGIN) {
     return {
       ...state,
-      errors: action.payload.errors
+      isLoading: true,
+      // showAlert: false
+    }
+  }
+
+  if (action.type === GET_TODOS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      todos: action.payload.todos,
+      totalTodos: action.payload.totalTodos
+    }
+  }
+
+  // if (action.type === SET_EDIT_TODO) {
+  //   const todo = state.todos.find((todo) => todo._id === action.payload.id)
+  //   const { _id, status } = todo;
+  //   return {
+  //     ...state,
+  //     isEditing: true,
+
+  //   }
+  // }
+
+  if (action.type === EDIT_TODO_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+
+  if (action.type === EDIT_TODO_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      // showAlert: true,
+      // alertType: 'success',
+      // alertText: 'Job Updated!'
     }
   }
 

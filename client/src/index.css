@@ -80,7 +80,7 @@ html {
   /* rest of the vars */
   --backgroundColor: var(--grey-50);
   --textColor: var(--grey-900);
-  --borderRadius: 0.25rem;
+  --borderRadius: 0.5rem;
   --letterSpacing: auto;
   --transition: 0.3s ease-in-out all;
   --max-width: 1120px;
@@ -282,7 +282,6 @@ ul {
   border-radius: var(--borderRadius);
   background: var(--white);
   outline: 1px solid var(--grey-500);
-  filter: none;
 }
 
 .error {
@@ -335,6 +334,11 @@ select:-webkit-autofill:hover {
   /* filter: drop-shadow(0px 0px 10px rgba(151, 64, 237, 0.20)); */
   box-shadow: var(--input-shadow)
 }
+
+/* .checkbox-container {
+  cursor: pointer;
+} */
+
 /* .form-input,
 .form-select, */
 .btn-block {

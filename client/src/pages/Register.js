@@ -54,7 +54,13 @@ const Register = () => {
         ...showErrs,
         password: false
       })
+    } else {
+      setShowErrs({
+        ...showErrs,
+        [e.target.name]: false
+      })
     }
+    clearAlertInstant();
   }
 
   const handleBlur = (e) => {

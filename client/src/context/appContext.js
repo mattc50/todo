@@ -16,7 +16,13 @@ import {
   UPDATE_USER_ERROR,
   GET_CURRENT_USER_BEGIN,
   GET_CURRENT_USER_SUCCESS,
-  PROMPT_FIELD_ERRORS
+  // PROMPT_FIELD_ERRORS
+  GET_TODOS_BEGIN,
+  GET_TODOS_SUCCESS,
+  // SET_EDIT_TODO,
+  EDIT_TODO_BEGIN,
+  EDIT_TODO_SUCCESS,
+  EDIT_TODO_ERROR
 } from './actions';
 import axios from 'axios';
 
@@ -33,7 +39,11 @@ export const initialState = {
   alertType: '',
   user: null,
   showSidebar: false,
-  errors: {}
+  // errors: {}
+  todos: [],
+  totalTodos: 0,
+  editTodoId: '',
+  isEditing: false,
 }
 
 const AppProvider = ({ children }) => {
@@ -209,6 +219,81 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const getTodos = async () => {
+    dispatch({ type: GET_TODOS_BEGIN })
+    try {
+      const { data } = await authFetch('/todo')
+      const { todos, totalTodos } = data;
+      dispatch({
+        type: GET_TODOS_SUCCESS,
+        payload: { todos, totalTodos }
+      })
+      // console.log(data)
+      // return data;
+    } catch (error) {
+      logoutUser()
+    }
+  }
+
+  const updateStatus = async (
+    id,
+    status,
+    item
+    // animIn
+  ) => {
+    const el = document.getElementById(`todo-${item}`);
+
+    const animIn = status ? 'c-in-in' : 'c-out-in'
+    el.classList.add(animIn);
+
+    dispatch({ type: EDIT_TODO_BEGIN })
+
+    try {
+      // const todo = state.todos.find((todo) => todo._id === id)
+      // // const { status } = todo;
+      await authFetch.patch(`/todo/${id}`, { status })
+
+      dispatch({ type: EDIT_TODO_SUCCESS })
+      await getTodos()
+
+      el.classList.remove(animIn);
+      const animOut = status ? 'c-in-out' : 'c-out-out'
+      el.classList.add(animOut);
+      setTimeout(() => {
+        el.classList.remove(animOut);
+      }, 1000)
+
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_TODO_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
+  const updateTask = async (id, task) => {
+    dispatch({ type: EDIT_TODO_BEGIN })
+
+    try {
+      await authFetch.patch(`/todo/${id}`, { task })
+
+      dispatch({ type: EDIT_TODO_SUCCESS })
+      await getTodos()
+
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_TODO_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
   useEffect(() => {
     getCurrentUser()
   }, [])
@@ -224,7 +309,10 @@ const AppProvider = ({ children }) => {
         logoutUser,
         toggleSidebar,
         updateUser,
-        testGet
+        testGet,
+        getTodos,
+        updateStatus,
+        updateTask
       }}
     >
       {children}

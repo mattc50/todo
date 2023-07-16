@@ -5,6 +5,8 @@ import Loading from './Loading.js'
 import Logo from './Logo.js'
 import Navbar from './Navbar.js'
 import SmallSidebar from './SmallSidebar.js'
+import TextArea from './TextArea.js'
+import TodosContainer from './TodosContainer.js'
 
 export {
   Logo,
@@ -13,5 +15,7 @@ export {
   Navbar,
   SmallSidebar,
   BigSidebar,
-  Loading
+  Loading,
+  TextArea,
+  TodosContainer
 }
