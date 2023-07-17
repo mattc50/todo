@@ -1,4 +1,3 @@
-import { useAppContext } from "../context/appContext";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 
 const initialFF = localStorage.getItem('free-form')
@@ -14,12 +13,7 @@ const TextArea = ({
   style = defaultStyle,
   type,
   name,
-  value,
-  handleChange,
-  // handleBlur,
-  labelText,
-  // isError,
-  // feedback
+  labelText
 }) => {
   const textareaRef = useRef(null);
   const [currentValue, setCurrentValue] = useState(initialFF);// you can manage data with it

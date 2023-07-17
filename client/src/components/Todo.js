@@ -20,10 +20,8 @@ const Todo = ({ item, _id, task, status }) => {
   const setter = () => {
     if (text.trim() === '') {
       setText(validTask);
-      // return validTask;
     } else {
       setValidTask(text);
-      // return text;
     }
   }
 
@@ -51,7 +49,6 @@ const Todo = ({ item, _id, task, status }) => {
     setter()
     if (!(validTask == text)) {
       const forSubmit = text.trim() || validTask;
-      // console.log(forSubmit)
       updateTask(
         _id,
         forSubmit

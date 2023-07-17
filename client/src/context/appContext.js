@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useContext, useState } from 'react';
+import React, { useEffect, useReducer, useContext } from 'react';
 import reducer from './reducer';
 import {
   DISPLAY_ALERT,
@@ -19,7 +19,6 @@ import {
   // PROMPT_FIELD_ERRORS
   GET_TODOS_BEGIN,
   GET_TODOS_SUCCESS,
-  // SET_EDIT_TODO,
   EDIT_TODO_BEGIN,
   EDIT_TODO_SUCCESS,
   EDIT_TODO_ERROR,
@@ -47,6 +46,7 @@ export const initialState = {
   // errors: {}
   todos: [],
   totalTodos: 0,
+  doneTodos: 0,
   editTodoId: '',
   isEditing: false,
 }
@@ -215,23 +215,23 @@ const AppProvider = ({ children }) => {
 
   }
 
-  const testGet = async () => {
-    try {
-      const { data } = await authFetch('/todo');
-      //console.log(data)
-    } catch (error) {
-      logoutUser()
-    }
-  }
+  // const testGet = async () => {
+  //   try {
+  //     // const { data } = await authFetch('/todo');
+  //     //console.log(data)
+  //   } catch (error) {
+  //     logoutUser()
+  //   }
+  // }
 
   const getTodos = async () => {
     dispatch({ type: GET_TODOS_BEGIN })
     try {
       const { data } = await authFetch('/todo')
-      const { todos, totalTodos } = data;
+      const { todos, totalTodos, doneTodos } = data;
       dispatch({
         type: GET_TODOS_SUCCESS,
-        payload: { todos, totalTodos }
+        payload: { todos, totalTodos, doneTodos }
       })
       // console.log(data)
       // return data;
@@ -349,7 +349,7 @@ const AppProvider = ({ children }) => {
         logoutUser,
         toggleSidebar,
         updateUser,
-        testGet,
+        // testGet,
         getTodos,
         updateStatus,
         updateTask,

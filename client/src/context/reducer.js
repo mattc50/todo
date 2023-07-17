@@ -182,19 +182,10 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       todos: action.payload.todos,
-      totalTodos: action.payload.totalTodos
+      totalTodos: action.payload.totalTodos,
+      doneTodos: action.payload.doneTodos
     }
   }
-
-  // if (action.type === SET_EDIT_TODO) {
-  //   const todo = state.todos.find((todo) => todo._id === action.payload.id)
-  //   const { _id, status } = todo;
-  //   return {
-  //     ...state,
-  //     isEditing: true,
-
-  //   }
-  // }
 
   if (action.type === EDIT_TODO_BEGIN) {
     return {

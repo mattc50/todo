@@ -29,13 +29,15 @@ const createTodo = async (req, res) => {
 
 // getTodos
 const getTodos = async (req, res) => {
-  const queryObject = { createdBy: req.user.userId }
-  let result = await Todo.find(queryObject)
+  const userQuery = { createdBy: req.user.userId }
+  const countQuery = { status: true }
+  let result = await Todo.find(userQuery)
   const todos = await result
 
-  const totalTodos = await Todo.countDocuments(queryObject)
+  const totalTodos = await Todo.countDocuments(userQuery)
+  const doneTodos = await Todo.countDocuments(countQuery)
 
-  res.status(StatusCodes.OK).json({ todos, totalTodos })
+  res.status(StatusCodes.OK).json({ todos, totalTodos, doneTodos })
 }
 
 const updateTodo = async (req, res) => {

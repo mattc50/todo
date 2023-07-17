@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { Navigate, /* useNavigate */ } from 'react-router-dom'
 import { Logo, Alert, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
 
 import blurHelper from '../utils/blurHelper';
 import submitHelper from '../utils/submitHelper';
-
-import React from 'react';
 
 const initialState = {
   name: '',
@@ -31,8 +29,6 @@ const Register = () => {
     loginUser,
     clearAlertInstant
   } = useAppContext()
-
-  const alert = showAlert
 
   const initialErrs = ({
     name: false,
