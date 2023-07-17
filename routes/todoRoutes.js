@@ -2,10 +2,11 @@ import express from 'express';
 const router = express.Router();
 
 import {
-  testGet,
+  // testGet,
   createTodo,
   getTodos,
-  updateTodo
+  updateTodo,
+  deleteTodo
 } from '../controllers/todoController.js'
 
 router.route('/')
@@ -13,7 +14,7 @@ router.route('/')
   .get(getTodos)
   .post(createTodo)
 router.route('/:id')
-  //   .delete(deleteTodo)
+  .delete(deleteTodo)
   .patch(updateTodo)
 
 

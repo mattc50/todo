@@ -54,6 +54,20 @@ const updateTodo = async (req, res) => {
   res.status(StatusCodes.OK).json({ updatedTodo })
 }
 
-// deleteTodo
+const deleteTodo = async (req, res) => {
+  const { id: todoId } = req.params;
+  const todo = await Todo.findOne({ _id: todoId })
+  if (!todo) {
+    throw new NotFoundError(`No job with id ${todoId}`);
+  }
+  await todo.deleteOne();
+  res.status(StatusCodes.OK).json({ msg: 'Success! Todo removed' })
+}
 
-export { testGet, createTodo, getTodos, updateTodo }
+export {
+  testGet,
+  createTodo,
+  getTodos,
+  updateTodo,
+  deleteTodo
+}

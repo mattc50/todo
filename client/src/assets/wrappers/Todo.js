@@ -2,22 +2,41 @@ import styled from 'styled-components';
 
 const Wrapper = styled.article`
 
-form {
+
+.todo-item {
   display: flex;
+  gap: 0.5rem;
   align-items: center;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   padding: 0.5rem;
-  outline: 1px solid var(--grey-400);
+  /* border: 1px solid var(--grey-400); */
+  /* border: 1px solid transparent; */
+  /* background-image: linear-gradient(45deg, var(--primary-100), var(--primary-400)) 27 / 1px; */
+  /* background: linear-gradient(var(--grey-100), var(--grey-100)), 
+              linear-gradient(15deg, var(--grey-100), var(--grey-400));
   border-radius: 0.5rem;
+  background-origin: border-box;
+  background-clip: content-box, border-box; */
+}
+
+form {
+  
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 p {
   margin: 0;
 }
 
-form:hover {
+/* form:hover {
   transition: 0.2s;
   background-color: var(--grey-100);
+} */
+
+.todo-item:hover {
+
 }
 
 .task {
@@ -70,7 +89,7 @@ form:hover {
 .status-container {
   border-radius: 50%;
   padding: 0;
-  margin: 0 0.5rem 0 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -146,14 +165,21 @@ form:hover {
   padding: 0;
   }
 
-  .new {
-    margin-right: 0.5rem;
-  }
+
+  /* .new {
+    outline: 1px solid var(--grey-300);
+    border: 1px solid var(--grey-300);
+    background: none;
+  } */
+
+  /* .new:focus-within {
+    outline: 1px solid var(--grey-400)
+  } */
 
   .add {
     height: 2.5rem;
     width: 2.5rem;
-    margin-right: 0.5rem;
+    /* margin-right: 0.5rem; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -162,10 +188,10 @@ form:hover {
   .add * {
     height: 1.5rem;
     width: 1.5rem;
-    color: var(--grey-700);
+    color: var(--grey-500);
   }
 
-  .submit-task {
+  .form-action {
     -webkit-appearance: none;
   -moz-appearance: none;
   -o-appearance: none;
@@ -183,19 +209,46 @@ form:hover {
   background-color: var(--grey-200);
   }
 
-  .submit-task:hover {
+  .form-action:hover {
     transition: 0.2s;
     background-color: var(--grey-300);
   }
 
-  .submit-task:is(:focus, :active, :focus-visible) {
+  .form-action:is(:focus, :active, :focus-visible) {
     transition: background-color 0.2s;
     background-color: var(--grey-300);
-    outline: 2px solid var(--primary-400);
+    outline: 2px solid var(--primary-400) !important;
   }
 
-  .submit-task * {
+  .form-action * {
+    height: 1.25rem;
+    width: 1.25rem;
     color: var(--primary-400);
+  }
+
+  .delete * {
+    color: var(--grey-500)
+  }
+
+  .submit:enabled {
+    transition: background-color 0.2s;
+    background-color: white;
+    outline: 2px solid var(--primary-100)
+  }
+
+  .submit:enabled:hover {
+    transition: 0.2s;
+    outline: 2px solid var(--primary-400)
+  }
+
+  .form-action:disabled {
+    color: var(--grey-400);
+    pointer-events: none;
+  }
+
+  .form-action:disabled * {
+    color: var(--grey-400);
+    pointer-events: none;
   }
 
 /* .checkbox-container:hover input ~ .checkmark {
@@ -258,7 +311,7 @@ form:hover {
 }
 
 .checkbox-container .checkmark:after {
-    left: 39%;
+    left: 40%;
     top: 22.5%;
     width: 0.55rem;
     height: 1.1rem;

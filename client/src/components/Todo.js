@@ -2,10 +2,10 @@
 import { useAppContext } from "../context/appContext";
 import Wrapper from '../assets/wrappers/Todo'
 import { useState } from "react";
-
+import { MdDelete } from "react-icons/md";
 
 const Todo = ({ item, _id, task, status }) => {
-  const { updateStatus, updateTask } = useAppContext()
+  const { updateStatus, updateTask, deleteTodo, isLoading } = useAppContext()
   const [state, setState] = useState(status)
   const [validTask, setValidTask] = useState(task)
   const [text, setText] = useState(task)
@@ -60,10 +60,9 @@ const Todo = ({ item, _id, task, status }) => {
     return false;
   }
 
-
   return (
     <Wrapper>
-      <div id="todo-form">
+      <div className="todo-item">
         <form onSubmit={handleSubmit}>
           <div className="status-container">
             <div
@@ -93,6 +92,13 @@ const Todo = ({ item, _id, task, status }) => {
             onBlur={handleBlur}
           />
         </form>
+        <button
+          className="form-action delete"
+          onClick={() => deleteTodo(_id)}
+          disabled={isLoading}
+        >
+          <MdDelete />
+        </button>
       </div>
     </Wrapper>
   )

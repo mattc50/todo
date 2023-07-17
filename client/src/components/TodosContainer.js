@@ -4,6 +4,7 @@ import Loading from "./Loading"
 import Alert from "./Alert"
 import Todo from "./Todo";
 import Wrapper from '../assets/wrappers/TodosContainer'
+import TodoNew from "./TodoNew";
 
 
 const TodosContainer = ({ todos }) => {
@@ -18,13 +19,12 @@ const TodosContainer = ({ todos }) => {
 
   return (
     <Wrapper>
-      {showAlert && <Alert />}
-      <h5>{totalTodos} todo{todos.length > 1 && 's'} found</h5>
-      <div className="todos">
-        {todos.map((todo, index) => {
-          return <Todo key={todo._id} item={index} {...todo} />
-        })}
-      </div>
+      {/* {showAlert && <Alert />} */}
+      <h5>{totalTodos ? totalTodos : 'No'} todo{todos.length !== 1 && 's'}</h5>
+      {todos.map((todo, index) => {
+        return <Todo key={todo._id} item={index} {...todo} />
+      })}
+      <TodoNew />
     </Wrapper>
   )
 }

@@ -25,7 +25,9 @@ import {
   EDIT_TODO_ERROR,
   CREATE_TODO_BEGIN,
   CREATE_TODO_SUCCESS,
-  CREATE_TODO_ERROR
+  CREATE_TODO_ERROR,
+  DELETE_TODO_BEGIN,
+  DELETE_TODO_ERROR
 } from './actions';
 import axios from 'axios';
 
@@ -316,6 +318,22 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const deleteTodo = async (todoId) => {
+    dispatch({ type: DELETE_TODO_BEGIN });
+    try {
+      await authFetch.delete(`todo/${todoId}`);
+      await getTodos();
+    } catch (error) {
+      if (error.response.status === 401) {
+        return;
+      }
+      dispatch({
+        type: DELETE_TODO_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
   useEffect(() => {
     getCurrentUser()
   }, [])
@@ -335,7 +353,8 @@ const AppProvider = ({ children }) => {
         getTodos,
         updateStatus,
         updateTask,
-        createTodo
+        createTodo,
+        deleteTodo
       }}
     >
       {children}

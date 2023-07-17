@@ -24,7 +24,9 @@ import {
   EDIT_TODO_ERROR,
   CREATE_TODO_BEGIN,
   CREATE_TODO_SUCCESS,
-  CREATE_TODO_ERROR
+  CREATE_TODO_ERROR,
+  DELETE_TODO_BEGIN,
+  DELETE_TODO_ERROR
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -233,6 +235,19 @@ const reducer = (state, action) => {
   }
 
   if (action.type === CREATE_TODO_ERROR) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
+  if (action.type === DELETE_TODO_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === DELETE_TODO_ERROR) {
     return {
       ...state,
       isLoading: false

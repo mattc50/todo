@@ -19,12 +19,12 @@ const TodoNew = () => {
 
   return (
     <Wrapper>
-      <form onSubmit={handleSubmit}>
+      <form className="todo-item new" onSubmit={handleSubmit}>
         <div className="add">
           <MdAdd />
         </div>
         <input
-          className="form-input task new"
+          className="form-input task"
           area-label="new-todo"
           type="text"
           name="task"
@@ -32,11 +32,15 @@ const TodoNew = () => {
           value={text}
           onChange={(e) => setText(e.target.value)}
         />
-        <button className="submit-task">
+        <button
+          type="submit"
+          className="form-action submit"
+          disabled={!text}
+        >
           <MdDone />
         </button>
-      </form>
-    </Wrapper>
+      </form >
+    </Wrapper >
   )
 }
 

@@ -13,7 +13,6 @@ const Todo = () => {
     <>
       <h1>Todo Page</h1>
       <TodosContainer todos={todos} />
-      <TodoNew />
       <TextArea
         type='text'
         name="Freeform"
