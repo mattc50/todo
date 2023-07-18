@@ -28,11 +28,10 @@ const TodosContainer = ({ todos }) => {
     <Wrapper>
       {/* {showAlert && <Alert />} */}
       <div className="progress-container">
-        <h5>{totalTodos ? totalTodos : 'No'} todo{todos.length !== 1 && 's'}</h5>
-        <div className="progress">
+        <h5>{totalTodos ? totalTodos : 'No'} todo{todos.length !== 1 && 's'}{totalTodos ? '' : '. Add a Todo below!'}</h5>
+        {totalTodos > 0 && <div className="progress">
           <small>{doneTodos} completed</small>
           <div className="bar">
-
             <div
               className="bar-width"
               style={{
@@ -42,7 +41,7 @@ const TodosContainer = ({ todos }) => {
             >
             </div>
           </div>
-        </div>
+        </div>}
       </div>
       {todos.map((todo, index) => {
         return <Todo key={todo._id} item={index} {...todo} />

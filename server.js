@@ -9,6 +9,9 @@ dotenv.config();
 
 import 'express-async-errors';
 import morgan from 'morgan';
+import helmet from 'helmet'
+import xss from 'xss-clean'
+import mongoSanitize from 'express-mongo-sanitize'
 
 import cookieParser from 'cookie-parser'
 
@@ -31,7 +34,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 // makes JSON data available in the controllers
 app.use(express.json())
+
 app.use(cookieParser())
+
+// secures headers
+app.use(helmet())
+// sanitizes input (prevents cross-side scripting attacks)
+app.use(xss())
+//prevents MongoDB operator injection
+app.use(mongoSanitize())
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/todo', authenticateUser, todoRouter)
@@ -57,4 +68,3 @@ const start = async () => {
 }
 
 start()
-

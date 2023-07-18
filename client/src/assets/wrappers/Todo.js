@@ -27,7 +27,8 @@ p {
   height: 2.5rem;
   outline: none;
   background-color: var(--grey-50);
-  padding: 0 0 0 0.5rem;
+  padding: 0 0.5rem;
+  text-overflow: ellipsis;
 }
 
 .task:hover {
@@ -42,9 +43,10 @@ p {
 
 .status-container {
   border-radius: 50%;
-  padding: 0;
   margin: 0;
   padding: 0;
+  display: flex;
+  align-items: center;
 }
 
 .status-container:focus-within{
@@ -62,8 +64,8 @@ p {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  /* background-color: var(--grey-300); */
-  background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300));
+  background-color: var(--grey-300);
+  /* background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300)); */
   margin: 0;
   padding: 0;
 }
@@ -86,8 +88,8 @@ p {
 .checkbox-container:hover {
   /* box-shadow: var(--input-shadow); */
   transition: 0.2s;
-  /* background-color: var(--primary-200) !important; */
-  background: linear-gradient(45deg, var(--primary-200) 50%, var(--primary-200)) !important;
+  background-color: var(--primary-200) !important;
+  /* background: linear-gradient(45deg, var(--primary-200) 50%, var(--primary-200)) !important; */
 
 }
 
@@ -99,6 +101,7 @@ p {
 .checkbox-container:checked:is(:hover, :active) {
   transition: 0.5s;
   background-color: var(--primary-600);
+  /* background: linear-gradient(45deg, var(--primary-700) 50%, var(--primary-700)); */
 }
 
 .checkmark {
@@ -204,45 +207,45 @@ p {
     background-color: #d4d4d4;
 } */
 
+/* .checkbox-container input:checked ~ .checkmark {
+    background-color: var(--primary-400);
+    background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));
+} */
+
 @keyframes checkInIn {
-  0% { background-color: var(--grey-300);}
-  100% {background-color: var(--primary-400);}
+  0% {background-color: var(--grey-300);/*background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300));*/}
+  100% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--grey-300) 50%, var(--grey-400));*/}
 }
 
 @keyframes checkOutIn {
-  0% {/*filter: saturate(0%);*/background-color: var(--primary-400);}
-  100% {/*filter: saturate(100%);*/background-color: var(--primary-700);}
+  0% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));*/}
+  100% {background-color: var(--primary-500);/*background: linear-gradient(45deg, var(--primary-700) 50%, var(--primary-700));*/}
 }
 
 @keyframes checkInOut {
-  0% {/*filter: saturate(100%);*/background-color: var(--primary-700);}
-  100% {/*filter: saturate(0%);*/background-color: var(--primary-400);}
+  0% {background-color: var(--primary-500);/*background: linear-gradient(45deg, var(--primary-700) 50%, var(--primary-700));*/}
+  100% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));*/}
 }
 
 @keyframes checkOutOut {
-  0% {background-color: var(--primary-400);}
-  100% { background-color: var(--grey-300);}
+  0% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--grey-300) 50%, var(--grey-400));*/}
+  100% {background-color: var(--grey-300);/*background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300));*/}
 }
 
 .c-in-in {
   animation: checkInIn 1s linear forwards;
 }
 
-.c-in-out {
-  animation: checkInOut 0.5s linear forwards;
+.c-in-out, .checkbox-container input:checked ~ .checkmark {
+  animation: checkInOut 0.2s ease-in forwards;
 }
 
 .c-out-out {
-  animation: checkOutOut 0.5s linear forwards;
+  animation: checkOutOut 0.2s ease-in forwards;
 }
 
 .c-out-in {
   animation: checkOutIn 1s linear forwards;
-}
-
-.checkbox-container input:checked ~ .checkmark {
-    /* background-color: var(--primary-400); */
-    background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));
 }
 
 .checkmark:after {
@@ -258,8 +261,8 @@ p {
 .checkbox-container .checkmark:after {
     left: 40%;
     top: 22.5%;
-    width: 0.55rem;
-    height: 1.1rem;
+    width: 22.5%;
+    height: 45%;
     border: solid white;
     border-width: 0 4px 4px 0;
     -webkit-transform: rotate(45deg);

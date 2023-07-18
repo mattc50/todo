@@ -37,7 +37,7 @@ const Wrapper = styled.aside`
     background: transparent;
     border-color: transparent;
     font-size: 2rem;
-    color: var(--red-dark);
+    color: var(--red-600);
     cursor: pointer;
   }
   .nav-links {

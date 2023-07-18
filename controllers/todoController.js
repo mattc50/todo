@@ -30,7 +30,7 @@ const createTodo = async (req, res) => {
 // getTodos
 const getTodos = async (req, res) => {
   const userQuery = { createdBy: req.user.userId }
-  const countQuery = { status: true }
+  const countQuery = { status: true, createdBy: req.user.userId }
   let result = await Todo.find(userQuery)
   const todos = await result
 

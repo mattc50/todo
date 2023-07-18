@@ -2,9 +2,10 @@ import { useAppContext } from "../context/appContext";
 import Wrapper from "../assets/wrappers/Todo";
 import { useState } from "react";
 import { MdAdd, MdDone } from "react-icons/md"
+import Loading from '../components/Loading'
 
 const TodoNew = () => {
-  const { createTodo } = useAppContext();
+  const { createTodo, isLoading } = useAppContext();
   const [text, setText] = useState('');
 
   const handleSubmit = (e) => {
@@ -21,6 +22,7 @@ const TodoNew = () => {
     <Wrapper>
       <form className="todo-item new" onSubmit={handleSubmit}>
         <div className="add">
+          {/*isLoading ? <Loading /> : <MdAdd />*/}
           <MdAdd />
         </div>
         <input
