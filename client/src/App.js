@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom'
 import {
   Todo,
+  Set,
   Progress,
   Profile,
   SharedLayout
@@ -26,9 +27,10 @@ function App() {
             <SharedLayout />
           </ProtectedRoute>
         }>
-          <Route index element={<Todo />} />
+          <Route index element={<Set />} />
           <Route path="/progress" element={<Progress />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="set/:id" element={<Todo />} />
         </Route>
         <Route path="/register" element={
           <ProtectedLogReg>

@@ -9,7 +9,6 @@ const Wrapper = styled.article`
 }
 
 form {
-  
   display: flex;
   gap: 0.5rem;
   width: 100%;
@@ -17,10 +16,6 @@ form {
 
 p {
   margin: 0;
-}
-
-.todo-item:hover {
-
 }
 
 .task {
@@ -179,6 +174,7 @@ p {
 }
 
 .submit:enabled * {
+  transition: 0.2s linear;
   color: var(--primary-200);
 }
 
@@ -193,12 +189,7 @@ p {
   color: var(--primary-400);
 }
 
-.form-action:disabled {
-  color: var(--grey-400);
-  pointer-events: none;
-}
-
-.form-action:disabled * {
+.form-action:disabled, .form-action:disabled * {
   color: var(--grey-400);
   pointer-events: none;
 }

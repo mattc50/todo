@@ -8,13 +8,13 @@ const links = [
     icon: <MdViewList />,
   },
   {
-    id: 3,
+    id: 2,
     text: 'progress',
     path: 'progress',
     icon: <MdOutlineBarChart />,
   },
   {
-    id: 4,
+    id: 3,
     text: 'profile',
     path: 'profile',
     icon: <MdPerson />,

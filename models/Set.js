@@ -1,14 +1,23 @@
 import mongoose from "mongoose";
-import Todo from "./Todo";
+// import Todo, { TodoSchema } from "./Todo.js";
 
 const SetSchema = new mongoose.Schema({
   todos: {
-    type: [Todo]
-  },
-  for: {
-    type: Date,
+    type: [mongoose.Types.ObjectId],
+    ref: 'Todo',
     required: true
+  },
+  // for: {
+  //   type: Date,
+  //   required: true
+  // },
+  createdBy: {
+    type: mongoose.Types.ObjectId,
+    ref: 'User',
+    required: [true, 'Please provide user'],
   }
-})
+},
+  { timestamps: true }
+)
 
 export default mongoose.model('Set', SetSchema)

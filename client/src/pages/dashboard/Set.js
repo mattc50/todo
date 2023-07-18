@@ -1,13 +1,9 @@
 import React from "react"
 import { useAppContext } from "../../context/appContext"
-import { TextArea, TodosContainer, SetsContainer } from "../../components"
+import { SetsContainer } from "../../components"
 
-const Todo = () => {
-  const {
-    todos,
-    // createSet,
-    // sets
-  } = useAppContext()
+const Set = () => {
+  const { createSet, sets } = useAppContext()
 
   // pleaceholder array for the todos value of the Set; contains a single Todo
   const set = [
@@ -17,23 +13,17 @@ const Todo = () => {
   return (
     <React.Fragment>
       <h1>Todo Page</h1>
-      {/* <SetsContainer sets={sets} /> */}
-      <TodosContainer todos={todos} />
-      <TextArea
-        type='text'
-        name="Freeform"
-      >
-      </TextArea>
+      <SetsContainer sets={sets} />
 
       {/* placeholder for testing the creation of sets */}
-      {/* <button onClick={() => {
+      <button onClick={() => {
         // console.log('run')
         createSet(set)
       }}>
         Create Set
-      </button> */}
+      </button>
     </React.Fragment>
   )
 }
 
-export default Todo
+export default Set

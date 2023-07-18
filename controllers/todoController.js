@@ -8,13 +8,6 @@ import {
 } from '../errors/index.js'
 import moment from 'moment'
 
-
-const testGet = async (req, res) => {
-  const user = await User.findOne({ _id: req.user.userId })
-  res.status(StatusCodes.OK).json({ msg: user ? 'user found' : 'could not find user' })
-}
-
-// createTodo
 const createTodo = async (req, res) => {
   const { task } = req.body
 
@@ -27,17 +20,25 @@ const createTodo = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ todo })
 }
 
-// getTodos
 const getTodos = async (req, res) => {
   const userQuery = { createdBy: req.user.userId }
   const countQuery = { status: true, createdBy: req.user.userId }
-  let result = await Todo.find(userQuery)
+  const result = await Todo.find(userQuery)
   const todos = await result
 
   const totalTodos = await Todo.countDocuments(userQuery)
   const doneTodos = await Todo.countDocuments(countQuery)
 
   res.status(StatusCodes.OK).json({ todos, totalTodos, doneTodos })
+}
+
+const getTodo = async (req, res) => {
+  const { id: todoId } = req.params;
+  const todo = await Todo.findOne({ _id: todoId })
+  if (!todo) {
+    throw new BadRequestError(`No job with id ${todoId}`)
+  }
+  res.status(StatusCodes.OK).json({ todo })
 }
 
 const updateTodo = async (req, res) => {
@@ -67,9 +68,10 @@ const deleteTodo = async (req, res) => {
 }
 
 export {
-  testGet,
+  // testGet,
   createTodo,
   getTodos,
+  getTodo,
   updateTodo,
   deleteTodo
 }

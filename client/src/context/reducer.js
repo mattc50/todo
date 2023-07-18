@@ -26,7 +26,13 @@ import {
   CREATE_TODO_SUCCESS,
   CREATE_TODO_ERROR,
   DELETE_TODO_BEGIN,
-  DELETE_TODO_ERROR
+  DELETE_TODO_ERROR,
+
+  CREATE_SET_BEGIN,
+  CREATE_SET_SUCCESS,
+  CREATE_SET_ERROR,
+  GET_SETS_BEGIN,
+  GET_SETS_SUCCESS
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -242,6 +248,43 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false
+    }
+  }
+
+  if (action.type === CREATE_SET_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+
+  if (action.type === CREATE_SET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
+  if (action.type === CREATE_SET_ERROR) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
+  if (action.type === GET_SETS_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      // showAlert: false
+    }
+  }
+
+  if (action.type === GET_SETS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      sets: action.payload.sets
     }
   }
 

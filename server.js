@@ -21,6 +21,7 @@ import connectDB from './db/connect.js';
 // routers
 import authRouter from './routes/authRoutes.js';
 import todoRouter from './routes/todoRoutes.js';
+import setRouter from './routes/setRoutes.js';
 
 // middleware
 import notFoundMiddleWare from './middleware/not-found.js';
@@ -46,6 +47,7 @@ app.use(mongoSanitize())
 
 app.use('/api/v1/auth', authRouter)
 app.use('/api/v1/todo', authenticateUser, todoRouter)
+app.use('/api/v1/set', authenticateUser, setRouter)
 
 // app.get('/api/v1', (req, res) => {
 //   res.json({ msg: 'API' });

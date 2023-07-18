@@ -8,6 +8,8 @@ import SmallSidebar from './SmallSidebar.js'
 import TextArea from './TextArea.js'
 import TodoNew from './TodoNew.js'
 import TodosContainer from './TodosContainer.js'
+import SetsContainer from './SetsContainer.js'
+import Set from './Set.js'
 
 export {
   Logo,
@@ -19,5 +21,7 @@ export {
   Loading,
   TextArea,
   TodosContainer,
-  TodoNew
+  TodoNew,
+  SetsContainer,
+  Set
 }

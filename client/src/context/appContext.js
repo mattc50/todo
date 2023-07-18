@@ -26,7 +26,12 @@ import {
   CREATE_TODO_SUCCESS,
   CREATE_TODO_ERROR,
   DELETE_TODO_BEGIN,
-  DELETE_TODO_ERROR
+  DELETE_TODO_ERROR,
+  CREATE_SET_BEGIN,
+  CREATE_SET_SUCCESS,
+  CREATE_SET_ERROR,
+  GET_SETS_BEGIN,
+  GET_SETS_SUCCESS
 } from './actions';
 import axios from 'axios';
 
@@ -45,6 +50,7 @@ export const initialState = {
   showSidebar: false,
   // errors: {}
   todos: [],
+  sets: [],
   totalTodos: 0,
   doneTodos: 0,
   editTodoId: '',
@@ -215,15 +221,6 @@ const AppProvider = ({ children }) => {
 
   }
 
-  // const testGet = async () => {
-  //   try {
-  //     // const { data } = await authFetch('/todo');
-  //     //console.log(data)
-  //   } catch (error) {
-  //     logoutUser()
-  //   }
-  // }
-
   const getTodos = async () => {
     dispatch({ type: GET_TODOS_BEGIN })
     try {
@@ -299,6 +296,37 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  // ADDITION:  this function will push a Todo to the array of Sets it belongs to.
+  //            it will first fetch a Todo by the provided todoId.
+  //            then, the response is parsed, and the belongsTo array of the Todo 
+  //            object is stored in belongsTo.
+  //            next, the provided setId is pushed to the belongsTo array, adding a 
+  //            new Set to it.
+  //            last, the Todo object is updated with the new Set array in belongsTo.
+  const pushTodoToSet = async (todoId, setId) => {
+    dispatch({ type: EDIT_TODO_BEGIN })
+
+    try {
+      const response = await authFetch(`/todo/${todoId}`)
+      // console.log(response)
+      const belongsTo = response.data.todo.belongsTo;
+
+      // search in the belongsTo array to see if the Set already exists in it
+      if (!belongsTo.find(setId)) {
+        belongsTo.push(setId);
+        await authFetch.patch(`/todo/${todoId}`, { belongsTo })
+      }
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_TODO_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
   const createTodo = async (task) => {
     dispatch({ type: CREATE_TODO_BEGIN })
     try {
@@ -334,6 +362,48 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const createSet = async (
+    // todos
+  ) => {
+    dispatch({ type: CREATE_SET_BEGIN })
+    try {
+      const response = await authFetch.post(
+        '/set',
+        //{ todos }
+      )
+
+      // const set = response.data.set._id;
+      // const todosArray = response.data.set.todos;
+      // todosArray.map(todo => pushTodoToSet(todo, set))
+
+      dispatch({ type: CREATE_SET_SUCCESS })
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: CREATE_SET_ERROR,
+        payload: {
+          msg: error.response.data.msg
+        }
+      })
+    }
+  }
+
+  const getSets = async () => {
+    dispatch({ type: GET_SETS_BEGIN })
+    try {
+      const { data } = await authFetch('/set')
+      const { sets } = data;
+      dispatch({
+        type: GET_SETS_SUCCESS,
+        payload: { sets }
+      })
+    } catch (error) {
+      logoutUser()
+    }
+  }
+
   useEffect(() => {
     getCurrentUser()
   }, [])
@@ -349,12 +419,15 @@ const AppProvider = ({ children }) => {
         logoutUser,
         toggleSidebar,
         updateUser,
-        // testGet,
+
         getTodos,
         updateStatus,
         updateTask,
         createTodo,
-        deleteTodo
+        deleteTodo,
+
+        createSet,
+        getSets
       }}
     >
       {children}
