@@ -28,7 +28,7 @@ function App() {
           </ProtectedRoute>
         }>
           <Route index element={<Set />} />
-          <Route path="/progress" element={<Progress />} />
+          <Route path="progress" element={<Progress />} />
           <Route path="profile" element={<Profile />} />
           <Route path="set/:id" element={<Todo />} />
         </Route>
@@ -42,6 +42,7 @@ function App() {
             <Landing />
           </ProtectedLogReg>
         } />
+        <Route path="/404" element={<Error />} />
         <Route path="*" element={<Error />} />
       </Routes>
     </BrowserRouter>

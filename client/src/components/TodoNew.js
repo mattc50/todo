@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MdAdd, MdDone } from "react-icons/md"
 import Loading from '../components/Loading'
 
-const TodoNew = () => {
+const TodoNew = ({ set }) => {
   const { createTodo, isLoading } = useAppContext();
   const [text, setText] = useState('');
 
@@ -12,7 +12,7 @@ const TodoNew = () => {
     e.preventDefault()
     const submitTask = text.trim();
     if (submitTask) {
-      createTodo(submitTask)
+      createTodo(submitTask, set)
       setText('')
     }
     return false;

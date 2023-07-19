@@ -31,7 +31,13 @@ import {
   CREATE_SET_SUCCESS,
   CREATE_SET_ERROR,
   GET_SETS_BEGIN,
-  GET_SETS_SUCCESS
+  GET_SETS_SUCCESS,
+  GET_SET_BEGIN,
+  GET_SET_SUCCESS,
+
+  SET_NOT_FOUND,
+  SET_FOUND,
+  GET_TODOS_ERROR
 } from './actions';
 import axios from 'axios';
 
@@ -48,13 +54,16 @@ export const initialState = {
   alertType: '',
   user: null,
   showSidebar: false,
-  // errors: {}
+  // errors: {},
   todos: [],
+  set: '',
   sets: [],
   totalTodos: 0,
   doneTodos: 0,
   editTodoId: '',
   isEditing: false,
+  setFound: true,
+  setLoading: false
 }
 
 const AppProvider = ({ children }) => {
@@ -85,6 +94,10 @@ const AppProvider = ({ children }) => {
         console.log('logging out')
         logoutUser();
       }
+      // if (error.response.status === 404) {
+      //   console.log('logging out')
+      //   logoutUser();
+      // }
       return Promise.reject(error);
     }
   );
@@ -221,10 +234,15 @@ const AppProvider = ({ children }) => {
 
   }
 
-  const getTodos = async () => {
+  const getTodos = async (setId) => {
+    // console.log(setId)
     dispatch({ type: GET_TODOS_BEGIN })
     try {
-      const { data } = await authFetch('/todo')
+      // console.log(setId)
+      await getSet(setId);
+      console.log('done 1')
+      const { data } = await authFetch(`/todo/all/${setId}`)
+      console.log('done 2')
       const { todos, totalTodos, doneTodos } = data;
       dispatch({
         type: GET_TODOS_SUCCESS,
@@ -233,15 +251,24 @@ const AppProvider = ({ children }) => {
       // console.log(data)
       // return data;
     } catch (error) {
+      dispatch({ type: GET_TODOS_ERROR })
+      if (error.response.status === 404) {
+        return;
+      }
       logoutUser()
     }
   }
+
+  // const setFound = () => {
+  //   dispatch({ type: SET_FOUND })
+  // }
 
   const updateStatus = async (
     id,
     status,
     item,
-    animIn
+    animIn,
+    setId
   ) => {
     const el = document.getElementById(`todo-${item}`);
 
@@ -256,7 +283,7 @@ const AppProvider = ({ children }) => {
       await authFetch.patch(`/todo/${id}`, { status })
 
       dispatch({ type: EDIT_TODO_SUCCESS })
-      await getTodos()
+      await getTodos(setId)
 
       el.classList.remove(animIn);
       const animOut = status ? 'c-in-out' : 'c-out-out'
@@ -276,14 +303,14 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  const updateTask = async (id, task) => {
+  const updateTask = async (id, task, setId) => {
     dispatch({ type: EDIT_TODO_BEGIN })
 
     try {
       await authFetch.patch(`/todo/${id}`, { task })
 
       dispatch({ type: EDIT_TODO_SUCCESS })
-      await getTodos()
+      await getTodos(setId)
 
     } catch (error) {
       if (error.response.status === 401) {
@@ -316,6 +343,8 @@ const AppProvider = ({ children }) => {
         belongsTo.push(setId);
         await authFetch.patch(`/todo/${todoId}`, { belongsTo })
       }
+      dispatch({ type: EDIT_TODO_SUCCESS })
+
     } catch (error) {
       if (error.response.status === 401) {
         return
@@ -327,12 +356,12 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  const createTodo = async (task) => {
+  const createTodo = async (task, setId) => {
     dispatch({ type: CREATE_TODO_BEGIN })
     try {
-      await authFetch.post('/todo', { task })
+      await authFetch.post('/todo', { task, belongsTo: setId })
       dispatch({ type: CREATE_TODO_SUCCESS })
-      await getTodos()
+      await getTodos(setId)
     } catch (error) {
       if (error.response.status === 401) {
         return
@@ -346,11 +375,11 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  const deleteTodo = async (todoId) => {
+  const deleteTodo = async (todoId, setId) => {
     dispatch({ type: DELETE_TODO_BEGIN });
     try {
       await authFetch.delete(`todo/${todoId}`);
-      await getTodos();
+      await getTodos(setId);
     } catch (error) {
       if (error.response.status === 401) {
         return;
@@ -404,6 +433,33 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const getSet = async (setId) => {
+    dispatch({ type: GET_SET_BEGIN })
+    try {
+      const { data } = await authFetch(`/set/${setId}`)
+      // console.log(data)
+      const { set } = data;
+      const id = set._id;
+      // console.log(id)
+      dispatch({
+        type: GET_SET_SUCCESS,
+        payload: { id }
+      })
+    } catch (error) {
+      if (error.response.status === 404) {
+        return;
+      }
+      logoutUser()
+    }
+  }
+
+  // const changeSetPage = (set) => {
+  //   dispatch({
+  //     type: CHANGE_SET_PAGE,
+  //     payload: { set }
+  //   })
+  // }
+
   useEffect(() => {
     getCurrentUser()
   }, [])
@@ -427,7 +483,10 @@ const AppProvider = ({ children }) => {
         deleteTodo,
 
         createSet,
-        getSets
+        getSets,
+        getSet,
+
+        // changeSetPage,
       }}
     >
       {children}

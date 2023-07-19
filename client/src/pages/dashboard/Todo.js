@@ -1,37 +1,76 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useAppContext } from "../../context/appContext"
-import { TextArea, TodosContainer, SetsContainer } from "../../components"
+import { TextArea, TodosContainer, SetsContainer, Loading } from "../../components"
+import { Navigate, useParams } from "react-router-dom"
+import Error from '../Error'
+
+
+
 
 const Todo = () => {
   const {
     todos,
     // createSet,
-    // sets
+    // sets,
+    getSet,
+    getTodos,
+    set,
+    setFound,
+    setNotFound,
+    setLoading
   } = useAppContext()
 
   // pleaceholder array for the todos value of the Set; contains a single Todo
-  const set = [
+
+  const setId = useParams().id;
+
+  useEffect(() => {
+    // console.log('run')
+    // getSet(setId)
+    // getTodos(setId)
+
+  }, [setFound])
+
+  // if (setLoading) {
+  //   return
+  // }
+  console.log(`setFound: ${setFound}`)
+  console.log(`setLoading: ${setLoading}`)
+
+
+  const sampleSet = [
     "64b6ee8c1008085a3bc81d26"
   ]
 
+  // if (setLoading) {
+  //   return;
+  // }
+  // if (setFound && setLoading) {
+  //   return <></>;
+  // }
+
+  // if (setFound && setLoading) return;
+
+  // if (!setLoading && !setFound) return <Error />;
+
+  // if (!setFound) {
+  //   console.log('nothing')
+  //   return;
+  // }
+
   return (
     <React.Fragment>
-      <h1>Todo Page</h1>
-      {/* <SetsContainer sets={sets} /> */}
-      <TodosContainer todos={todos} />
-      <TextArea
-        type='text'
-        name="Freeform"
-      >
-      </TextArea>
+      {!setFound && <Error />}
+      {setFound && <>
+        <h1>Todo Page</h1>
+        <TodosContainer todos={todos} set={set} />
+        <TextArea
+          type='text'
+          name="Freeform"
+        >
+        </TextArea>
+      </>}
 
-      {/* placeholder for testing the creation of sets */}
-      {/* <button onClick={() => {
-        // console.log('run')
-        createSet(set)
-      }}>
-        Create Set
-      </button> */}
     </React.Fragment>
   )
 }

@@ -12,8 +12,8 @@ import {
 
 router.route('/')
   // .get(testGet)
-  .get(getTodos)
   .post(createTodo)
+router.route('/all/:id').get(getTodos)
 router.route('/:id')
   .get(getTodo)
   .delete(deleteTodo)

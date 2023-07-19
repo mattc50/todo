@@ -32,7 +32,14 @@ import {
   CREATE_SET_SUCCESS,
   CREATE_SET_ERROR,
   GET_SETS_BEGIN,
-  GET_SETS_SUCCESS
+  GET_SETS_SUCCESS,
+
+  GET_SET_BEGIN,
+  GET_SET_SUCCESS,
+  SET_NOT_FOUND,
+  SET_FOUND,
+  GET_TODOS_ERROR
+
 } from "./actions";
 
 const reducer = (state, action) => {
@@ -180,6 +187,8 @@ const reducer = (state, action) => {
       ...state,
       isLoading: true,
       // showAlert: false
+      set: '',
+      setFound: true,
     }
   }
 
@@ -189,7 +198,16 @@ const reducer = (state, action) => {
       isLoading: false,
       todos: action.payload.todos,
       totalTodos: action.payload.totalTodos,
-      doneTodos: action.payload.doneTodos
+      doneTodos: action.payload.doneTodos,
+    }
+  }
+
+  if (action.type === GET_TODOS_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      setFound: false,
+      setLoading: false
     }
   }
 
@@ -281,10 +299,50 @@ const reducer = (state, action) => {
   }
 
   if (action.type === GET_SETS_SUCCESS) {
+    console.log('success!')
     return {
       ...state,
       isLoading: false,
       sets: action.payload.sets
+    }
+  }
+
+  // if (action.type === CHANGE_SET_PAGE) {
+  //   return {
+  //     ...state,
+  //     set: action.payload.set
+  //   }
+  // }
+
+  if (action.type === GET_SET_BEGIN) {
+    return {
+      ...state,
+      isLoading: true,
+      setLoading: true
+    }
+  }
+
+  if (action.type === GET_SET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      setFound: true,
+      setLoading: false,
+      set: action.payload.id
+    }
+  }
+
+  if (action.type === SET_NOT_FOUND) {
+    return {
+      ...state,
+      setNotFound: true
+    }
+  }
+
+  if (action.type === SET_FOUND) {
+    return {
+      ...state,
+      setNotFound: false
     }
   }
 

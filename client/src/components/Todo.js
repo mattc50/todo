@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 const Todo = ({ item, _id, task, status }) => {
-  const { updateStatus, updateTask, deleteTodo, isLoading } = useAppContext()
+  const { updateStatus, updateTask, deleteTodo, isLoading, set } = useAppContext()
   const [state, setState] = useState(status)
   const [validTask, setValidTask] = useState(task)
   const [text, setText] = useState(task)
@@ -35,7 +35,8 @@ const Todo = ({ item, _id, task, status }) => {
       _id,
       !state,
       item,
-      animIn
+      animIn,
+      set
     )
   }
 
@@ -51,7 +52,8 @@ const Todo = ({ item, _id, task, status }) => {
       const forSubmit = text.trim() || validTask;
       updateTask(
         _id,
-        forSubmit
+        forSubmit,
+        set
       )
     }
     return false;
@@ -91,7 +93,7 @@ const Todo = ({ item, _id, task, status }) => {
         </form>
         <button
           className="form-action delete"
-          onClick={() => deleteTodo(_id)}
+          onClick={() => deleteTodo(_id, set)}
           disabled={isLoading}
         >
           <MdDelete />

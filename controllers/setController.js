@@ -10,6 +10,8 @@ import {
 import moment from 'moment'
 
 import { updateTodo } from '../controllers/todoController.js'
+import mongoose from 'mongoose'
+const ObjectId = mongoose.Types.ObjectId;
 
 const createSet = async (req, res) => {
 
@@ -52,7 +54,27 @@ const getSets = async (req, res) => {
   res.status(StatusCodes.OK).json({ sets })
 }
 
+const getSet = async (req, res) => {
+  const { id: setId } = req.params;
+  // const set = await Set.findOne({ _id: setId })
+  if (!ObjectId.isValid(setId)) {
+    // Invalid ObjectId
+    throw new NotFoundError('Invalid Set ID');
+  }
+
+  const getSet = await Set.findById({ _id: setId });
+
+  if (!getSet) {
+    // Set not found in the database
+    throw new NotFoundError('Set not found');
+  }
+
+  const set = await Set.findOne({ _id: setId })
+
+  res.status(StatusCodes.OK).json({ set })
+}
+
 
 export {
-  createSet, getSets
+  createSet, getSets, getSet
 }

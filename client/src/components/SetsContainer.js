@@ -2,11 +2,12 @@ import { useEffect } from "react";
 import { useAppContext } from "../context/appContext";
 import Wrapper from "../assets/wrappers/SetsContainer";
 import Set from "./Set";
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 
 const SetsContainer = ({ sets }) => {
   console.log(sets)
-  const { getSets } = useAppContext();
+
+  const { getSets, getSet } = useAppContext();
   useEffect(() => {
     getSets();
   }, [])
@@ -16,12 +17,17 @@ const SetsContainer = ({ sets }) => {
       <h5>Sets</h5>
       {sets.map((set, index) => {
         return (
-          <NavLink to="set">
-            <Set key={set._id} item={index} {...set} />
+          <NavLink
+            key={set._id}
+            to={`/set/${set._id}`}
+            state={{ belongsTo: `${set._id}` }}
+            onClick={() => getSet(set._id)}
+          >
+            <Set set={set._id} item={index} {...set} />
           </NavLink>
         )
       })}
-    </Wrapper>
+    </Wrapper >
   )
 
 }
