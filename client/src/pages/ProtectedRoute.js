@@ -10,9 +10,9 @@ const ProtectedRoute = ({ children }) => {
   if (!user) {
     return <Navigate to='/landing' />;
   }
-  // if (!setFound) {
-  //   return <Navigate to='/404' />
-  // }
+  if (!setFound) {
+    return <Navigate to='/404' />
+  }
   return children;
 };
 

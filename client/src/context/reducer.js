@@ -18,6 +18,9 @@ import {
   GET_CURRENT_USER_SUCCESS,
   GET_TODOS_BEGIN,
   GET_TODOS_SUCCESS,
+
+  GET_TODOS_ERROR,
+
   // PROMPT_FIELD_ERRORS,
   EDIT_TODO_BEGIN,
   EDIT_TODO_SUCCESS,
@@ -38,7 +41,8 @@ import {
   GET_SET_SUCCESS,
   SET_NOT_FOUND,
   SET_FOUND,
-  GET_TODOS_ERROR
+
+  CLEAR_FOUND
 
 } from "./actions";
 
@@ -186,9 +190,10 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
+      setFound: true,
       // showAlert: false
       set: '',
-      setFound: true,
+      setLoading: true,
     }
   }
 
@@ -196,9 +201,11 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      setLoading: false,
       todos: action.payload.todos,
       totalTodos: action.payload.totalTodos,
       doneTodos: action.payload.doneTodos,
+      set: action.payload.setId
     }
   }
 
@@ -343,6 +350,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       setNotFound: false
+    }
+  }
+
+  if (action.type === CLEAR_FOUND) {
+    return {
+      ...state,
+      setFound: true
     }
   }
 

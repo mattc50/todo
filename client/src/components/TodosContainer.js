@@ -70,7 +70,7 @@ const TodosContainer = ({ todos, set }) => {
         {todos.map((todo, index) => {
           return <Todo key={todo._id} item={index} {...todo} />
         })}
-        <TodoNew set={[setId]} />
+        <TodoNew set={setId} />
       </Wrapper>
     </React.Fragment>
   )

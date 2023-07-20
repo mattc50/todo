@@ -15,6 +15,7 @@ const Todo = () => {
     getSet,
     getTodos,
     set,
+    isLoading,
     setFound,
     setNotFound,
     setLoading
@@ -26,16 +27,16 @@ const Todo = () => {
 
   useEffect(() => {
     // console.log('run')
-    // getSet(setId)
+    getSet(setId)
     // getTodos(setId)
 
   }, [setFound])
 
-  // if (setLoading) {
-  //   return
+  // if (isLoading) {
+  //   return <Loading />
   // }
-  console.log(`setFound: ${setFound}`)
-  console.log(`setLoading: ${setLoading}`)
+  // console.log(`setFound: ${setFound}`)
+  // console.log(`setLoading: ${setLoading}`)
 
 
   const sampleSet = [

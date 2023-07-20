@@ -20,6 +20,9 @@ import {
   GET_TODOS_BEGIN,
   GET_TODOS_SUCCESS,
   EDIT_TODO_BEGIN,
+
+  GET_TODOS_ERROR,
+
   EDIT_TODO_SUCCESS,
   EDIT_TODO_ERROR,
   CREATE_TODO_BEGIN,
@@ -35,9 +38,10 @@ import {
   GET_SET_BEGIN,
   GET_SET_SUCCESS,
 
+  CLEAR_FOUND,
+
   SET_NOT_FOUND,
   SET_FOUND,
-  GET_TODOS_ERROR
 } from './actions';
 import axios from 'axios';
 
@@ -239,14 +243,14 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_TODOS_BEGIN })
     try {
       // console.log(setId)
-      await getSet(setId);
-      console.log('done 1')
+      // await getSet(setId);
+      // console.log('done 1')
       const { data } = await authFetch(`/todo/all/${setId}`)
-      console.log('done 2')
+      // console.log('done 2')
       const { todos, totalTodos, doneTodos } = data;
       dispatch({
         type: GET_TODOS_SUCCESS,
-        payload: { todos, totalTodos, doneTodos }
+        payload: { setId, todos, totalTodos, doneTodos }
       })
       // console.log(data)
       // return data;
@@ -335,12 +339,14 @@ const AppProvider = ({ children }) => {
 
     try {
       const response = await authFetch(`/todo/${todoId}`)
-      // console.log(response)
-      const belongsTo = response.data.todo.belongsTo;
+      console.log(response)
+      let belongsTo = response.data.todo.belongsTo;
+      console.log(belongsTo)
 
       // search in the belongsTo array to see if the Set already exists in it
-      if (!belongsTo.find(setId)) {
+      if (!belongsTo.includes(setId)) {
         belongsTo.push(setId);
+        console.log(belongsTo)
         await authFetch.patch(`/todo/${todoId}`, { belongsTo })
       }
       dispatch({ type: EDIT_TODO_SUCCESS })
@@ -359,10 +365,15 @@ const AppProvider = ({ children }) => {
   const createTodo = async (task, setId) => {
     dispatch({ type: CREATE_TODO_BEGIN })
     try {
-      await authFetch.post('/todo', { task, belongsTo: setId })
+      const todo = await authFetch.post('/todo', { task, belongsTo: setId })
+      const todoId = todo.data.todo._id;
+      console.log(todoId)
+      console.log(setId)
+      await pushTodoToSet(todoId, setId)
       dispatch({ type: CREATE_TODO_SUCCESS })
       await getTodos(setId)
     } catch (error) {
+      console.log(error)
       if (error.response.status === 401) {
         return
       }
@@ -459,6 +470,9 @@ const AppProvider = ({ children }) => {
   //     payload: { set }
   //   })
   // }
+  const clearFound = () => {
+    dispatch({ type: CLEAR_FOUND })
+  }
 
   useEffect(() => {
     getCurrentUser()
@@ -487,6 +501,7 @@ const AppProvider = ({ children }) => {
         getSet,
 
         // changeSetPage,
+        clearFound
       }}
     >
       {children}

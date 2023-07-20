@@ -49,3 +49,5 @@ export const GET_SET_SUCCESS = "GET_SET_SUCCESS";
 
 export const SET_NOT_FOUND = "SET_NOT_FOUND"
 export const SET_FOUND = "SET_FOUND"
+
+export const CLEAR_FOUND = "CLEAR_FOUND"

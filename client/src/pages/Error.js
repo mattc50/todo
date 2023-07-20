@@ -1,8 +1,17 @@
 import { Link } from 'react-router-dom';
 import img from '../assets/images/not-found.svg';
 import Wrapper from '../assets/wrappers/ErrorPage';
+import { useAppContext } from '../context/appContext';
+import { useEffect } from 'react';
 
 const Error = () => {
+
+  const { clearFound, setFound } = useAppContext()
+
+  useEffect(() => {
+    clearFound()
+  }, [setFound])
+
   return (
     <Wrapper className="full-page">
       <div>
