@@ -27,10 +27,11 @@ const TodosContainer = ({ todos, set }) => {
   // const location = useLocation();
 
   // const set = location.state.belongsTo;
-  // const splitLoc = location.pathname.split('/');
-  // const getSet = splitLoc[splitLoc.length - 1]
 
-  const setId = useParams().id;
+  const location = useLocation().pathname;
+  const splitLoc = location.split('/');
+  const setId = splitLoc[splitLoc.length - 1]
+  // console.log(setId)
   // const verify = setId == undefined ? setId : set
 
   // console.log(getSet)

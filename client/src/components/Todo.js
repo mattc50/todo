@@ -73,7 +73,7 @@ const Todo = ({ item, _id, task, status }) => {
                 type="checkbox"
                 name="status"
                 checked={status}
-                // disabled={isLoading}
+                disabled={isLoading}
                 onChange={handleChange}
                 onSubmit={handleSubmit}
                 className="checkbox"
@@ -89,6 +89,7 @@ const Todo = ({ item, _id, task, status }) => {
             value={text}
             onChange={(e) => setText(e.target.value)}
             onBlur={handleBlur}
+            disabled={isLoading}
           />
         </form>
         <button

@@ -4,7 +4,6 @@ const Wrapper = styled.div`
 article {
   border-radius: var(--borderRadius);
   margin-bottom: 1rem;
-
 }
 
 article:last-child {
@@ -22,11 +21,11 @@ article:last-child:focus-within {
 }
 
 article:not(:last-child) {
-border: 1px solid transparent;
-background: linear-gradient(var(--grey-50), var(--grey-50)), 
-            linear-gradient(2deg, var(--grey-500) 60%, var(--grey-400) 100%);
-background-origin: border-box;
-background-clip: content-box, border-box;
+  border: 1px solid transparent;
+  background: linear-gradient(var(--grey-50), var(--grey-50)), 
+              linear-gradient(2deg, var(--grey-500) 60%, var(--grey-400) 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
 }
 
 article:not(:last-child):is(:hover, :focus, :active, :focus-within, :focus-visible) {

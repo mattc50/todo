@@ -8,6 +8,12 @@ const TodoNew = ({ set }) => {
   const { createTodo, isLoading } = useAppContext();
   const [text, setText] = useState('');
 
+  const handleBlur = (e) => {
+    if (!text.trim()) {
+      setText('')
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     const submitTask = text.trim();
@@ -25,19 +31,25 @@ const TodoNew = ({ set }) => {
           {/*isLoading ? <Loading /> : <MdAdd />*/}
           <MdAdd />
         </div>
-        <input
-          className="form-input task"
-          area-label="new-todo"
-          type="text"
-          name="task"
-          placeholder="New Todo"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-        />
+        {isLoading ?
+          <div className="skeleton" />
+          :
+          <input
+            className="form-input task"
+            area-label="new-todo"
+            type="text"
+            name="task"
+            placeholder="New Todo"
+            value={text}
+            onBlur={handleBlur}
+            onChange={(e) => setText(e.target.value)}
+            disabled={isLoading}
+          />
+        }
         <button
           type="submit"
           className="form-action submit"
-          disabled={!text}
+          disabled={!text || isLoading}
         >
           <MdDone />
         </button>

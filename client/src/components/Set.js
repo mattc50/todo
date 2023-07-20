@@ -10,8 +10,10 @@ const Set = ({ item, set, todos, createdAt }) => {
 
   return (
     <Wrapper>
-      <h5>{date}</h5>
-      <p>{numTodos}</p>
+      <div className="set-info">
+        <h3>{date}</h3>
+        <p>{numTodos} todo{numTodos !== 1 && 's'}</p>
+      </div>
     </Wrapper>
   )
 }

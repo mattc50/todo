@@ -30,6 +30,7 @@ import {
   CREATE_TODO_ERROR,
   DELETE_TODO_BEGIN,
   DELETE_TODO_ERROR,
+  DELETE_TODO_SUCCESS,
 
   CREATE_SET_BEGIN,
   CREATE_SET_SUCCESS,
@@ -41,6 +42,9 @@ import {
   GET_SET_SUCCESS,
   SET_NOT_FOUND,
   SET_FOUND,
+  EDIT_SET_BEGIN,
+  EDIT_SET_SUCCESS,
+  EDIT_SET_ERROR,
 
   CLEAR_FOUND
 
@@ -269,6 +273,14 @@ const reducer = (state, action) => {
       isLoading: true
     }
   }
+
+  if (action.type === DELETE_TODO_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
   if (action.type === DELETE_TODO_ERROR) {
     return {
       ...state,
@@ -306,7 +318,7 @@ const reducer = (state, action) => {
   }
 
   if (action.type === GET_SETS_SUCCESS) {
-    console.log('success!')
+    // console.log('success!')
     return {
       ...state,
       isLoading: false,
@@ -336,6 +348,27 @@ const reducer = (state, action) => {
       setFound: true,
       setLoading: false,
       set: action.payload.id
+    }
+  }
+
+  if (action.type === EDIT_SET_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+
+  if (action.type === EDIT_SET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+    }
+  }
+
+  if (action.type === EDIT_SET_ERROR) {
+    return {
+      ...state,
+      isLoading: false
     }
   }
 

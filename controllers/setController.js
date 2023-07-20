@@ -74,7 +74,22 @@ const getSet = async (req, res) => {
   res.status(StatusCodes.OK).json({ set })
 }
 
+const updateSet = async (req, res) => {
+  const { id: setId } = req.params;
+
+  const set = await Set.findOne({ _id: setId })
+  if (!set) {
+    throw new BadRequestError(`No set with id ${setId}`)
+  }
+
+  const updatedSet = await (Set.findOneAndUpdate({ _id: setId }, req.body, {
+    new: true,
+    runValidators: true
+  }))
+  res.status(StatusCodes.OK).json({ updatedSet })
+}
+
 
 export {
-  createSet, getSets, getSet
+  createSet, getSets, getSet, updateSet
 }

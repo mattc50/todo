@@ -35,9 +35,9 @@ const getTodos = async (req, res) => {
     throw new NotFoundError('Invalid Set ID');
   }
 
-  const getSet = await Set.findById({ _id: setId });
+  const set = await Set.findById({ _id: setId });
 
-  if (!getSet) {
+  if (!set) {
     // Set not found in the database
     throw new NotFoundError('Set not found');
   }
@@ -55,6 +55,16 @@ const getTodos = async (req, res) => {
   // if setId is undefined, we will get all todos, since this will effectively be
   // adding a query parameter of set=undefined
   // console.log(setId)
+
+  // console.log(set)
+
+  // const setStringified = todosOfSet.map(todo => {
+  //   console.log(todo._id)
+  //   console.log(typeof todo)
+  //   todo.toString();
+  // })
+  // console.log(setStringified)
+
   const setQuery = {
     belongsTo: { $in: [setId] },
     createdBy: req.user.userId
@@ -65,30 +75,58 @@ const getTodos = async (req, res) => {
     createdBy: req.user.userId
   }
   const result = await Todo.find(setQuery)
+  // console.log(result)
+
+  // const todosStringified = todoIdsInSet.map(todo => {
+  //   todo.toString();
+  // })
+  // console.log(todosStringified)
+
+  // const filterNulls = todosOfSet
+  //   .filter(todo => {
+  //     console.log(todo)
+  //     !todoIdsInSet.some(el => {
+  //       console.log(el)
+  //       const x = el == todo
+  //       console.log(x)
+  //       return x
+  //     })
+  //   })
+  // console.log(filterNulls)
+
   const todos = await result
+
+  const todosOfSet = set.todos;
+  const todoIdsInSet = result.map(todo => todo._id);
 
   const totalTodos = await Todo.countDocuments(setQuery)
   const doneTodos = await Todo.countDocuments(countQuery)
 
-  res.status(StatusCodes.OK).json({ todos, totalTodos, doneTodos })
+  res.status(StatusCodes.OK).json({
+    todos,
+    totalTodos,
+    doneTodos,
+    todosOfSet,
+    todoIdsInSet
+  })
 }
 
 const getTodo = async (req, res) => {
   const { id: todoId } = req.params;
   const todo = await Todo.findOne({ _id: todoId })
   if (!todo) {
-    throw new BadRequestError(`No job with id ${todoId}`)
+    throw new BadRequestError(`No todo with id ${todoId}`)
   }
   res.status(StatusCodes.OK).json({ todo })
 }
 
 const updateTodo = async (req, res) => {
   const { id: todoId } = req.params;
-  const { status } = req.body;
+  // const { status } = req.body;
 
   const todo = await Todo.findOne({ _id: todoId })
   if (!todo) {
-    throw new BadRequestError(`No job with id ${todoId}`)
+    throw new BadRequestError(`No todo with id ${todoId}`)
   }
 
   const updatedTodo = await (Todo.findOneAndUpdate({ _id: todoId }, req.body, {
@@ -102,7 +140,7 @@ const deleteTodo = async (req, res) => {
   const { id: todoId } = req.params;
   const todo = await Todo.findOne({ _id: todoId })
   if (!todo) {
-    throw new NotFoundError(`No job with id ${todoId}`);
+    throw new NotFoundError(`No todo with id ${todoId}`);
   }
   await todo.deleteOne();
   res.status(StatusCodes.OK).json({ msg: 'Success! Todo removed' })

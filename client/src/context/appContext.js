@@ -29,6 +29,7 @@ import {
   CREATE_TODO_SUCCESS,
   CREATE_TODO_ERROR,
   DELETE_TODO_BEGIN,
+  DELETE_TODO_SUCCESS,
   DELETE_TODO_ERROR,
   CREATE_SET_BEGIN,
   CREATE_SET_SUCCESS,
@@ -37,6 +38,9 @@ import {
   GET_SETS_SUCCESS,
   GET_SET_BEGIN,
   GET_SET_SUCCESS,
+  EDIT_SET_BEGIN,
+  EDIT_SET_SUCCESS,
+  EDIT_SET_ERROR,
 
   CLEAR_FOUND,
 
@@ -247,7 +251,16 @@ const AppProvider = ({ children }) => {
       // console.log('done 1')
       const { data } = await authFetch(`/todo/all/${setId}`)
       // console.log('done 2')
-      const { todos, totalTodos, doneTodos } = data;
+      const { todos, totalTodos, doneTodos, todosOfSet, todoIdsInSet } = data;
+      // console.log(todos)
+
+      // console.log(todosOfSet)
+      // console.log(todoIdsInSet)
+      const nullsFiltered = todoIdsInSet
+        .filter(todo => todosOfSet.some(el => el == todo))
+      // console.log(nullsFiltered)
+      if (nullsFiltered.length > 0 && todoIdsInSet.length !== todosOfSet.length)
+        await authFetch.patch(`/set/${setId}`, { todos: nullsFiltered })
       dispatch({
         type: GET_TODOS_SUCCESS,
         payload: { setId, todos, totalTodos, doneTodos }
@@ -334,7 +347,7 @@ const AppProvider = ({ children }) => {
   //            next, the provided setId is pushed to the belongsTo array, adding a 
   //            new Set to it.
   //            last, the Todo object is updated with the new Set array in belongsTo.
-  const pushTodoToSet = async (todoId, setId) => {
+  const pushSetToTodo = async (todoId, setId) => {
     dispatch({ type: EDIT_TODO_BEGIN })
 
     try {
@@ -362,13 +375,81 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  // ADDITION:  * not sure of revelance right now *
+  //            takes in a Todo and Set, and removes the Set from the Todo's 
+  //            belongsTo array.
+  const popSetFromTodo = async (todoId, setId) => {
+    dispatch({ type: EDIT_TODO_BEGIN })
+    try {
+      const response = await authFetch(`/todo/${todoId}`)
+      const belongsTo = response.data.todo.belongsTo;
+      const filterOutSet = belongsTo.filter(set => set !== setId)
+      await authFetch.patch(`/todo/${todoId}`, { filterOutSet })
+      dispatch({ type: EDIT_TODO_SUCCESS })
+
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_TODO_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
+  const pushTodoToSet = async (todoId, setId) => {
+    dispatch({ type: EDIT_SET_BEGIN })
+
+    try {
+      const response = await authFetch(`/set/${setId}`)
+      const todos = response.data.set.todos;
+      if (!todos.includes(todoId)) {
+        todos.push(todoId);
+        await authFetch.patch(`/set/${setId}`, { todos })
+      }
+      dispatch({ type: EDIT_SET_SUCCESS })
+
+
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_SET_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
+  const popTodoFromSet = async (todoId, setId) => {
+    dispatch({ type: EDIT_SET_BEGIN })
+
+    try {
+      const response = await authFetch(`/set/${setId}`)
+      const todos = response.data.set.todos;
+      const filterOutTodo = todos.filter(todo => todo !== todoId)
+      await authFetch.patch(`/set/${setId}`, { filterOutTodo })
+      dispatch({ type: EDIT_SET_SUCCESS })
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_TODO_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+  }
+
   const createTodo = async (task, setId) => {
     dispatch({ type: CREATE_TODO_BEGIN })
     try {
       const todo = await authFetch.post('/todo', { task, belongsTo: setId })
       const todoId = todo.data.todo._id;
-      console.log(todoId)
-      console.log(setId)
+      // console.log(todoId)
+      // console.log(setId)
+      await pushSetToTodo(todoId, setId)
       await pushTodoToSet(todoId, setId)
       dispatch({ type: CREATE_TODO_SUCCESS })
       await getTodos(setId)
@@ -389,7 +470,9 @@ const AppProvider = ({ children }) => {
   const deleteTodo = async (todoId, setId) => {
     dispatch({ type: DELETE_TODO_BEGIN });
     try {
+      await popTodoFromSet(todoId, setId);
       await authFetch.delete(`todo/${todoId}`);
+      dispatch({ type: DELETE_TODO_SUCCESS })
       await getTodos(setId);
     } catch (error) {
       if (error.response.status === 401) {
@@ -414,9 +497,10 @@ const AppProvider = ({ children }) => {
 
       // const set = response.data.set._id;
       // const todosArray = response.data.set.todos;
-      // todosArray.map(todo => pushTodoToSet(todo, set))
+      // todosArray.map(todo => pushSetToTodo(todo, set))
 
       dispatch({ type: CREATE_SET_SUCCESS })
+      await getSets();
     } catch (error) {
       if (error.response.status === 401) {
         return
@@ -450,6 +534,7 @@ const AppProvider = ({ children }) => {
       const { data } = await authFetch(`/set/${setId}`)
       // console.log(data)
       const { set } = data;
+      // console.log(set)
       const id = set._id;
       // console.log(id)
       dispatch({

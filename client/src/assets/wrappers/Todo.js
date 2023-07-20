@@ -36,6 +36,28 @@ p {
   background-color: var(--white);
 }
 
+.task:disabled {
+  pointer-events: none;
+  color: var(--grey-400);
+  background-color: transparent;
+}
+
+input:-webkit-autofill {
+  -webkit-text-fill-color: var(--grey-700);
+  -webkit-box-shadow: 0 0 0 1000px var(--grey-50) inset;
+}
+
+input:-webkit-autofill:hover {
+  -webkit-transition: -webkit-box-shadow 0.1s linear;
+  -webkit-box-shadow: 0 0 0 1000px var(--grey-200) inset;
+}
+
+input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :active, :focus-visible) {
+  -webkit-text-fill-color: var(--grey-400);
+  -webkit-transition: -webkit-box-shadow 0.1s linear;
+  -webkit-box-shadow: 0 0 0 1000px var(--grey-50) inset;
+}
+
 .status-container {
   border-radius: 50%;
   margin: 0;
@@ -117,6 +139,7 @@ p {
 .add {
   height: 2.5rem;
   width: 2.5rem;
+  min-width: 2.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -249,6 +272,29 @@ p {
     display: block;
 }
 
+@keyframes disabledLoad {
+  0% {
+    /* background-color: none; */
+    background: linear-gradient(45deg, var(--primary-100) 0%, var(--primary-300) 100%);
+    filter: saturate(25%);
+    background-size: 200% 200%;
+    background-position: 0% 50%;
+  }
+  100% {
+    /* background-color: none; */
+    background: linear-gradient(45deg, var(--primary-100) 0%, var(--primary-300) 100%);
+    filter: saturate(25%);
+    background-size: 200% 200%;
+    background-position: 100% 50%;
+  }
+}
+
+.checkbox-container input:disabled ~ .checkmark {
+  background-color: none;
+  animation: disabledLoad 0.5s ease-in-out forwards !important;
+  /* filter: saturate(50%) */
+}
+
 .checkbox-container .checkmark:after {
     left: 40%;
     top: 22.5%;
@@ -260,5 +306,31 @@ p {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
 }
+
+@keyframes skeletonLoad {
+  0% {
+    
+    background-position: right;
+  }
+  100% {
+    background-position: left;
+  }
+}
+
+.skeleton {
+  background-image: linear-gradient(
+    90deg,
+    var(--grey-100) 33%, 
+    var(--grey-200) 40%, 
+    var(--grey-100) 47%,
+    var(--grey-100)
+  );
+  background-size: 400% 400%;
+  animation: skeletonLoad 0.8s linear infinite;
+  border-radius: var(--borderRadius);
+  height: 2.5rem;
+  width: 100%;
+}
+
 `
 export default Wrapper
