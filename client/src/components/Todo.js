@@ -4,7 +4,7 @@ import Wrapper from '../assets/wrappers/Todo'
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 
-const Todo = ({ item, _id, task, status }) => {
+const Todo = ({ item, _id, task, status, belongsTo }) => {
   const { updateStatus, updateTask, deleteTodo, isLoading, set } = useAppContext()
   const [state, setState] = useState(status)
   const [validTask, setValidTask] = useState(task)
@@ -92,13 +92,14 @@ const Todo = ({ item, _id, task, status }) => {
             disabled={isLoading}
           />
         </form>
-        <button
+        {!set && <small>{belongsTo}</small>}
+        {set && <button
           className="form-action delete"
           onClick={() => deleteTodo(_id, set)}
           disabled={isLoading}
         >
           <MdDelete />
-        </button>
+        </button>}
       </div>
     </Wrapper>
   )

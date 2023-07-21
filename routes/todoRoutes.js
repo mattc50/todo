@@ -6,6 +6,7 @@ import {
   createTodo,
   getTodos,
   getTodo,
+  getAllTodos,
   updateTodo,
   deleteTodo,
   deleteTodos
@@ -14,6 +15,7 @@ import {
 router.route('/')
   // .get(testGet)
   .post(createTodo)
+router.route('/all').get(getAllTodos)
 router.route('/all/:id')
   .get(getTodos)
   .delete(deleteTodos)

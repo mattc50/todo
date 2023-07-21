@@ -7,8 +7,9 @@ import {
   Navigate
 } from 'react-router-dom'
 import {
-  Todo,
   Set,
+  Sets,
+  Todos,
   Progress,
   Profile,
   SharedLayout
@@ -27,10 +28,11 @@ function App() {
             <SharedLayout />
           </ProtectedRoute>
         }>
-          <Route index element={<Set />} />
+          <Route index element={<Sets />} />
+          <Route path="todos" element={<Todos />} />
           <Route path="progress" element={<Progress />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="set/:id" element={<Todo />} />
+          <Route path="set/:id" element={<Set />} />
         </Route>
         <Route path="/register" element={
           <ProtectedLogReg>

@@ -187,8 +187,8 @@ ul {
   display: block;
   object-fit: cover;
 }
-/* buttons */
 
+/* buttons */
 .btn {
   cursor: pointer;
   color: var(--white);
@@ -395,8 +395,8 @@ input[type="checkbox"] {
 .loading-center {
   margin: 0 auto;
 }
-/* title */
 
+/* title */
 .title {
   text-align: center;
 }
@@ -431,6 +431,9 @@ input[type="checkbox"] {
   color: var(--primary-500);
 }
 
+/*
+//  form action button
+*/
 .form-action {
   -webkit-appearance: none;
 -moz-appearance: none;

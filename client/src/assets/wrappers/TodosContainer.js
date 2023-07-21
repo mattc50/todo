@@ -6,12 +6,12 @@ article {
   margin-bottom: 1rem;
 }
 
-article:last-child {
+.todo-new {
   transition: 0.2s;
   border: 1px solid var(--grey-300);
 }
 
-article:last-child:focus-within {
+.todo-new:focus-within {
   transition: 0.2s;
   border: 1px solid transparent;
   background: linear-gradient(var(--grey-50), var(--grey-50)), 
@@ -20,7 +20,7 @@ article:last-child:focus-within {
   background-clip: content-box, border-box;
 }
 
-article:not(:last-child) {
+article {
   border: 1px solid transparent;
   background: linear-gradient(var(--grey-50), var(--grey-50)), 
               linear-gradient(2deg, var(--grey-500) 60%, var(--grey-400) 100%);
@@ -28,7 +28,7 @@ article:not(:last-child) {
   background-clip: content-box, border-box;
 }
 
-article:not(:last-child):is(:hover, :focus, :active, :focus-within, :focus-visible) {
+article:is(:hover, :focus, :active, :focus-within, :focus-visible) {
   transition: 0.2s;
   background: linear-gradient(var(--grey-50), var(--grey-50)), 
               linear-gradient(-10deg, var(--grey-500) 80%, var(--primary-400) 100%);

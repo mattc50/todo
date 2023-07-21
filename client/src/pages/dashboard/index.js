@@ -1,12 +1,14 @@
 import Profile from "./Profile";
 import Progress from "./Progress";
-import Todo from "./Todo";
+import Set from "./Set";
 import SharedLayout from "./SharedLayout"
-import Set from "./Set"
+import Sets from "./Sets"
+import Todos from "./Todos";
 
 export {
-  Todo,
   Set,
+  Sets,
+  Todos,
   Progress,
   Profile,
   SharedLayout

@@ -280,6 +280,26 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const getAllTodos = async () => {
+    dispatch({ type: GET_TODOS_BEGIN })
+    try {
+      const { data } = await authFetch(`/todo/all`)
+      const { todos, totalTodos, doneTodos } = data;
+      dispatch({
+        type: GET_TODOS_SUCCESS,
+        payload: { todos, totalTodos, doneTodos }
+      })
+      // console.log(data)
+      // return data;
+    } catch (error) {
+      dispatch({ type: GET_TODOS_ERROR })
+      if (error.response.status === 404) {
+        return;
+      }
+      logoutUser()
+    }
+  }
+
   // const setFound = () => {
   //   dispatch({ type: SET_FOUND })
   // }
@@ -304,7 +324,7 @@ const AppProvider = ({ children }) => {
       await authFetch.patch(`/todo/${id}`, { status })
 
       dispatch({ type: EDIT_TODO_SUCCESS })
-      await getTodos(setId)
+      setId ? await getTodos(setId) : await getAllTodos()
 
       el.classList.remove(animIn);
       const animOut = status ? 'c-in-out' : 'c-out-out'
@@ -331,7 +351,10 @@ const AppProvider = ({ children }) => {
       await authFetch.patch(`/todo/${id}`, { task })
 
       dispatch({ type: EDIT_TODO_SUCCESS })
-      await getTodos(setId)
+
+      // new line to check if there is a set or not, which dictates the request to 
+      // call
+      setId ? await getTodos(setId) : await getAllTodos()
 
     } catch (error) {
       if (error.response.status === 401) {
@@ -476,13 +499,25 @@ const AppProvider = ({ children }) => {
   const deleteTodo = async (todoId, setId) => {
     dispatch({ type: DELETE_TODO_BEGIN });
     try {
-      // console.log(state.isLoading)
+      // if we want to include the ability to delete Todos from the Todos page, we 
+      // need to get the Set of the Todo to be deleted, which requires a request.
+
+      // let set = [];
+      // if (!setId) {
+      //   const todo = await authFetch(`todo/${todoId}`);
+      //   set = todo.data.todo.belongsTo;
+      //   for (const el in set) {
+      //     await popTodoFromSet(todoId, set[el]);
+      //   }
+      // }
+
+      // if (setId) {
       await popTodoFromSet(todoId, setId);
-      // console.log(state.isLoading)
+      // }
+
       await authFetch.delete(`todo/${todoId}`);
-      // console.log(state.isLoading)
       dispatch({ type: DELETE_TODO_SUCCESS })
-      await getTodos(setId);
+      setId ? await getTodos(setId) : await getAllTodos()
     } catch (error) {
       if (error.response.status === 401) {
         return;
@@ -541,11 +576,8 @@ const AppProvider = ({ children }) => {
     dispatch({ type: GET_SET_BEGIN })
     try {
       const { data } = await authFetch(`/set/${setId}`)
-      // console.log(data)
       const { set } = data;
-      // console.log(set)
       const id = set._id;
-      // console.log(id)
       dispatch({
         type: GET_SET_SUCCESS,
         payload: { id }
@@ -604,6 +636,7 @@ const AppProvider = ({ children }) => {
         updateUser,
 
         getTodos,
+        getAllTodos,
         updateStatus,
         updateTask,
         createTodo,

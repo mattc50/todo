@@ -25,7 +25,7 @@ const TodoNew = ({ set }) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper className="todo-new">
       <form className="todo-item new" onSubmit={handleSubmit}>
         <div className="add">
           {/*isLoading ? <Loading /> : <MdAdd />*/}

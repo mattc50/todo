@@ -111,6 +111,28 @@ const getTodos = async (req, res) => {
   })
 }
 
+const getAllTodos = async (req, res) => {
+  const setQuery = {
+    createdBy: req.user.userId
+  }
+  const countQuery = {
+    status: true,
+    createdBy: req.user.userId
+  }
+  const result = await Todo.find(setQuery)
+
+  const todos = await result;
+
+  const totalTodos = await Todo.countDocuments(setQuery)
+  const doneTodos = await Todo.countDocuments(countQuery)
+
+  res.status(StatusCodes.OK).json({
+    todos,
+    totalTodos,
+    doneTodos
+  })
+}
+
 const getTodo = async (req, res) => {
   const { id: todoId } = req.params;
   const todo = await Todo.findOne({ _id: todoId })
@@ -157,6 +179,7 @@ export {
   createTodo,
   getTodos,
   getTodo,
+  getAllTodos,
   updateTodo,
   deleteTodo,
   deleteTodos
