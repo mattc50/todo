@@ -431,6 +431,47 @@ input[type="checkbox"] {
   color: var(--primary-500);
 }
 
+.form-action {
+  -webkit-appearance: none;
+-moz-appearance: none;
+-o-appearance: none;
+appearance: none;
+cursor: pointer;
+border: none;
+display: flex;
+justify-content: center;
+  align-items: center;
+border-radius: 50%;
+height: 2.5rem;
+width: 2.5rem;
+min-width: 2.5rem;
+padding: 0;
+/* background-color: var(--grey-200); */
+background-color: transparent;
+}
+
+.form-action:hover {
+transition: 0.2s;
+background-color: var(--grey-200);
+}
+
+.form-action:is(:focus, :active, :focus-visible) {
+transition: background-color 0.2s;
+background-color: var(--grey-200);
+outline: 2px solid var(--primary-400) !important;
+}
+
+.form-action * {
+height: 1.25rem;
+width: 1.25rem;
+color: var(--grey-500);
+}
+
+.form-action:disabled, .form-action:disabled * {
+  color: var(--grey-400);
+  pointer-events: none;
+}
+
 @media screen and (min-width: 992px) {
   .coffee-info {
     text-align: left;

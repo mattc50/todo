@@ -4,11 +4,10 @@ const Wrapper = styled.div`
 
 @keyframes skeletonLoad {
   0% {
-    
-    background-position: left;
+    background-position: right;
   }
   100% {
-    background-position: right;
+    background-position: left;
   }
 }
 
@@ -31,7 +30,7 @@ background-size: 800% 800%;
 //          + border-bottom
     height: calc((2*0.5rem) + (1.953rem*1.3) + (1rem*1.15) + 1rem + 2px);
 
-animation: skeletonLoad 1.5s linear infinite;
+animation: skeletonLoad 1s linear infinite;
 margin-bottom: 1rem;
 
 .skeleton-elements {
@@ -46,8 +45,8 @@ margin-bottom: 1rem;
     var(--grey-200) 47%,
     var(--grey-200)
   );
-  background-size: 800% 800%;
-  animation: skeletonLoad 1.5s linear infinite;
+  background-size: 400% 400%;
+  animation: skeletonLoad 1s linear infinite;
   border-radius: var(--borderRadius);
 }
 .skeleton-h3 {

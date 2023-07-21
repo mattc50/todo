@@ -146,11 +146,18 @@ const deleteTodo = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Success! Todo removed' })
 }
 
+const deleteTodos = async (req, res) => {
+  const { id: setId } = req.params;
+  await Todo.deleteMany({ belongsTo: { $in: [setId] } })
+  res.status(StatusCodes.OK).json({ msg: 'Success! Todos removed' })
+}
+
 export {
   // testGet,
   createTodo,
   getTodos,
   getTodo,
   updateTodo,
-  deleteTodo
+  deleteTodo,
+  deleteTodos
 }

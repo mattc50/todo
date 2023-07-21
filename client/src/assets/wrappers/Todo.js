@@ -151,42 +151,6 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   color: var(--grey-500);
 }
 
-.form-action {
-    -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  cursor: pointer;
-  border: none;
-  display: flex;
-  justify-content: center;
-    align-items: center;
-  border-radius: 50%;
-  height: 2.5rem;
-  width: 2.5rem;
-  min-width: 2.5rem;
-  padding: 0;
-  /* background-color: var(--grey-200); */
-  background-color: transparent;
-}
-
-.form-action:hover {
-  transition: 0.2s;
-  background-color: var(--grey-200);
-}
-
-.form-action:is(:focus, :active, :focus-visible) {
-  transition: background-color 0.2s;
-  background-color: var(--grey-200);
-  outline: 2px solid var(--primary-400) !important;
-}
-
-.form-action * {
-  height: 1.25rem;
-  width: 1.25rem;
-  color: var(--grey-500);
-}
-
 .submit:disabled {
   visibility: hidden;
 }
@@ -210,11 +174,6 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 
 .submit:enabled:is(:hover, :focus, :active, :focus-visible) * {
   color: var(--primary-400);
-}
-
-.form-action:disabled, .form-action:disabled * {
-  color: var(--grey-400);
-  pointer-events: none;
 }
 
 /* .checkbox-container:hover input ~ .checkmark {
@@ -309,7 +268,6 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 
 @keyframes skeletonLoad {
   0% {
-    
     background-position: right;
   }
   100% {
@@ -326,7 +284,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
     var(--grey-100)
   );
   background-size: 400% 400%;
-  animation: skeletonLoad 0.8s linear infinite;
+  animation: skeletonLoad 0.8s linear backwards infinite;
   border-radius: var(--borderRadius);
   height: 2.5rem;
   width: 100%;

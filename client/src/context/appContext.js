@@ -31,6 +31,7 @@ import {
   DELETE_TODO_BEGIN,
   DELETE_TODO_SUCCESS,
   DELETE_TODO_ERROR,
+
   CREATE_SET_BEGIN,
   CREATE_SET_SUCCESS,
   CREATE_SET_ERROR,
@@ -41,6 +42,9 @@ import {
   EDIT_SET_BEGIN,
   EDIT_SET_SUCCESS,
   EDIT_SET_ERROR,
+  DELETE_SET_BEGIN,
+  DELETE_SET_SUCCESS,
+  DELETE_SET_ERROR,
 
   CLEAR_FOUND,
 
@@ -352,14 +356,14 @@ const AppProvider = ({ children }) => {
 
     try {
       const response = await authFetch(`/todo/${todoId}`)
-      console.log(response)
+      // console.log(response)
       let belongsTo = response.data.todo.belongsTo;
-      console.log(belongsTo)
+      // console.log(belongsTo)
 
       // search in the belongsTo array to see if the Set already exists in it
       if (!belongsTo.includes(setId)) {
         belongsTo.push(setId);
-        console.log(belongsTo)
+        // console.log(belongsTo)
         await authFetch.patch(`/todo/${todoId}`, { belongsTo })
       }
       dispatch({ type: EDIT_TODO_SUCCESS })
@@ -423,20 +427,22 @@ const AppProvider = ({ children }) => {
   }
 
   const popTodoFromSet = async (todoId, setId) => {
-    dispatch({ type: EDIT_SET_BEGIN })
 
+    dispatch({ type: EDIT_SET_BEGIN })
     try {
       const response = await authFetch(`/set/${setId}`)
       const todos = response.data.set.todos;
       const filterOutTodo = todos.filter(todo => todo !== todoId)
       await authFetch.patch(`/set/${setId}`, { filterOutTodo })
-      dispatch({ type: EDIT_SET_SUCCESS })
+
+      // the SUCCESS dispatch has been commented out for functionality.
+      // dispatch({ type: EDIT_SET_SUCCESS })
     } catch (error) {
       if (error.response.status === 401) {
         return
       }
       dispatch({
-        type: EDIT_TODO_ERROR,
+        type: EDIT_SET_ERROR,
         payload: { msg: error.response.data.msg }
       })
     }
@@ -470,8 +476,11 @@ const AppProvider = ({ children }) => {
   const deleteTodo = async (todoId, setId) => {
     dispatch({ type: DELETE_TODO_BEGIN });
     try {
+      // console.log(state.isLoading)
       await popTodoFromSet(todoId, setId);
+      // console.log(state.isLoading)
       await authFetch.delete(`todo/${todoId}`);
+      // console.log(state.isLoading)
       dispatch({ type: DELETE_TODO_SUCCESS })
       await getTodos(setId);
     } catch (error) {
@@ -549,6 +558,25 @@ const AppProvider = ({ children }) => {
     }
   }
 
+  const deleteSet = async (setId) => {
+    dispatch({ type: DELETE_SET_BEGIN });
+    try {
+      await authFetch.delete(`/todo/all/${setId}`);
+      await authFetch.delete(`/set/${setId}`)
+      dispatch({ type: DELETE_SET_SUCCESS })
+      await getSets();
+    } catch (error) {
+      dispatch({
+        type: DELETE_SET_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+      if (error.response.status === 404) {
+        return;
+      }
+      logoutUser()
+    }
+  }
+
   // const changeSetPage = (set) => {
   //   dispatch({
   //     type: CHANGE_SET_PAGE,
@@ -584,6 +612,7 @@ const AppProvider = ({ children }) => {
         createSet,
         getSets,
         getSet,
+        deleteSet,
 
         // changeSetPage,
         clearFound

@@ -7,13 +7,16 @@ import {
   getTodos,
   getTodo,
   updateTodo,
-  deleteTodo
+  deleteTodo,
+  deleteTodos
 } from '../controllers/todoController.js'
 
 router.route('/')
   // .get(testGet)
   .post(createTodo)
-router.route('/all/:id').get(getTodos)
+router.route('/all/:id')
+  .get(getTodos)
+  .delete(deleteTodos)
 router.route('/:id')
   .get(getTodo)
   .delete(deleteTodo)

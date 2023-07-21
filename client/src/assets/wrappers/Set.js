@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.article`
-.set-info {
-  padding: 0.5rem;
-}
+padding: 0.5rem;
 
 h3 {
   margin: 0;
@@ -14,6 +12,10 @@ h3 {
 p {
   color: var(--grey-700);
   margin-bottom: 0;
+}
+
+button {
+  z-index: 1;
 }
 
 /* &:hover h3 {

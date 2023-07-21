@@ -29,8 +29,8 @@ import {
   CREATE_TODO_SUCCESS,
   CREATE_TODO_ERROR,
   DELETE_TODO_BEGIN,
-  DELETE_TODO_ERROR,
   DELETE_TODO_SUCCESS,
+  DELETE_TODO_ERROR,
 
   CREATE_SET_BEGIN,
   CREATE_SET_SUCCESS,
@@ -45,6 +45,9 @@ import {
   EDIT_SET_BEGIN,
   EDIT_SET_SUCCESS,
   EDIT_SET_ERROR,
+  DELETE_SET_BEGIN,
+  DELETE_SET_SUCCESS,
+  DELETE_SET_ERROR,
 
   CLEAR_FOUND
 
@@ -390,6 +393,27 @@ const reducer = (state, action) => {
     return {
       ...state,
       setFound: true
+    }
+  }
+
+  if (action.type === DELETE_SET_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+
+  if (action.type === DELETE_SET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+
+  if (action.type === DELETE_SET_ERROR) {
+    return {
+      ...state,
+      isLoading: false
     }
   }
 

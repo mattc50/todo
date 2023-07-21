@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-article {
+.set-container {
+display: flex;
+justify-content: space-between;
+}
+
+.set-item {
   border: 1px solid transparent;
   margin-bottom: 1rem;
   border-radius: var(--borderRadius);
@@ -11,35 +16,17 @@ article {
   background-clip: content-box, border-box;
 }
 
-article:is(:hover, :active, :focus, :focus-visible, :focus-within) {
-  transition: background-image 0.2s;
-  background-image: //linear-gradient(var(--grey-200), var(--grey-200)), 
-                    linear-gradient(var(--grey-50), var(--grey-50)), 
-                    linear-gradient(-10deg, var(--grey-500) 80%, var(--primary-400) 100%);
-  background-origin: border-box;
-  background-clip: content-box, border-box;
-  box-shadow: var(--input-shadow)
-}
-
-.set-link {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  -o-appearance: none;
-  appearance: none;
-  outline: none;
-}
-
-.set-link:is(:hover) > article {
+.set-item:is(:hover) {
   transition: 0.2s;
   background-image: //linear-gradient(var(--grey-200), var(--grey-200)), 
                     linear-gradient(var(--grey-50), var(--grey-50)), 
                     linear-gradient(-10deg, var(--grey-500) 80%, var(--primary-400) 100%);
   background-origin: border-box;
   background-clip: content-box, border-box;
-  box-shadow: var(--input-shadow)
+  box-shadow: var(--input-shadow);
 }
 
-.set-link:is(:active, :focus, :focus-visible) > article {
+.set-item:is(:active, :focus, :focus-visible, :focus-within) {
   transition: background-image background-origin background-clip box-shadow 0.2s;
   background-image: //linear-gradient(var(--grey-200), var(--grey-200)), 
                     linear-gradient(var(--grey-50), var(--grey-50)), 
@@ -48,7 +35,43 @@ article:is(:hover, :active, :focus, :focus-visible, :focus-within) {
   background-clip: content-box, border-box;
   box-shadow: var(--input-shadow);
   outline: 2px solid var(--primary-400);
+
+  /* &.set-link:is(:hover) {
+    transition: 0.2s;
+    background-image: //linear-gradient(var(--grey-200), var(--grey-200)), 
+                      linear-gradient(var(--grey-50), var(--grey-50)), 
+                      linear-gradient(-10deg, var(--grey-500) 80%, var(--primary-400) 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: var(--input-shadow)
+  } */
+
+  &.set-link:is(:hover, :active, :focus, :focus-visible) {
+    transition: 0.2s;
+    background-image: //linear-gradient(var(--grey-200), var(--grey-200)), 
+                      linear-gradient(var(--grey-50), var(--grey-50)), 
+                      linear-gradient(-10deg, var(--grey-500) 80%, var(--primary-400) 100%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    box-shadow: var(--input-shadow);
+  }
+
+  &.form-action:is(:hover) {
+    outline: none !important;
+  }
 }
+
+.set-link {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -o-appearance: none;
+  appearance: none;
+  outline: none;
+  width: 100%;
+  align-self: center;
+}
+
+
 
 /* .set-link:is(:focus-visible) > article {
   transition: background-image 0.2s;
@@ -77,7 +100,7 @@ article:is(:hover, :active, :focus, :focus-visible, :focus-within) {
   margin-bottom: 1.38rem;
 }
 
-.set-link:is(:hover, :active, :focus, :focus-visible) h3 {
+.set-link:is(:hover, :active, :focus, :focus-visible, :focus-within) h3 {
   color: transparent;
   background: linear-gradient(5deg, var(--grey-700)  25%, var(--primary-400));
   background-clip: text;
@@ -104,6 +127,14 @@ article:is(:hover, :active, :focus, :focus-visible, :focus-within) {
   /* position: absolute; */
   border-radius: var(--borderRadius);
   background: linear-gradient(60deg, var(--primary-400), var(--primary-500));
+}
+
+.form-action-container {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  padding: 0 0.5rem;
+  border-left: 1px solid var(--grey-300)
 }
 
 `

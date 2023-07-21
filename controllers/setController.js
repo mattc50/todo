@@ -89,7 +89,16 @@ const updateSet = async (req, res) => {
   res.status(StatusCodes.OK).json({ updatedSet })
 }
 
+const deleteSet = async (req, res) => {
+  const { id: setId } = req.params;
+  const set = await Set.findOne({ _id: setId });
+  if (!set) {
+    throw new NotFoundError(`No set with id ${setId}`);
+  };
+  await set.deleteOne();
+  res.status(StatusCodes.OK).json({ msg: 'Success! Set removed' })
+}
 
 export {
-  createSet, getSets, getSet, updateSet
+  createSet, getSets, getSet, updateSet, deleteSet
 }

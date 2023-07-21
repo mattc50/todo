@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 
 // imported controller functions
-import { createSet, getSets, getSet, updateSet } from '../controllers/setController.js';
+import { createSet, getSets, getSet, updateSet, deleteSet } from '../controllers/setController.js';
 
 router.route('/')
   .get(getSets)
@@ -10,5 +10,6 @@ router.route('/')
 router.route('/:id')
   .get(getSet)
   .patch(updateSet)
+  .delete(deleteSet)
 
 export default router;
