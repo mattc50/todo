@@ -68,7 +68,8 @@ export const initialState = {
   showSidebar: false,
   // errors: {},
   todos: [],
-  set: '',
+  // set: '',
+  set: {},
   sets: [],
   totalTodos: 0,
   doneTodos: 0,
@@ -255,7 +256,7 @@ const AppProvider = ({ children }) => {
       // console.log('done 1')
       const { data } = await authFetch(`/todo/all/${setId}`)
       // console.log('done 2')
-      const { todos, totalTodos, doneTodos, todosOfSet, todoIdsInSet } = data;
+      const { todos, totalTodos, doneTodos, todosOfSet, todoIdsInSet, set } = data;
       // console.log(todos)
 
       // console.log(todosOfSet)
@@ -267,7 +268,7 @@ const AppProvider = ({ children }) => {
         await authFetch.patch(`/set/${setId}`, { todos: nullsFiltered })
       dispatch({
         type: GET_TODOS_SUCCESS,
-        payload: { setId, todos, totalTodos, doneTodos }
+        payload: { setId, todos, totalTodos, doneTodos, set }
       })
       // console.log(data)
       // return data;
@@ -577,16 +578,37 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(`/set/${setId}`)
       const { set } = data;
-      const id = set._id;
+      // const id = set._id;
       dispatch({
         type: GET_SET_SUCCESS,
-        payload: { id }
+        payload: { set }
       })
     } catch (error) {
       if (error.response.status === 404) {
         return;
       }
       logoutUser()
+    }
+  }
+
+  const updateName = async (id, name) => {
+    dispatch({ type: EDIT_SET_BEGIN })
+
+    try {
+      await authFetch.patch(`/set/${id}`, { name })
+
+      dispatch({ type: EDIT_SET_SUCCESS })
+
+      // await getTodos(id);
+
+    } catch (error) {
+      if (error.response.status === 401) {
+        return
+      }
+      dispatch({
+        type: EDIT_SET_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
     }
   }
 
@@ -645,6 +667,7 @@ const AppProvider = ({ children }) => {
         createSet,
         getSets,
         getSet,
+        updateName,
         deleteSet,
 
         // changeSetPage,

@@ -199,7 +199,7 @@ const reducer = (state, action) => {
       isLoading: true,
       setFound: true,
       // showAlert: false
-      set: '',
+      set: {},
       setLoading: true,
     }
   }
@@ -212,7 +212,7 @@ const reducer = (state, action) => {
       todos: action.payload.todos,
       totalTodos: action.payload.totalTodos,
       doneTodos: action.payload.doneTodos,
-      set: action.payload.setId
+      set: action.payload.set
     }
   }
 
@@ -350,7 +350,7 @@ const reducer = (state, action) => {
       isLoading: false,
       setFound: true,
       setLoading: false,
-      set: action.payload.id
+      set: action.payload.set
     }
   }
 

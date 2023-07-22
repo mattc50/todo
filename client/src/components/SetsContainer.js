@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
 import Wrapper from "../assets/wrappers/SetsContainer";
 import Set from "./Set";
@@ -10,14 +10,28 @@ const SetsContainer = ({ sets }) => {
   // console.log(sets)
 
   const { getSets, getSet, isLoading, deleteSet } = useAppContext();
+
+  const [initialLoad, setInitialLoad] = useState(true)
+
+  const asyncFetch = async () => {
+    await getSets();
+    setInitialLoad(false);
+  }
+
   useEffect(() => {
-    getSets();
+    // getSets()
+    asyncFetch();
   }, [])
+
   return (
     <Wrapper>
-
-      <h5>Sets</h5>
-      {sets.map((set, index) => {
+      {initialLoad &&
+        <div className="skeletons" style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "1rem" }}>
+          <SkeletonSet />
+          <SkeletonSet />
+        </div>
+      }
+      {!initialLoad && sets.map((set, index) => {
         return (
           <React.Fragment key={index}>
             {isLoading ?
@@ -28,10 +42,14 @@ const SetsContainer = ({ sets }) => {
                   <Link
                     className="set-link"
                     to={`/set/${set._id}`}
-                    state={{ belongsTo: `${set._id}` }}
+                    state={{ ...set }}
                     onClick={() => getSet(set._id)}
                   >
-                    <Set set={set._id} item={index} {...set} />
+                    <Set
+                      // set={set._id}
+                      item={index}
+                      {...set}
+                    />
                   </Link>
                   <div className="form-action-container">
                     <button

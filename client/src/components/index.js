@@ -10,6 +10,8 @@ import TodoNew from './TodoNew.js'
 import TodosContainer from './TodosContainer.js'
 import SetsContainer from './SetsContainer.js'
 import Set from './Set.js'
+import AllTodosContainer from './AllTodosContainer.js'
+import SetNameInput from './SetNameInput.js'
 
 export {
   Logo,
@@ -23,5 +25,7 @@ export {
   TodosContainer,
   TodoNew,
   SetsContainer,
-  Set
+  Set,
+  AllTodosContainer,
+  SetNameInput
 }

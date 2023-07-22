@@ -8,6 +8,7 @@ const SkeletonSet = () => {
       <div className="skeleton-elements">
         <div className="skeleton-h3" />
         <div className="skeleton-p" />
+        <div className="skeleton-p" />
       </div>
     </Wrapper>
   )

@@ -28,13 +28,17 @@ background-size: 800% 800%;
 //          + p (margin-top + (font-size * line-height))
 //          + border-top
 //          + border-bottom
-    height: calc((2*0.5rem) + (1.953rem*1.3) + (1rem*1.15) + 1rem + 2px);
+
+    /* height: calc((2*0.5rem) + (1.953rem*1.3) + (1rem*1.15) + 1rem + 2px); */
 
 animation: skeletonLoad 1s linear infinite;
 margin-bottom: 1rem;
 
 .skeleton-elements {
   padding: 0.5rem;
+  /* display: flex;
+  flex-direction: column;
+  gap: 1rem; */
 }
 
 .skeleton-h3, .skeleton-p {

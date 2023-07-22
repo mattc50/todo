@@ -13,7 +13,7 @@ const Sets = () => {
 
   return (
     <React.Fragment>
-      <h1>Todo Page</h1>
+      <h1>Sets</h1>
       {/* {isLoading &&
         <div style={{ display: "flex", gap: 16, flexDirection: "column" }}>
           <SkeletonSet />

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
 // import Loading from "./Loading"
 // import Alert from "./Alert"
@@ -9,6 +9,8 @@ import { Navigate, useLocation, useParams } from "react-router-dom";
 
 import React from "react";
 import Loading from "./Loading";
+import SkeletonTodo from "./SkeletonTodo";
+import SkeletonLoad from "./SkeletonLoad";
 
 const TodosContainer = ({ todos, set }) => {
   const {
@@ -24,6 +26,8 @@ const TodosContainer = ({ todos, set }) => {
     // set
   } = useAppContext()
 
+  const [initialLoad, setInitialLoad] = useState(true)
+
   // const location = useLocation();
 
   // const set = location.state.belongsTo;
@@ -36,10 +40,17 @@ const TodosContainer = ({ todos, set }) => {
 
   // console.log(getSet)
   // console.log(setId)
+  const asyncFetch = async () => {
+    await getTodos(setId)
+    setInitialLoad(false)
+  }
+
 
   useEffect(() => {
     // getSet(setId)
-    getTodos(setId)
+    // getTodos(setId);
+    // setInitialLoad(false);
+    asyncFetch();
   }, [setFound])
   // console.log(todos)
 
@@ -52,26 +63,38 @@ const TodosContainer = ({ todos, set }) => {
       {/* {!todos && <Navigate to="/404" />} */}
       <Wrapper>
         {/* {showAlert && <Alert />} */}
-        <div className="progress-container">
-          <h5>{totalTodos ? totalTodos : 'No'} todo{todos.length !== 1 && 's'}{totalTodos ? '' : '. Add a Todo below!'}</h5>
-          {totalTodos > 0 && <div className="progress">
-            <small>{doneTodos} completed</small>
-            <div className="bar">
-              <div
-                className="bar-width"
-                style={{
-                  width: ((200 / totalTodos) * doneTodos) || 0,
-                  transition: "0.4s ease-out"
-                }}
-              >
+        {initialLoad &&
+          <SkeletonLoad context="todoProgress" />
+        }
+        {!initialLoad &&
+          <div className="progress-container">
+            <h5>{totalTodos ? totalTodos : 'There are no'} Todo{todos.length !== 1 && 's'}{totalTodos ? '' : '. Add a Todo below!'}</h5>
+            {totalTodos > 0 && <div className="progress">
+              <small>{doneTodos} completed</small>
+              <div className="bar">
+                <div
+                  className="bar-width"
+                  style={{
+                    width: ((200 / totalTodos) * doneTodos) || 0,
+                    transition: "0.4s ease-out"
+                  }}
+                >
+                </div>
               </div>
-            </div>
+            </div>}
           </div>}
-        </div>
-        {todos.map((todo, index) => {
+
+        {initialLoad &&
+          <div className="skeletons" style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "1rem" }}>
+            <SkeletonTodo />
+            <SkeletonTodo />
+            <SkeletonTodo />
+          </div>
+        }
+        {!initialLoad && todos.map((todo, index) => {
           return <Todo key={todo._id} item={index} {...todo} />
         })}
-        <TodoNew set={setId} />
+        {!initialLoad && <TodoNew set={setId} />}
       </Wrapper>
     </React.Fragment>
   )

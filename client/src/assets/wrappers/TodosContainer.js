@@ -45,6 +45,7 @@ article:is(:hover, :focus, :active, :focus-within, :focus-visible) {
 
 h5 {
   margin: 0;
+  text-transform: none;
 }
 
 small {

@@ -269,7 +269,7 @@ ul {
 }
 .form-label {
   display: block;
-  font-size: var(--smallText);
+  /* font-size: var(--smallText); */
   line-height: 1.75;
   color: var(--grey-700);
   /* margin-bottom: 0.5rem; */
@@ -473,6 +473,19 @@ color: var(--grey-500);
 .form-action:disabled, .form-action:disabled * {
   color: var(--grey-400);
   pointer-events: none;
+}
+
+.name-container {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  /* justify-content: space-between; */
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.set-id {
+  margin-top: 0;
+  color: var(--grey-700)
 }
 
 @media screen and (min-width: 992px) {

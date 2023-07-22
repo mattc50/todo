@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 // import Todo, { TodoSchema } from "./Todo.js";
 
 const SetSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    default: "New Set"
+  },
   todos: {
     type: [mongoose.Types.ObjectId],
     ref: 'Todo',

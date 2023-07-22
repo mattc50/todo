@@ -36,7 +36,9 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
       !state,
       item,
       animIn,
-      set
+
+      // check if there is a Set; if there is not, send null as the Set
+      set ? set._id : null
     )
   }
 
@@ -53,7 +55,7 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
       updateTask(
         _id,
         forSubmit,
-        set
+        set._id
       )
     }
     return false;
@@ -95,7 +97,7 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
         {!set && <small>{belongsTo}</small>}
         {set && <button
           className="form-action delete"
-          onClick={() => deleteTodo(_id, set)}
+          onClick={() => deleteTodo(_id, set._id)}
           disabled={isLoading}
         >
           <MdDelete />

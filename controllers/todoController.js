@@ -107,7 +107,8 @@ const getTodos = async (req, res) => {
     totalTodos,
     doneTodos,
     todosOfSet,
-    todoIdsInSet
+    todoIdsInSet,
+    set
   })
 }
 
