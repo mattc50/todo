@@ -20,11 +20,13 @@ const Navbar = () => {
         >
           <MdMenu />
         </button>
+
         {/* second column */}
-        <div>
+        {/* <div>
           <Logo />
           <h3 className="logo-text">Dashboard</h3>
-        </div>
+        </div> */}
+
         {/* third column */}
         <div className="btn-container">
           <button

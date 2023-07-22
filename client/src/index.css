@@ -12,6 +12,11 @@
   src: url('../src/assets/fonts/SF-Pro-Text-Regular.otf')
 }
 
+@font-face {
+  font-family: "SF Pro Text Heavy";
+  src: url('../src/assets/fonts/SF-Pro-Text-Heavy.otf')
+}
+
 html {
   font-size: 100%;
 } /*16px*/
