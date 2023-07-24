@@ -17,6 +17,11 @@
   src: url('../src/assets/fonts/SF-Pro-Text-Heavy.otf')
 }
 
+@font-face {
+  font-family: "Poppins";
+  src: url('https://fonts.googleapis.com/css2?family=Poppins')
+}
+
 html {
   font-size: 100%;
 } /*16px*/

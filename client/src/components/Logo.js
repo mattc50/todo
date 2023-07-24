@@ -4,8 +4,8 @@ import Wrapper from '../assets/wrappers/Logo';
 const Logo = () => {
   return (
     <Wrapper>
-      <img src={logo} alt="Jobify" className="logo" />
-      <h4 className="logo">Toto</h4>
+      <img src={logo} alt="Jobify" className="logo img" />
+      <h4 className="logo name">Toto</h4>
     </Wrapper>
   )
 };

@@ -199,7 +199,7 @@ const reducer = (state, action) => {
       isLoading: true,
       setFound: true,
       // showAlert: false
-      set: {},
+      set: null,
       setLoading: true,
     }
   }

@@ -77,7 +77,7 @@ const Set = () => {
       {!initialLoad &&
         <div className="name-container">
           <SetNameInput />
-          <small className="set-id">{setId}</small>
+          <small className="set-id">{`ID: ${setId}`}</small>
         </div>
       }
       <TodosContainer todos={todos} set={set} />

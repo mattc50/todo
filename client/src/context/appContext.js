@@ -69,7 +69,7 @@ export const initialState = {
   // errors: {},
   todos: [],
   // set: '',
-  set: {},
+  set: null,
   sets: [],
   totalTodos: 0,
   doneTodos: 0,

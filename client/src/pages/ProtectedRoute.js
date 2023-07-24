@@ -3,14 +3,14 @@ import { useAppContext } from '../context/appContext';
 import { Loading } from '../components'
 
 const ProtectedRoute = ({ children }) => {
-  const { user, userLoading, isLoading, setLoading, setFound } = useAppContext();
+  const { user, userLoading, isLoading, setLoading, setFound, set } = useAppContext();
   if (userLoading) {
     return // <Loading />;
   }
   if (!user) {
     return <Navigate to='/landing' />;
   }
-  if (!setFound) {
+  if (!setFound || (set && set.createdBy !== user._id)) {
     return <Navigate to='/404' />
   }
   return children;

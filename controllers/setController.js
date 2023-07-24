@@ -69,6 +69,10 @@ const getSet = async (req, res) => {
     throw new NotFoundError('Set not found');
   }
 
+  // if (getSet.createdBy._id !== req.user.userId) {
+  //   throw new NotFoundError('Set not found');
+  // }
+
   const set = await Set.findOne({ _id: setId })
 
   res.status(StatusCodes.OK).json({ set })
