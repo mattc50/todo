@@ -12,7 +12,7 @@ import Loading from "./Loading";
 import SkeletonTodo from "./SkeletonTodo";
 import SkeletonLoad from "./SkeletonLoad";
 
-const TodosContainer = ({ todos, set }) => {
+const TodosContainer = ({ todos, set, initialLoad }) => {
   const {
     totalTodos,
     getTodos,
@@ -26,7 +26,8 @@ const TodosContainer = ({ todos, set }) => {
     // set
   } = useAppContext()
 
-  const [initialLoad, setInitialLoad] = useState(true)
+  //const [initialLoad, setInitialLoad] = useState(true)
+  // const [todos, setTodos] = useState([])
 
   // const location = useLocation();
 
@@ -40,23 +41,27 @@ const TodosContainer = ({ todos, set }) => {
 
   // console.log(getSet)
   // console.log(setId)
-  const asyncFetch = async () => {
-    await getTodos(setId)
-    setInitialLoad(false)
-  }
+  // const asyncFetch = async () => {
+  //   const todos = await getTodos(setId)
+  //   setTodos(todos)
+  //   setInitialLoad(false)
+  // }
 
 
-  useEffect(() => {
-    // getSet(setId)
-    // getTodos(setId);
-    // setInitialLoad(false);
-    asyncFetch();
-  }, [setFound])
+  // useEffect(() => {
+  //   // getSet(setId)
+  //   // getTodos(setId);
+  //   // setInitialLoad(false);
+  //   asyncFetch();
+  // }, [setFound])
+
   // console.log(todos)
 
   // if (isLoading) {
   //   return <Loading />
   // }
+
+  // console.log(todos)
 
   return (
     <React.Fragment>

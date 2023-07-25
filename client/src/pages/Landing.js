@@ -1,5 +1,5 @@
 import Wrapper from '../assets/wrappers/LandingPage'
-import main from '../assets/images/main.svg'
+import main from '../assets/images/toto-landing.svg'
 
 // Curly braces are used only for import when export is named.
 // If the export is default then curly braces are not used for import.

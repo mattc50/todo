@@ -6,11 +6,6 @@ import SkeletonSet from "../../components/SkeletonSet"
 const Sets = () => {
   const { createSet, sets, isLoading } = useAppContext()
 
-  // pleaceholder array for the todos value of the Set; contains a single Todo
-  const set = [
-    "64b6ee8c1008085a3bc81d26"
-  ]
-
   return (
     <React.Fragment>
       <h1>Sets</h1>
@@ -29,7 +24,7 @@ const Sets = () => {
         disabled={isLoading}
         onClick={() => {
           // console.log('run')
-          createSet(set)
+          createSet()
         }}>
         Create New Set
       </button>

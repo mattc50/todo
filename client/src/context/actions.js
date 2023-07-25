@@ -52,6 +52,8 @@ export const SET_NOT_FOUND = "SET_NOT_FOUND"
 export const SET_FOUND = "SET_FOUND"
 
 export const CLEAR_FOUND = "CLEAR_FOUND"
+export const SET_INVALID = "SET_INVALID"
+export const SET_LOADING = "SET_LOADING"
 
 export const EDIT_SET_BEGIN = "EDIT_SET_BEGIN";
 export const EDIT_SET_SUCCESS = "EDIT_SET_SUCCESS";

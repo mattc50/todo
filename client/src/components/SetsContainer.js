@@ -43,7 +43,7 @@ const SetsContainer = ({ sets }) => {
                     className="set-link"
                     to={`/set/${set._id}`}
                     state={{ ...set }}
-                    onClick={() => getSet(set._id)}
+                  // onClick={() => getSet(set._id)}
                   >
                     <Set
                       // set={set._id}

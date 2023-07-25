@@ -30,19 +30,33 @@ const getTodos = async (req, res) => {
   //const { set } = req.query;
 
   // try {
-  if (!ObjectId.isValid(setId)) {
-    // Invalid ObjectId
-    throw new NotFoundError('Invalid Set ID');
-  }
+  // if (!ObjectId.isValid(setId)) {
+  //   console.log('invalid')
+  //   // Invalid ObjectId
+  //   throw new NotFoundError('Invalid Set ID');
+  //   // res.status(404).redirect('../client/public/src/pages/Error.js')
+  // }
 
   const set = await Set.findById({ _id: setId });
 
-  if (!set) {
-    // Set not found in the database
-    throw new NotFoundError('Set not found');
-  }
+  // if (!set) {
+  //   console.log('no set')
+  //   // Set not found in the database
+  //   throw new NotFoundError('Set not found');
+  //   // res.status(404).redirect('../client/public/src/pages/Error.js')
+  // }
+
+  // const toString = set.createdBy._id.toString();
+
+  // if (toString !== req.user.userId) {
+  //   // console.log('createdBy')
+  //   throw new NotFoundError('Set not found');
+  // }
+
+
   // } catch (error) {
-  //   return;
+  //   console.log(error)
+  //   next()
   // }
 
 
@@ -102,6 +116,7 @@ const getTodos = async (req, res) => {
   const totalTodos = await Todo.countDocuments(setQuery)
   const doneTodos = await Todo.countDocuments(countQuery)
 
+  // console.log('ran from todoController')
   res.status(StatusCodes.OK).json({
     todos,
     totalTodos,

@@ -1,4 +1,4 @@
-import { Landing, Register, Error, ProtectedRoute, ProtectedLogReg } from './pages'
+import { Landing, Register, Error, ProtectedRoute, ProtectedLogReg, ProtectedSet } from './pages'
 import {
   BrowserRouter,
   Routes,
@@ -32,7 +32,11 @@ function App() {
           <Route path="todos" element={<Todos />} />
           <Route path="progress" element={<Progress />} />
           <Route path="profile" element={<Profile />} />
-          <Route path="set/:id" element={<Set />} />
+          <Route path="set/:id" element={
+            <ProtectedSet>
+              <Set />
+            </ProtectedSet>
+          } />
         </Route>
         <Route path="/register" element={
           <ProtectedLogReg>

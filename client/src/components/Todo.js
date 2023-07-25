@@ -94,8 +94,8 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
             disabled={isLoading}
           />
         </form>
-        {!set && <small>{belongsTo}</small>}
-        {set && <button
+        {/* {!set && <small>{belongsTo}</small>} */}
+        {<button
           className="form-action delete"
           onClick={() => deleteTodo(_id, set._id)}
           disabled={isLoading}

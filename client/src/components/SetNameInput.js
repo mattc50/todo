@@ -3,8 +3,13 @@ import Wrapper from '../assets/wrappers/SetNameInput'
 import { useAppContext } from '../context/appContext';
 import { useLocation } from 'react-router-dom';
 
-const SetNameInput = () => {
-  const { getSet, updateName, isLoading, set } = useAppContext()
+const SetNameInput = ({ set }) => {
+  const {
+    getSet,
+    updateName,
+    isLoading,
+    // set
+  } = useAppContext()
 
   const location = useLocation();
   const state = location.state ? location.state : set;

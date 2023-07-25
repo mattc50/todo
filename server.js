@@ -27,6 +27,7 @@ import setRouter from './routes/setRoutes.js';
 import notFoundMiddleWare from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/error-handler.js';
 import authenticateUser from './middleware/auth.js'
+import checkURLMiddleware from './middleware/check-url.js';
 
 //app.use(cors())
 if (process.env.NODE_ENV !== 'production') {
@@ -45,14 +46,26 @@ app.use(xss())
 //prevents MongoDB operator injection
 app.use(mongoSanitize())
 
-app.use('/api/v1/auth', authRouter)
-app.use('/api/v1/todo', authenticateUser, todoRouter)
-app.use('/api/v1/set', authenticateUser, setRouter)
+app.use(
+  '/api/v1/auth',
+  authRouter
+)
+app.use(
+  '/api/v1/todo',
+  authenticateUser,
+  todoRouter
+)
+app.use(
+  '/api/v1/set',
+  authenticateUser,
+  setRouter
+)
 
 // app.get('/api/v1', (req, res) => {
 //   res.json({ msg: 'API' });
 // });
 
+// app.use(checkURLMiddleware)
 app.use(notFoundMiddleWare)
 app.use(errorHandlerMiddleware)
 

@@ -47,6 +47,8 @@ import {
   DELETE_SET_ERROR,
 
   CLEAR_FOUND,
+  SET_INVALID,
+  SET_LOADING,
 
   SET_NOT_FOUND,
   SET_FOUND,
@@ -107,10 +109,10 @@ const AppProvider = ({ children }) => {
         console.log('logging out')
         logoutUser();
       }
-      // if (error.response.status === 404) {
-      //   console.log('logging out')
-      //   logoutUser();
-      // }
+      if (error.response.status === 404) {
+        console.log('404 thrown')
+        dispatch({ type: SET_INVALID })
+      }
       return Promise.reject(error);
     }
   );
@@ -244,11 +246,15 @@ const AppProvider = ({ children }) => {
       }
       logoutUser();
     };
+  }
 
+  const isSetLoading = () => {
+    dispatch({ type: SET_LOADING })
   }
 
   const getTodos = async (setId) => {
     // console.log(setId)
+    // console.log(state.setLoading)
     dispatch({ type: GET_TODOS_BEGIN })
     try {
       // console.log(setId)
@@ -270,6 +276,8 @@ const AppProvider = ({ children }) => {
         type: GET_TODOS_SUCCESS,
         payload: { setId, todos, totalTodos, doneTodos, set }
       })
+      // console.log(state.setLoading)
+
       // console.log(data)
       // return data;
     } catch (error) {
@@ -671,7 +679,8 @@ const AppProvider = ({ children }) => {
         deleteSet,
 
         // changeSetPage,
-        clearFound
+        clearFound,
+        isSetLoading
       }}
     >
       {children}

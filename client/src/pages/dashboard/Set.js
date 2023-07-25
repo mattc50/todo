@@ -25,7 +25,7 @@ const Set = () => {
   const [initialLoad, setInitialLoad] = useState(true)
 
   const asyncFetch = async (setId) => {
-    await getSet(setId);
+    await getTodos(setId);
     setInitialLoad(false)
   }
 
@@ -69,6 +69,8 @@ const Set = () => {
   // }
   // const { _id, name } = set;
 
+  // if (setLoading) return;
+
   return (
     <React.Fragment>
       {initialLoad &&
@@ -76,11 +78,15 @@ const Set = () => {
       }
       {!initialLoad &&
         <div className="name-container">
-          <SetNameInput />
+          <SetNameInput set={set} />
           <small className="set-id">{`ID: ${setId}`}</small>
         </div>
       }
-      <TodosContainer todos={todos} set={set} />
+      <TodosContainer
+        todos={todos}
+        set={set}
+        initialLoad={initialLoad}
+      />
       {!initialLoad &&
         <TextArea
           type='text'

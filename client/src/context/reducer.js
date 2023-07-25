@@ -49,7 +49,9 @@ import {
   DELETE_SET_SUCCESS,
   DELETE_SET_ERROR,
 
-  CLEAR_FOUND
+  CLEAR_FOUND,
+  SET_INVALID,
+  SET_LOADING
 
 } from "./actions";
 
@@ -193,14 +195,21 @@ const reducer = (state, action) => {
   //   }
   // }
 
+  if (action.type === SET_LOADING) {
+    return {
+      ...state,
+      // setLoading: true
+    }
+  }
+
   if (action.type === GET_TODOS_BEGIN) {
     return {
       ...state,
       isLoading: true,
-      setFound: true,
+      // setFound: false,
       // showAlert: false
       set: null,
-      setLoading: true,
+      // setLoading: true,
     }
   }
 
@@ -209,6 +218,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       setLoading: false,
+      setFound: true,
       todos: action.payload.todos,
       totalTodos: action.payload.totalTodos,
       doneTodos: action.payload.doneTodos,
@@ -393,6 +403,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       setFound: true
+    }
+  }
+
+  if (action.type === SET_INVALID) {
+    return {
+      ...state,
+      setFound: false
     }
   }
 

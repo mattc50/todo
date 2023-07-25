@@ -31,7 +31,7 @@ const Wrapper = styled.section`
   }
   .btn-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     column-gap: 1rem;
     align-self: flex-end;
     margin-top: 0.5rem;
@@ -47,7 +47,7 @@ const Wrapper = styled.section`
   }
   @media (min-width: 992px) {
     .form-center {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       /* align-items: center; */
       column-gap: 1rem;
     }
