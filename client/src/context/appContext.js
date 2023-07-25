@@ -78,7 +78,7 @@ export const initialState = {
   editTodoId: '',
   isEditing: false,
   setFound: true,
-  setLoading: false
+  setLoading: true
 }
 
 const AppProvider = ({ children }) => {

@@ -9,7 +9,7 @@ router.route('/')
   .get(getSets)
   .post(createSet)
 router.route('/:id')
-  .get(getSet)
+  .get(checkURLMiddleware, getSet)
   .patch(updateSet)
   .delete(deleteSet)
 

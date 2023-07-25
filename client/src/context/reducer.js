@@ -326,6 +326,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
+      setLoading: false,
       // showAlert: false
     }
   }
@@ -350,7 +351,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
-      setLoading: true
+      // setLoading: true
     }
   }
 

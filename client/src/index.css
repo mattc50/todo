@@ -403,7 +403,13 @@ input[type="checkbox"] {
   animation: spinner 2s linear infinite;
 }
 .loading-center {
-  margin: 0 auto;
+  margin: auto;
+}
+
+.loading-container {
+  height: calc(100vh - 4rem);
+  display: flex;
+  align-items: center;
 }
 
 /* title */

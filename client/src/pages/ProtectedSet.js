@@ -10,9 +10,17 @@ const ProtectedSet = ({ children }) => {
   //   isSetLoading()
   // }, [])
 
-  if (setLoading || (!setFound && setLoading)) {
-    return
-  }
+  // if (setLoading || (!setFound && setLoading)) {
+  //   return
+  // }
+
+  // if (setLoading) {
+  //   return (
+  //     <div className="loading-container">
+  //       <Loading center />
+  //     </div>
+  //   )
+  // }
 
   if (!setFound || (set && set.createdBy !== user._id)) {
     return <Navigate to='/404' />

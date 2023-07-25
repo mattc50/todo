@@ -7,10 +7,10 @@ import Logo from './Logo';
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
-  const { toggleSidebar, logoutUser, user } = useAppContext();
+  const { toggleSidebar, logoutUser, user, setLoading } = useAppContext();
 
   return (
-    <Wrapper>
+    !setLoading && <Wrapper>
       <div className="nav-center">
         {/* first column */}
         <button

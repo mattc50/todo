@@ -12,8 +12,13 @@ import Loading from "./Loading";
 import SkeletonTodo from "./SkeletonTodo";
 import SkeletonLoad from "./SkeletonLoad";
 
-const TodosContainer = ({ todos, set, initialLoad }) => {
+const TodosContainer = ({
+  // todos,
+  set,
+  // initialLoad
+}) => {
   const {
+    todos,
     totalTodos,
     getTodos,
     getSet,
@@ -26,7 +31,7 @@ const TodosContainer = ({ todos, set, initialLoad }) => {
     // set
   } = useAppContext()
 
-  //const [initialLoad, setInitialLoad] = useState(true)
+  const [initialLoad, setInitialLoad] = useState(true)
   // const [todos, setTodos] = useState([])
 
   // const location = useLocation();
@@ -41,19 +46,20 @@ const TodosContainer = ({ todos, set, initialLoad }) => {
 
   // console.log(getSet)
   // console.log(setId)
-  // const asyncFetch = async () => {
-  //   const todos = await getTodos(setId)
-  //   setTodos(todos)
-  //   setInitialLoad(false)
-  // }
+  const asyncFetch = async () => {
+    // const todos = 
+    await getTodos(setId)
+    // setTodos(todos)
+    setInitialLoad(false)
+  }
 
 
-  // useEffect(() => {
-  //   // getSet(setId)
-  //   // getTodos(setId);
-  //   // setInitialLoad(false);
-  //   asyncFetch();
-  // }, [setFound])
+  useEffect(() => {
+    // getSet(setId)
+    // getTodos(setId);
+    // setInitialLoad(false);
+    if (!setLoading) asyncFetch();
+  }, [setLoading])
 
   // console.log(todos)
 

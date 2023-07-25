@@ -62,7 +62,7 @@ const getSet = async (req, res) => {
   //   throw new NotFoundError('Invalid Set ID');
   // }
 
-  const getSet = await Set.findById({ _id: setId });
+  // const getSet = await Set.findById({ _id: setId });
 
   // if (!getSet) {
   //   // Set not found in the database
@@ -73,7 +73,7 @@ const getSet = async (req, res) => {
   //   throw new NotFoundError('Set not found');
   // }
 
-  const set = await Set.findOne({ _id: setId })
+  const set = await Set.findOne({ _id: setId, createdBy: req.user.userId })
 
   res.status(StatusCodes.OK).json({ set })
 }
