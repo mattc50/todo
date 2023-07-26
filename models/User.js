@@ -46,6 +46,10 @@ const UserSchema = new mongoose.Schema({
     maxlength: 20,
     default: 'lastName'
   },
+  profPic: {
+    type: String,
+    default: ''
+  }
 })
 
 UserSchema.pre('save', async function () {

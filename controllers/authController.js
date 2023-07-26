@@ -66,9 +66,19 @@ const login = async (req, res) => {
 }
 
 const updateUser = async (req, res) => {
-  const { email, name, lastName } = req.body;
+  const { email, name, lastName, profPic } = req.body;
   if (!email || !name || !lastName) {
     throw new BadRequestError('Please provide all values')
+  }
+
+  const stringSlice = profPic.split('/')[0];
+  if (stringSlice !== 'data:image') {
+    throw new BadRequestError('Please provide an image')
+  }
+
+  const magicNum = profPic.charAt(profPic.indexOf(',') + 1)
+  if (magicNum !== '/' && magicNum !== 'i' && magicNum !== 'R') {
+    throw new BadRequestError('Please provide a JPEG, JPG, PNG, or GIF')
   }
 
   const user = await User.findOne({ _id: req.user.userId });
@@ -76,6 +86,7 @@ const updateUser = async (req, res) => {
   user.email = email;
   user.name = name;
   user.lastName = lastName;
+  user.profPic = profPic;
 
   await user.save()
   // later, we will have user.save, and this will run the UserSchema.pre('save'...) function in User.js.
@@ -87,6 +98,20 @@ const updateUser = async (req, res) => {
 
   res.status(StatusCodes.OK).json({ user })
 }
+
+// const uploadProfPic = async (req, res) => {
+//   const { profPic } = req.body;
+//   try {
+//     const user = await User.findOne({ _id: req.user.userId });
+
+//     user.profPic = profPic;
+//     await user.save()
+//     res.status(200).json({ msg: "image uploaded to user" })
+//   } catch (error) {
+//     res.status(409).json({ msg: error.message })
+//   }
+
+// }
 
 const getCurrentUser = async (req, res) => {
 
@@ -118,4 +143,11 @@ const logout = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'user logged out!' });
 };
 
-export { register, login, updateUser, getCurrentUser, logout }
+export {
+  register,
+  login,
+  updateUser,
+  getCurrentUser,
+  logout,
+  // uploadProfPic 
+}

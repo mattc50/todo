@@ -12,6 +12,7 @@ import morgan from 'morgan';
 import helmet from 'helmet'
 import xss from 'xss-clean'
 import mongoSanitize from 'express-mongo-sanitize'
+import bodyParser from 'body-parser';
 
 import cookieParser from 'cookie-parser'
 
@@ -35,7 +36,10 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // makes JSON data available in the controllers
-app.use(express.json())
+// app.use(express.json())
+
+app.use(express.json({ limit: '8mb', extended: true }))
+app.use(express.urlencoded({ limit: '8mb', extended: true }));
 
 app.use(cookieParser())
 
