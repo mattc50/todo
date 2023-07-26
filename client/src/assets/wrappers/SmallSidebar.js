@@ -31,34 +31,53 @@ const Wrapper = styled.aside`
     flex-direction: column;
   }
   .close-btn {
+    display: flex;
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 1rem;
+    right: 1rem;
+    padding: 0;
     background: transparent;
+    border-radius: 50%;
     border-color: transparent;
     font-size: 2rem;
     color: var(--red-600);
     cursor: pointer;
   }
+  .close-btn:is(:hover, :active, :focus) {
+    transition: 0.2s;
+    color: var(--red-700);
+    background: var(--grey-200)
+  }
   .nav-links {
+    /* width: 100%; */
     padding-top: 2rem;
     display: flex;
     flex-direction: column;
+    gap: 0.5rem;
   }
+
   .nav-link {
     display: flex;
     align-items: center;
     color: var(--grey-500);
-    padding: 1rem 0;
+    padding: 1rem;
+    border-radius: var(--borderRadius);
+    outline-offset: 0;
+    outline: 1px transparent;
     text-transform: capitalize;
     transition: var(--transition);
   }
-  .nav-link:hover {
+  
+  .nav-link:is(:hover, :active, :focus, :focus-visible) {
+    background: var(--primary-50);
     color: var(--grey-900);
+    outline: 1px solid var(--primary-100);
   }
-  .nav-link:hover .icon {
-    color: var(--primary-500);
-  }
+  
+  .nav-link:is(:hover, :focus, :focus-visible) .icon {
+      color: var(--primary-500);
+    }
+
   .icon {
     font-size: 1.5rem;
     margin-right: 1rem;

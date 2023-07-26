@@ -32,37 +32,71 @@ const Wrapper = styled.nav`
     position: relative;
   }
   .btn {
+    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0 0.5rem;
+    gap: 0.75rem;
     position: relative;
-    box-shadow: var(--shadow-2);
+    background-color: var(--white);
+    color: var(--grey-700);
+    /* box-shadow: var(--shadow-2); */
+    border: 1px solid var(--primary-100)
+  }
+
+  .btn:is(:hover, :active, :focus-visible) {
+    background-color: var(--primary-50) !important
+  }
+
+  .btn svg {
+    color: var(--primary-400)
+  }
+
+  .btn svg:first-of-type {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .btn svg:last-of-type {
+    transition: 0.2s;
+  }
+
+  .user-pic {
+    border-radius: 50%;
+    height: 1.5rem;
+    width: 1.5rem;
   }
 
   .dropdown {
     position: absolute;
-    top: 40px;
+    top: 3.25rem;
     left: 0;
     width: 100%;
-    background: var(--primary-100);
+    background-color: var(--white);
     box-shadow: var(--shadow-2);
     padding: 0.5rem;
     text-align: center;
     visibility: hidden;
     border-radius: var(--borderRadius);
   }
+
   .show-dropdown {
     visibility: visible;
   }
+
   .dropdown-btn {
     background: transparent;
     border-color: transparent;
-    color: var(--primary-500);
+    color: var(--grey-700);
     letter-spacing: var(--letterSpacing);
     text-transform: capitalize;
     cursor: pointer;
   }
+
+  /* .dropdown-btn:hover {
+    background-color: var(--white)
+  } */
+
   .logo-text {
     display: none;
     margin: 0;

@@ -39,6 +39,14 @@ const Wrapper = styled.section`
       height: 35px;
     }
   }
+
+  .user-pic {
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+  }
   .clear-btn {
     background: var(--grey-500);
   }

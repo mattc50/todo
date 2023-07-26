@@ -1,5 +1,5 @@
 import Wrapper from '../assets/wrappers/SmallSidebar';
-import { FaTimes } from 'react-icons/fa'
+import { MdClose } from 'react-icons/md'
 import { useAppContext } from '../context/appContext';
 import Logo from './Logo';
 import NavLinks from './NavLinks';
@@ -17,7 +17,7 @@ const SmallSidebar = () => {
             className="close-btn"
             onClick={toggleSidebar}
           >
-            <FaTimes />
+            <MdClose />
           </button>
           <header>
             <Logo />
