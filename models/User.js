@@ -47,8 +47,9 @@ const UserSchema = new mongoose.Schema({
     default: 'lastName'
   },
   profPic: {
-    type: String,
-    default: ''
+    type: Map,
+    of: String,
+    default: null
   }
 })
 

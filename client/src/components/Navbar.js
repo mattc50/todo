@@ -5,6 +5,7 @@ import { FaUserCircle, FaCaretDown, FaCaretUp } from 'react-icons/fa';
 import { useAppContext } from '../context/appContext';
 import Logo from './Logo';
 import convertToBase64 from '../utils/convertToBase64';
+import defaultUser from '../assets/images/defaultUser.svg'
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
@@ -46,9 +47,9 @@ const Navbar = () => {
             type="button"
             className="btn"
             onClick={() => setShowLogout(!showLogout)}
-            style={showLogout ? { backgroundColor: "var(--primary-50)" } : { backgroundColor: "var(--white)" }}
+            style={showLogout ? { backgroundColor: "var(--grey-200)" } : { backgroundColor: "var(--white)" }}
           >
-            {user.profPic ? <img className="user-pic" src={user.profPic} /> : <FaUserCircle className="user-pic" />}
+            <img className="user-pic" src={user.profPic?.compSmall || defaultUser} />
             {user?.name}
             <FaCaretDown style={!showLogout ? {} : { rotate: '180deg' }} />
           </button>

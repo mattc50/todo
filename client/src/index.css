@@ -96,7 +96,8 @@ html {
   --textColor: var(--grey-900);
   --borderRadius: 0.5rem;
   --letterSpacing: auto;
-  --transition: 0.3s ease-in-out all;
+  /* --transition: 0.3s ease-in-out all; */
+  --transition: 0.2s ease-in-out all;
   --max-width: 1120px;
   --fixed-width: 500px;
   --fluid-width: 90vw;
@@ -212,22 +213,43 @@ ul {
   text-transform: capitalize;
   display: inline-block;
 }
+
+.btn:disabled {
+  background: var(--grey-500) !important;
+}
+
 .btn:is(:hover, :focus) {
   outline: none;
   background: var(--primary-700);
   box-shadow: var(--shadow-3);
 }
+
+.btn-secondary {
+  border: 1px solid var(--grey-300);
+  color: var(--grey-700);
+  background: var(--white);
+}
+
+.btn-secondary:is(:hover, :focus) {
+  outline: none;
+  background: var(--grey-200);
+  box-shadow: var(--shadow-3);
+}
+
 .btn-hipster {
   color: var(--primary-500);
   background: var(--primary-200);
 }
+
 .btn-hipster:hover {
   color: var(--primary-200);
   background: var(--primary-700);
 }
+
 .btn-block {
   width: 100%;
 }
+
 .btn-hero {
   font-size: 1.25rem;
   padding: 0.5rem 1.25rem;

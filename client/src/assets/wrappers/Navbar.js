@@ -41,30 +41,35 @@ const Wrapper = styled.nav`
     background-color: var(--white);
     color: var(--grey-700);
     /* box-shadow: var(--shadow-2); */
-    border: 1px solid var(--primary-100)
+    border: 1px solid var(--grey-300)
   }
 
   .btn:is(:hover, :active, :focus-visible) {
-    background-color: var(--primary-50) !important
+    background-color: var(--grey-200) !important
   }
 
   .btn svg {
+    height: 1.25rem;
+    width: 1.25rem;
+    transition: 0.2s;
     color: var(--primary-400)
   }
 
-  .btn svg:first-of-type {
+  /* .btn svg:first-of-type {
     height: 1.5rem;
     width: 1.5rem;
-  }
+  } */
 
-  .btn svg:last-of-type {
+  /* .btn svg:last-of-type {
     transition: 0.2s;
-  }
+  } */
 
   .user-pic {
     border-radius: 50%;
-    height: 1.5rem;
-    width: 1.5rem;
+    overflow: hidden;
+    object-fit: cover;
+    height: 2rem;
+    width: 2rem;
   }
 
   .dropdown {

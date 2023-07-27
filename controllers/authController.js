@@ -71,14 +71,17 @@ const updateUser = async (req, res) => {
     throw new BadRequestError('Please provide all values')
   }
 
-  const stringSlice = profPic.split('/')[0];
-  if (stringSlice !== 'data:image') {
-    throw new BadRequestError('Please provide an image')
-  }
+  for (const el in profPic) {
+    const str = profPic[el]
+    const stringSlice = str.split('/')[0];
+    if (stringSlice !== 'data:image') {
+      throw new BadRequestError('Please provide an image')
+    }
 
-  const magicNum = profPic.charAt(profPic.indexOf(',') + 1)
-  if (magicNum !== '/' && magicNum !== 'i' && magicNum !== 'R') {
-    throw new BadRequestError('Please provide a JPEG, JPG, PNG, or GIF')
+    const magicNum = str.charAt(str.indexOf(',') + 1)
+    if (magicNum !== '/' && magicNum !== 'i' && magicNum !== 'R') {
+      throw new BadRequestError('Please provide a JPEG, JPG, PNG, or GIF')
+    }
   }
 
   const user = await User.findOne({ _id: req.user.userId });
