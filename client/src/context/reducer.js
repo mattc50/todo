@@ -198,7 +198,7 @@ const reducer = (state, action) => {
   if (action.type === SET_LOADING) {
     return {
       ...state,
-      // setLoading: true
+      // setLoading: is defaulted to true, and therefore is not changed
     }
   }
 
@@ -206,10 +206,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: true,
-      // setFound: false,
-      // showAlert: false
-      set: null,
-      // setLoading: true,
+      set: null
     }
   }
 
@@ -217,8 +214,6 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      // setLoading: false,
-      // setFound: true,
       todos: action.payload.todos,
       totalTodos: action.payload.totalTodos,
       doneTodos: action.payload.doneTodos,
@@ -229,9 +224,7 @@ const reducer = (state, action) => {
   if (action.type === GET_TODOS_ERROR) {
     return {
       ...state,
-      isLoading: false,
-      // setFound: false,
-      // setLoading: false
+      isLoading: false
     }
   }
 
@@ -332,7 +325,6 @@ const reducer = (state, action) => {
   }
 
   if (action.type === GET_SETS_SUCCESS) {
-    // console.log('success!')
     return {
       ...state,
       isLoading: false,
@@ -340,18 +332,11 @@ const reducer = (state, action) => {
     }
   }
 
-  // if (action.type === CHANGE_SET_PAGE) {
-  //   return {
-  //     ...state,
-  //     set: action.payload.set
-  //   }
-  // }
-
   if (action.type === GET_SET_BEGIN) {
     return {
       ...state,
       isLoading: true,
-      // setLoading: true
+      // setLoading: is defaulted to true, and therefore is not changed
     }
   }
 

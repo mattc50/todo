@@ -48,10 +48,7 @@ import {
 
   CLEAR_FOUND,
   SET_INVALID,
-  SET_LOADING,
-
-  SET_NOT_FOUND,
-  SET_FOUND,
+  SET_LOADING
 } from './actions';
 import axios from 'axios';
 
@@ -70,7 +67,6 @@ export const initialState = {
   showSidebar: false,
   // errors: {},
   todos: [],
-  // set: '',
   set: null,
   sets: [],
   totalTodos: 0,
@@ -104,7 +100,6 @@ const AppProvider = ({ children }) => {
       return response;
     },
     (error) => {
-      //console.log(error.response);
       if (error.response.status === 401) {
         // console.log('logging out')
         logoutUser();
@@ -141,14 +136,12 @@ const AppProvider = ({ children }) => {
       const response = await axios.post(
         '/api/v1/auth/register', currentUser
       )
-      //console.log(response)
       const { user } = response.data
       dispatch({
         type: REGISTER_USER_SUCCESS,
         payload: { user }
       })
     } catch (error) {
-      //console.log(error);
 
       // ADDITION:  an action has been added to store any errors raised in 
       //            a new global context value, errors. This list is 
@@ -244,7 +237,6 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 401) {
         return;
       }
-      // logoutUser();
     };
   }
 
@@ -253,15 +245,10 @@ const AppProvider = ({ children }) => {
   }
 
   const getTodos = async (setId) => {
-    // console.log(setId)
-    // console.log(state.setLoading)
     dispatch({ type: GET_TODOS_BEGIN })
     try {
-      // console.log(setId)
-      // await getSet(setId);
-      // console.log('done 1')
       const { data } = await authFetch(`/todo/all/${setId}`)
-      // console.log('done 2')
+
       const {
         todos,
         totalTodos,
@@ -273,7 +260,7 @@ const AppProvider = ({ children }) => {
       } = data;
 
       const nullsFiltered = todoIdsInSet
-        .filter(todo => todosOfSet.some(el => el == todo))
+        .filter(todo => todosOfSet.some(el => el === todo))
 
       if (nullsFiltered.length > 0 && todoIdsInSet.length !== todosOfSet.length)
         await authFetch.patch(`/set/${setId}`, { todos: nullsFiltered })
@@ -286,7 +273,6 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 404) {
         return;
       }
-      // logoutUser()
     }
   }
 
@@ -299,20 +285,13 @@ const AppProvider = ({ children }) => {
         type: GET_TODOS_SUCCESS,
         payload: { todos, totalTodos, doneTodos }
       })
-      // console.log(data)
-      // return data;
     } catch (error) {
       dispatch({ type: GET_TODOS_ERROR })
       if (error.response.status === 404) {
         return;
       }
-      // logoutUser()
     }
   }
-
-  // const setFound = () => {
-  //   dispatch({ type: SET_FOUND })
-  // }
 
   const updateStatus = async (
     id,
@@ -329,8 +308,6 @@ const AppProvider = ({ children }) => {
     dispatch({ type: EDIT_TODO_BEGIN })
 
     try {
-      // const todo = state.todos.find((todo) => todo._id === id)
-      // // const { status } = todo;
       await authFetch.patch(`/todo/${id}`, { status })
 
       dispatch({ type: EDIT_TODO_SUCCESS })
@@ -389,14 +366,12 @@ const AppProvider = ({ children }) => {
 
     try {
       const response = await authFetch(`/todo/${todoId}`)
-      // console.log(response)
+
       let belongsTo = response.data.todo.belongsTo;
-      // console.log(belongsTo)
 
       // search in the belongsTo array to see if the Set already exists in it
       if (!belongsTo.includes(setId)) {
         belongsTo.push(setId);
-        // console.log(belongsTo)
         await authFetch.patch(`/todo/${todoId}`, { belongsTo })
       }
       dispatch({ type: EDIT_TODO_SUCCESS })
@@ -486,8 +461,7 @@ const AppProvider = ({ children }) => {
     try {
       const todo = await authFetch.post('/todo', { task, belongsTo: setId })
       const todoId = todo.data.todo._id;
-      // console.log(todoId)
-      // console.log(setId)
+
       await pushSetToTodo(todoId, setId)
       await pushTodoToSet(todoId, setId)
       dispatch({ type: CREATE_TODO_SUCCESS })
@@ -539,19 +513,10 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  const createSet = async (
-    // todos
-  ) => {
+  const createSet = async () => {
     dispatch({ type: CREATE_SET_BEGIN })
     try {
-      const response = await authFetch.post(
-        '/set',
-        //{ todos }
-      )
-
-      // const set = response.data.set._id;
-      // const todosArray = response.data.set.todos;
-      // todosArray.map(todo => pushSetToTodo(todo, set))
+      await authFetch.post('/set')
 
       dispatch({ type: CREATE_SET_SUCCESS })
       await getSets();
@@ -587,7 +552,6 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(`/set/${setId}`)
       const { set } = data;
-      // const id = set._id;
       dispatch({
         type: GET_SET_SUCCESS,
         payload: { set }
@@ -596,7 +560,6 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 404) {
         return;
       }
-      // logoutUser()
     }
   }
 
@@ -607,8 +570,6 @@ const AppProvider = ({ children }) => {
       await authFetch.patch(`/set/${id}`, { name })
 
       dispatch({ type: EDIT_SET_SUCCESS })
-
-      // await getTodos(id);
 
     } catch (error) {
       if (error.response.status === 401) {
@@ -640,12 +601,6 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  // const changeSetPage = (set) => {
-  //   dispatch({
-  //     type: CHANGE_SET_PAGE,
-  //     payload: { set }
-  //   })
-  // }
   const clearFound = () => {
     dispatch({ type: CLEAR_FOUND })
   }
@@ -679,7 +634,6 @@ const AppProvider = ({ children }) => {
         updateName,
         deleteSet,
 
-        // changeSetPage,
         clearFound,
         isSetLoading
       }}

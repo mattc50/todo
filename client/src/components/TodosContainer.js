@@ -1,77 +1,42 @@
 import { useEffect, useState } from "react";
 import { useAppContext } from "../context/appContext";
-// import Loading from "./Loading"
-// import Alert from "./Alert"
 import Todo from "./Todo";
 import Wrapper from '../assets/wrappers/TodosContainer'
 import TodoNew from "./TodoNew";
-import { Navigate, useLocation, useParams } from "react-router-dom";
-
-import React from "react";
-import Loading from "./Loading";
+import { useLocation } from "react-router-dom";
 import SkeletonTodo from "./SkeletonTodo";
 import SkeletonLoad from "./SkeletonLoad";
 
+import React from "react";
+
 const TodosContainer = ({
-  // todos,
-  set,
-  // initialLoad
 }) => {
   const {
     todos,
     totalTodos,
     getTodos,
-    getSet,
     doneTodos,
-    // showAlert,
-    isLoading,
-    setFound,
-    setLoading,
-    changeSetPage,
-    // set
+    setLoading
   } = useAppContext()
 
   const [initialLoad, setInitialLoad] = useState(true)
-  // const [todos, setTodos] = useState([])
-
-  // const location = useLocation();
-
-  // const set = location.state.belongsTo;
 
   const location = useLocation().pathname;
   const splitLoc = location.split('/');
   const setId = splitLoc[splitLoc.length - 1]
-  // console.log(setId)
-  // const verify = setId == undefined ? setId : set
 
-  // console.log(getSet)
-  // console.log(setId)
   const asyncFetch = async () => {
-    // const todos = 
     await getTodos(setId)
-    // setTodos(todos)
     setInitialLoad(false)
   }
 
 
   useEffect(() => {
-    // getSet(setId)
-    // getTodos(setId);
-    // setInitialLoad(false);
     if (!setLoading) asyncFetch();
   }, [setLoading])
 
-  // console.log(todos)
-
-  // if (isLoading) {
-  //   return <Loading />
-  // }
-
-  // console.log(todos)
-
   return (
     <React.Fragment>
-      {/* {!todos && <Navigate to="/404" />} */}
       <Wrapper>
         {/* {showAlert && <Alert />} */}
         {initialLoad &&
@@ -96,7 +61,15 @@ const TodosContainer = ({
           </div>}
 
         {initialLoad &&
-          <div className="skeletons" style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "1rem" }}>
+          <div
+            className="skeletons"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              marginBottom: "1rem"
+            }}
+          >
             <SkeletonTodo />
             <SkeletonTodo />
             <SkeletonTodo />

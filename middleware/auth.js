@@ -3,8 +3,6 @@ import { UnauthenticatedError } from "../errors/index.js";
 import { StatusCodes } from 'http-status-codes'
 
 const auth = async (req, res, next) => {
-
-  //console.log(req.cookies)
   const token = req.cookies.token
 
   // ADDITION:  the below code will split the referer (essentially the 

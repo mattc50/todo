@@ -1,6 +1,10 @@
 const compressToSizes = async (imgToCompress, file) => {
   const fileSize = file.size
-  // console.log(fileSize)
+  console.log(fileSize)
+
+  const medFactor = getCompFactor(fileSize);
+  console.log(medFactor)
+  const smallFactor = medFactor / 2;
 
   // create a new image, with the uploaded image, that will be used for resizing on 
   // a new canvas
@@ -13,8 +17,8 @@ const compressToSizes = async (imgToCompress, file) => {
   imgToCompress.src = await convertToBase64(file);
 
   // compress the new image to 2 sizes: medium (for Profile) and small (for Navbar).
-  const compressMed = await compressImage(img, 0.7, 0.7);
-  const compressSmall = await compressImage(img, 0.1, 0.1);
+  const compressMed = await compressImage(img, 0.8, medFactor);
+  const compressSmall = await compressImage(img, 0.4, smallFactor);
 
   // assign the current DOM image element to have the compressMed base64 as its src.
   imgToCompress.src = compressMed;
@@ -52,7 +56,6 @@ const compressImage = async (imgForResize, resizingFactor, quality) => {
   const blob = await new Promise(resolve => {
     canvas.toBlob(
       (blob) => {
-        // console.log(blob.size)
         resolve(blob)
       },
       "image/jpeg",
@@ -76,6 +79,16 @@ const compressImage = async (imgForResize, resizingFactor, quality) => {
 
 //   return Math.round(bytes / Math.pow(1024, i), 2) + " " + sizes[i];
 // }
+
+const getCompFactor = (size) => {
+  const scaleFactor = 100000;
+
+  const inverse = scaleFactor / size;
+
+  const output = Math.min(Math.max(inverse, 0), 0.95);
+
+  return output;
+}
 
 const convertToBase64 = (file) => {
   return new Promise((resolve, reject) => {

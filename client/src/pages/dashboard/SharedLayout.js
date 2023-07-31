@@ -1,14 +1,13 @@
-import { Outlet, Link, useLocation } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 import Wrapper from '../../assets/wrappers/SharedLayout'
 import { Navbar, SmallSidebar, BigSidebar } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
 const SharedLayout = () => {
-  const { setLoading, setFound, sets } = useAppContext();
+  const { setLoading, sets } = useAppContext();
 
   const location = useLocation().pathname;
   const locSplit = location.split('/');
-  // console.log(locSplit[1])
   const page = locSplit[1]
 
   return (

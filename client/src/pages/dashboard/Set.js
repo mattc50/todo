@@ -1,32 +1,21 @@
 import React, { useEffect, useState } from "react"
 import { useAppContext } from "../../context/appContext"
-import { TextArea, TodosContainer, SetsContainer, Loading, SetNameInput } from "../../components"
-import { Navigate, useParams, useLocation } from "react-router-dom"
-import Error from '../Error'
+import { TextArea, TodosContainer, Loading, SetNameInput } from "../../components"
+import { useParams } from "react-router-dom"
 import SkeletonLoad from "../../components/SkeletonLoad"
 
 const Set = () => {
   const {
-    todos,
-    // createSet,
-    // sets,
     getSet,
-    getTodos,
     set,
-    isLoading,
     setFound,
-    setNotFound,
     setLoading,
-    user
+    sets
   } = useAppContext()
-
-  // pleaceholder array for the todos value of the Set; contains a single Todo
-
 
   const [initialLoad, setInitialLoad] = useState(true)
 
-  const asyncFetch = async (setId) => {
-    // await getTodos(setId);
+  const asyncFetch = (setId) => {
     getSet(setId)
     setInitialLoad(false)
   }
@@ -34,49 +23,23 @@ const Set = () => {
   const setId = useParams().id || set._id;
 
   useEffect(() => {
-    // console.log('run')
-    // getSet(setId)
-    // setInitialLoad(false)
-
-    // getTodos(setId)
     asyncFetch(setId);
-
   }, [setFound])
-
-  // if (isLoading) {
-  //   return <Loading />
-  // }
-  // console.log(`setFound: ${setFound}`)
-  // console.log(`setLoading: ${setLoading}`)
-
-
-  const sampleSet = [
-    "64b6ee8c1008085a3bc81d26"
-  ]
-
-  // if (setLoading) {
-  //   return;
-  // }
-  // if (setFound && setLoading) {
-  //   return <></>;
-  // }
-
-  // if (setFound && setLoading) return;
-
-  // if (!setLoading && !setFound) return <Error />;
-
-  // if (!setFound) {
-  //   console.log('nothing')
-  //   return;
-  // }
-  // const { _id, name } = set;
-
-  // if (setLoading) return;
 
   return (
     <React.Fragment>
       {setLoading &&
-        <div className="loading-container">
+        <div
+          className="loading-container"
+          // if the sets array state has already been changed as a result of it
+          // being loaded in, the loader height will be adjusted for the navbar.
+          // page === 'set' has been omitted since the loader is only implemented
+          // in the Set page.
+          style={sets.length === 0 ?
+            { height: "calc(100vh - var(--nav-height))" } :
+            { height: "calc(100vh - var(--nav-height) - 4rem)" }
+          }
+        >
           <Loading center />
         </div>
       }
@@ -90,11 +53,7 @@ const Set = () => {
         </div>
       }
       {!initialLoad && !setLoading &&
-        <TodosContainer
-          // todos={todos}
-          set={set}
-        // initialLoad={initialLoad}
-        />
+        <TodosContainer set={set} />
       }
       {!initialLoad && !setLoading &&
         <TextArea
