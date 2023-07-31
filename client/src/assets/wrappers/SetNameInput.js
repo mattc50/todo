@@ -10,7 +10,7 @@ input {
   margin: calc(-0.5rem) 0 calc(1.38rem - 0.5rem) -0.5rem;
   outline: none;
   background-color: transparent;
-  width: 100%;
+  width: calc(100% + 1rem);
 }
 
 input:hover {
@@ -21,6 +21,7 @@ h1 {
   text-transform: none;
   width: 200px;
 }
+
 `
 
 export default Wrapper;

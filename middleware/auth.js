@@ -29,6 +29,7 @@ const auth = async (req, res, next) => {
   }
 
   if (!token) {
+    console.log('this ran')
     throw new UnauthenticatedError('Authentication Invalid')
   }
 
@@ -39,7 +40,6 @@ const auth = async (req, res, next) => {
     }
     next()
   } catch (error) {
-    console.log('this ran')
     throw new UnauthenticatedError('Authentication Failed')
   }
 }

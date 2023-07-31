@@ -4,11 +4,12 @@ import { Navbar, SmallSidebar, BigSidebar } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
 const SharedLayout = () => {
-  const { setLoading } = useAppContext();
+  const { setLoading, setFound, sets } = useAppContext();
 
-  // const location = useLocation().pathname;
-  // const locSplit = location.split('/');
+  const location = useLocation().pathname;
+  const locSplit = location.split('/');
   // console.log(locSplit[1])
+  const page = locSplit[1]
 
   return (
     <Wrapper>
@@ -16,7 +17,8 @@ const SharedLayout = () => {
         <SmallSidebar />
         <BigSidebar />
         <div>
-          <Navbar />
+          {/* could change the initial value of sets to null rather than [] */}
+          {page === 'set' ? (!setLoading || sets.length !== 0) && <Navbar /> : <Navbar />}
           <div className="dashboard-page">
             <Outlet />
           </div>

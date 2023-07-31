@@ -24,60 +24,9 @@ const createTodo = async (req, res) => {
 }
 
 const getTodos = async (req, res) => {
-  // const userQuery = { createdBy: req.user.userId }
   const { id: setId } = req.params;
-  // console.log(req.params)
-  //const { set } = req.query;
-
-  // try {
-  // if (!ObjectId.isValid(setId)) {
-  //   console.log('invalid')
-  //   // Invalid ObjectId
-  //   throw new NotFoundError('Invalid Set ID');
-  //   // res.status(404).redirect('../client/public/src/pages/Error.js')
-  // }
 
   const set = await Set.findById({ _id: setId });
-
-  // if (!set) {
-  //   console.log('no set')
-  //   // Set not found in the database
-  //   throw new NotFoundError('Set not found');
-  //   // res.status(404).redirect('../client/public/src/pages/Error.js')
-  // }
-
-  // const toString = set.createdBy._id.toString();
-
-  // if (toString !== req.user.userId) {
-  //   // console.log('createdBy')
-  //   throw new NotFoundError('Set not found');
-  // }
-
-
-  // } catch (error) {
-  //   console.log(error)
-  //   next()
-  // }
-
-
-  // try {
-  //   const set = await Set.findById({ _id: setId })
-  // } catch (error) {
-  //   throw new NotFoundError(`No set with id ${setId}`)
-  // }
-
-  // if setId is undefined, we will get all todos, since this will effectively be
-  // adding a query parameter of set=undefined
-  // console.log(setId)
-
-  // console.log(set)
-
-  // const setStringified = todosOfSet.map(todo => {
-  //   console.log(todo._id)
-  //   console.log(typeof todo)
-  //   todo.toString();
-  // })
-  // console.log(setStringified)
 
   const setQuery = {
     belongsTo: { $in: [setId] },
@@ -89,29 +38,14 @@ const getTodos = async (req, res) => {
     createdBy: req.user.userId
   }
   const result = await Todo.find(setQuery)
-  // console.log(result)
-
-  // const todosStringified = todoIdsInSet.map(todo => {
-  //   todo.toString();
-  // })
-  // console.log(todosStringified)
-
-  // const filterNulls = todosOfSet
-  //   .filter(todo => {
-  //     console.log(todo)
-  //     !todoIdsInSet.some(el => {
-  //       console.log(el)
-  //       const x = el == todo
-  //       console.log(x)
-  //       return x
-  //     })
-  //   })
-  // console.log(filterNulls)
 
   const todos = await result
 
   const todosOfSet = set.todos;
   const todoIdsInSet = result.map(todo => todo._id);
+
+  // const nullsFiltered = todoIdsInSet
+  //   .filter(todo => todosOfSet.some(el => el == todo))
 
   const totalTodos = await Todo.countDocuments(setQuery)
   const doneTodos = await Todo.countDocuments(countQuery)
@@ -123,6 +57,7 @@ const getTodos = async (req, res) => {
     doneTodos,
     todosOfSet,
     todoIdsInSet,
+    // nullsFiltered,
     set
   })
 }

@@ -17,6 +17,7 @@ const Set = () => {
     setFound,
     setNotFound,
     setLoading,
+    user
   } = useAppContext()
 
   // pleaceholder array for the todos value of the Set; contains a single Todo

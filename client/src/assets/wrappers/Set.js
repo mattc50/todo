@@ -7,6 +7,7 @@ h3 {
   margin: 0;
   color: var(--grey-700);
   display: inline;
+  text-transform: none;
 }
 
 p {

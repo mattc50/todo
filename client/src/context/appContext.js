@@ -106,11 +106,11 @@ const AppProvider = ({ children }) => {
     (error) => {
       //console.log(error.response);
       if (error.response.status === 401) {
-        console.log('logging out')
+        // console.log('logging out')
         logoutUser();
       }
       if (error.response.status === 404) {
-        console.log('404 thrown')
+        // console.log('404 thrown')
         dispatch({ type: SET_INVALID })
       }
       return Promise.reject(error);
@@ -244,7 +244,7 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 401) {
         return;
       }
-      logoutUser();
+      // logoutUser();
     };
   }
 
@@ -262,30 +262,31 @@ const AppProvider = ({ children }) => {
       // console.log('done 1')
       const { data } = await authFetch(`/todo/all/${setId}`)
       // console.log('done 2')
-      const { todos, totalTodos, doneTodos, todosOfSet, todoIdsInSet, set } = data;
-      // console.log(todos)
+      const {
+        todos,
+        totalTodos,
+        doneTodos,
+        todosOfSet,
+        todoIdsInSet,
+        // nullsFiltered, 
+        set
+      } = data;
 
-      // console.log(todosOfSet)
-      // console.log(todoIdsInSet)
       const nullsFiltered = todoIdsInSet
         .filter(todo => todosOfSet.some(el => el == todo))
-      // console.log(nullsFiltered)
+
       if (nullsFiltered.length > 0 && todoIdsInSet.length !== todosOfSet.length)
         await authFetch.patch(`/set/${setId}`, { todos: nullsFiltered })
       dispatch({
         type: GET_TODOS_SUCCESS,
         payload: { setId, todos, totalTodos, doneTodos, set }
       })
-      // console.log(state.setLoading)
-
-      // console.log(data)
-      // return data;
     } catch (error) {
       dispatch({ type: GET_TODOS_ERROR })
       if (error.response.status === 404) {
         return;
       }
-      logoutUser()
+      // logoutUser()
     }
   }
 
@@ -305,7 +306,7 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 404) {
         return;
       }
-      logoutUser()
+      // logoutUser()
     }
   }
 
@@ -595,7 +596,7 @@ const AppProvider = ({ children }) => {
       if (error.response.status === 404) {
         return;
       }
-      logoutUser()
+      // logoutUser()
     }
   }
 

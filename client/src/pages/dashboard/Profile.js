@@ -24,19 +24,13 @@ const Profile = () => {
     lastName: false
   })
 
-  // const [initialVals, setInitialVals] = useState({
-  //   name: user?.name,
-  //   email: user?.email,
-  //   lastName: user?.lastName,
-  // })
+  // removed initialVals Object populated with values from loaded user
 
   const initialVals = {
     name: user?.name,
     email: user?.email,
     lastName: user?.lastName,
   }
-
-  // console.log(initialVals)
 
   const initialPic = user?.profPic;
 
@@ -51,6 +45,7 @@ const Profile = () => {
 
   const [noChanges, setNoChanges] = useState(true)
 
+  // see why this was included: https://medium.com/web-dev-survey-from-kyoto/how-to-customize-the-file-upload-button-in-react-b3866a5973d8
   const hiddenFileInput = useRef(null)
 
   const handleClick = (e) => {
@@ -70,37 +65,19 @@ const Profile = () => {
 
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    // console.log(file.size)
-    // console.log(file)
-    // const newSrc = await convertToBase64(file)
-    // console.log(newSrc)
-    // setProfPic(newSrc);
+
     const imgToCompress = document.querySelector("#prof-pic");
-    // imgToCompress.src = newSrc;
-    // const base64 = await convertToBase64(file)
+
     if (file) {
       const fileType = file['type'];
       const validImageTypes = ['image/gif', 'image/jpg', 'image/jpeg', 'image/png'];
       if (validImageTypes.includes(fileType)) {
         // invalid file type code goes here.
         const newProfPic = await compressToSizes(imgToCompress, file)
-
-        // console.log(newProfPic.compMed === user.profPic.compMed)
-        // if (newProfPic.compMed !== user.profPic.compMed) {
         setProfPic(newProfPic)
         checkInitialVals(e.target.name, newProfPic)
-        // }
-
-        // console.log(newProfPic)
       }
     }
-    // console.log(base64 === imgToCompress.src)
-    // var stringLength = base64.length - 'data:image/png;base64,'.length;
-
-    // var sizeInBytes = 4 * Math.ceil((stringLength / 3)) * 0.5624896334383812;
-    // var sizeInKb = sizeInBytes / 1000;
-    // console.log(sizeInKb);
-    // console.log('uploaded')
   }
 
   const handleSubmit = async (e) => {
@@ -110,18 +87,12 @@ const Profile = () => {
     //   displayAlert();
     //   return;
     // }
-    // const compProfPic = await compressImage(0.2, 0.2);
 
     submitHelper(errs, showErrs, setShowErrs)
-
     updateUser({ name, email, lastName, profPic });
 
-    // setInitialVals({
-    //   name: name,
-    //   email: email,
-    //   lastName: lastName,
-    //   profPic: profPic
-    // })
+    // removed setInitialVals Object, which was thought to be needed for updating 
+    // state values across renders
 
     setNoChanges(true)
   };
@@ -199,7 +170,6 @@ const Profile = () => {
               >
                 Choose Profile Picture
               </button>
-              {/* <label tabIndex="0" htmlFor="image" className="btn btn-secondary">Choose Profile Picture</label> */}
               <input
                 aria-label="image"
                 type="file"
@@ -232,7 +202,7 @@ const Profile = () => {
             </button>
           </div>
         </div>
-        {/* name */}
+
         <div className='form-center'>
           <FormRow
             type='text'

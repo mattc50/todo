@@ -1,9 +1,9 @@
 const compressToSizes = async (imgToCompress, file) => {
-  // create a new image, with the uploaded image, that will be used for resizing on 
-  // a new canvas
   const fileSize = file.size
   // console.log(fileSize)
 
+  // create a new image, with the uploaded image, that will be used for resizing on 
+  // a new canvas
   const img = new Image();
   img.src = await convertToBase64(file);
 
@@ -13,13 +13,11 @@ const compressToSizes = async (imgToCompress, file) => {
   imgToCompress.src = await convertToBase64(file);
 
   // compress the new image to 2 sizes: medium (for Profile) and small (for Navbar).
-  const compressMed = await compressImage(img, imgToCompress, 0.7, 0.7);
-  const compressSmall = await compressImage(img, imgToCompress, 0.1, 0.1);
+  const compressMed = await compressImage(img, 0.7, 0.7);
+  const compressSmall = await compressImage(img, 0.1, 0.1);
 
-  // console.log(compressMed)
-  // console.log(compressSmall)
+  // assign the current DOM image element to have the compressMed base64 as its src.
   imgToCompress.src = compressMed;
-
 
   return {
     // original: img.src,
@@ -28,20 +26,7 @@ const compressToSizes = async (imgToCompress, file) => {
   }
 }
 
-
-
-
-
-const compressImage = async (imgForResize, DOMImgToCompress, resizingFactor, quality) => {
-  // const imgToCompress = document.querySelector("#prof-pic");
-
-  // const newSrc = await convertToBase64(originalFile)
-
-
-
-  // let compressedImageBlob;
-  // let compressedBase64;
-
+const compressImage = async (imgForResize, resizingFactor, quality) => {
   // showing the compressed image
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
@@ -69,40 +54,15 @@ const compressImage = async (imgForResize, DOMImgToCompress, resizingFactor, qua
       (blob) => {
         // console.log(blob.size)
         resolve(blob)
-        // console.log(blob)
-        // if (blob) {
-        //   console.log(blob)
-        //   const base64Blob = convertToBase64(blob)
-        //   console.log(base64Blob)
-
-        //   //   // console.log(blob instanceof Blob)
-        //   //   compressedImageBlob = convertToBase64(blob);
-        //   imgToCompress.src = base64Blob;
-
-        //   //   // compressedImage.src = URL.createObjectURL(compressedImageBlob);
-        //   //   // document.querySelector("#size").innerHTML = bytesToSize(blob.size);
-        // }
       },
       "image/jpeg",
       quality
     );
   })
 
-  // console.log(blob)
   const blobBase64 = await convertToBase64(blob)
-  // DOMImgToCompress.src = blobBase64;
-  // console.log(canvas instanceof Blob)
-
-  // return {
-  //   original: img.src,
-  //   compressed: imgToCompress.src
-  // }
 
   return blobBase64;
-
-  // const compressedImage = convertToBase64(compressedImageBlob);
-  // console.log(compressedImageBlob)
-  // return compressedImageBlob;
 }
 
 // const bytesToSize = (bytes) => {
@@ -129,7 +89,5 @@ const convertToBase64 = (file) => {
     };
   });
 };
-
-
 
 export { compressImage, convertToBase64, compressToSizes };

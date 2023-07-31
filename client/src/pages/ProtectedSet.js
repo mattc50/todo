@@ -21,6 +21,11 @@ const ProtectedSet = ({ children }) => {
   //     </div>
   //   )
   // }
+  // if (userLoading) return;
+
+  if (!user) {
+    return <Navigate to='/landing' />;
+  }
 
   if (!setFound || (set && set.createdBy !== user._id)) {
     return <Navigate to='/404' />
