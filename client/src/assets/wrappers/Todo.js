@@ -290,5 +290,11 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   width: 100%;
 }
 
+.set-ref:hover small {
+  transition: 0.2s;
+  color: var(--primary-400);
+  text-decoration: underline;
+}
+
 `
 export default Wrapper

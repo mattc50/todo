@@ -3,12 +3,20 @@ import { useAppContext } from "../context/appContext";
 import Wrapper from '../assets/wrappers/Todo'
 import { useState } from "react";
 import { MdDelete } from "react-icons/md";
+import { useLocation, Link } from "react-router-dom";
 
 const Todo = ({ item, _id, task, status, belongsTo }) => {
   const { updateStatus, updateTask, deleteTodo, isLoading, set } = useAppContext()
   const [state, setState] = useState(status)
   const [validTask, setValidTask] = useState(task)
   const [text, setText] = useState(task)
+
+  // determines if the current page is /todos.
+  // if it is, the the ID of the Set the todo belongs to is shown in place of the 
+  // "remove todo" button.
+  const location = useLocation().pathname;
+  const splitLoc = location.split('/');
+  const page = splitLoc[splitLoc.length - 1]
 
   const handleBlur = (e) => {
     setter()
@@ -61,6 +69,8 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
     return false;
   }
 
+  // console.log(set)
+
   return (
     <Wrapper>
       <div className="todo-item">
@@ -94,14 +104,21 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
             disabled={isLoading}
           />
         </form>
-        {/* {!set && <small>{belongsTo}</small>} */}
-        {<button
-          className="form-action delete"
-          onClick={() => deleteTodo(_id, set._id)}
-          disabled={isLoading}
-        >
-          <MdDelete />
-        </button>}
+        {page === 'todos' ?
+          <Link
+            className="set-ref"
+            to={`/set/${belongsTo}`}
+          >
+            <small>{belongsTo}</small>
+          </Link> :
+          <button
+            className="form-action delete"
+            onClick={() => deleteTodo(_id, set._id)}
+            disabled={isLoading}
+          >
+            <MdDelete />
+          </button>
+        }
       </div>
     </Wrapper>
   )

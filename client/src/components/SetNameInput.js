@@ -8,12 +8,14 @@ const SetNameInput = ({ set }) => {
     getSet,
     updateName,
     isLoading,
-    // set
+    set: stateSet
   } = useAppContext()
 
   const location = useLocation();
-  const state = location.state ? location.state : set;
-  const { name, _id: id } = state;
+  const state = set || location.state;
+  // console.log(state)
+  const { name, _id: id } = state
+  // ? state : {};
 
   const [formName, setFormName] = useState(name);
   // console.log(formName)
@@ -66,6 +68,8 @@ const SetNameInput = ({ set }) => {
       setValidFormName(name);
     }
   }, [name])
+
+  // console.log('randered')
 
   return (
     <React.Fragment>

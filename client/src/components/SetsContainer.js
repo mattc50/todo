@@ -3,13 +3,12 @@ import { useAppContext } from "../context/appContext";
 import Wrapper from "../assets/wrappers/SetsContainer";
 import Set from "./Set";
 import SkeletonSet from "./SkeletonSet";
-import { NavLink, Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { MdDelete } from 'react-icons/md'
 
 const SetsContainer = ({ sets }) => {
-  // console.log(sets)
 
-  const { getSets, getSet, isLoading, deleteSet } = useAppContext();
+  const { getSets, isLoading, deleteSet } = useAppContext();
 
   const [initialLoad, setInitialLoad] = useState(true)
 
@@ -19,7 +18,6 @@ const SetsContainer = ({ sets }) => {
   }
 
   useEffect(() => {
-    // getSets()
     asyncFetch();
   }, [])
 
@@ -43,10 +41,8 @@ const SetsContainer = ({ sets }) => {
                     className="set-link"
                     to={`/set/${set._id}`}
                     state={{ ...set }}
-                  // onClick={() => getSet(set._id)}
                   >
                     <Set
-                      // set={set._id}
                       item={index}
                       {...set}
                     />
@@ -54,9 +50,7 @@ const SetsContainer = ({ sets }) => {
                   <div className="form-action-container">
                     <button
                       className="form-action delete"
-                      onClick={(e) => {
-                        deleteSet(set._id)
-                      }
+                      onClick={() => { deleteSet(set._id) }
                       }
                       disabled={isLoading}
                     >

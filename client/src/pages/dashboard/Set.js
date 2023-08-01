@@ -14,9 +14,10 @@ const Set = () => {
   } = useAppContext()
 
   const [initialLoad, setInitialLoad] = useState(true)
+  console.log(initialLoad)
 
-  const asyncFetch = (setId) => {
-    getSet(setId)
+  const asyncFetch = async (setId) => {
+    await getSet(setId)
     setInitialLoad(false)
   }
 
@@ -25,6 +26,8 @@ const Set = () => {
   useEffect(() => {
     asyncFetch(setId);
   }, [setFound])
+
+  // console.log(set)
 
   return (
     <React.Fragment>
@@ -43,19 +46,21 @@ const Set = () => {
           <Loading center />
         </div>
       }
-      {initialLoad && !setLoading &&
+      {initialLoad && !setLoading && !set &&
         <SkeletonLoad context="setName" />
       }
-      {!initialLoad && !setLoading &&
-        <div className="name-container">
+      {!initialLoad && !setLoading && set &&
+        < div className="name-container">
           <SetNameInput set={set} />
           <small className="set-id">{`ID: ${setId}`}</small>
         </div>
       }
-      {!initialLoad && !setLoading &&
+      {
+        !initialLoad && !setLoading &&
         <TodosContainer set={set} />
       }
-      {!initialLoad && !setLoading &&
+      {
+        !initialLoad && !setLoading &&
         <TextArea
           type='text'
           name="Freeform"
