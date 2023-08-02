@@ -1,4 +1,3 @@
-// import moment from "moment";
 import { useAppContext } from "../context/appContext";
 import Wrapper from '../assets/wrappers/Todo'
 import { useState } from "react";
@@ -20,7 +19,7 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
 
   const handleBlur = (e) => {
     setter()
-    if (!(validTask == text)) {
+    if (!(validTask === text)) {
       handleSubmit(e)
     }
   }
@@ -58,7 +57,7 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     setter()
-    if (!(validTask == text)) {
+    if (!(validTask === text)) {
       const forSubmit = text.trim() || validTask;
       updateTask(
         _id,
@@ -68,8 +67,6 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
     }
     return false;
   }
-
-  // console.log(set)
 
   return (
     <Wrapper>

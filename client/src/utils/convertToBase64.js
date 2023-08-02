@@ -1,9 +1,7 @@
 const compressToSizes = async (imgToCompress, file) => {
   const fileSize = file.size
-  console.log(fileSize)
 
   const medFactor = getCompFactor(fileSize);
-  console.log(medFactor)
   const smallFactor = medFactor / 2;
 
   // create a new image, with the uploaded image, that will be used for resizing on 
@@ -103,4 +101,4 @@ const convertToBase64 = (file) => {
   });
 };
 
-export { compressImage, convertToBase64, compressToSizes };
+export default compressToSizes;

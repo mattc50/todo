@@ -5,15 +5,13 @@ import Wrapper from '../../assets/wrappers/DashboardFormPage';
 
 import blurHelper from '../../utils/blurHelper';
 import submitHelper from '../../utils/submitHelper';
-import { compressToSizes } from '../../utils/convertToBase64';
-import { FaUserCircle } from 'react-icons/fa';
+import compressToSizes from '../../utils/convertToBase64';
 import defaultUser from '../../assets/images/defaultUser.svg'
 
 const Profile = () => {
   const {
     user,
     showAlert,
-    displayAlert,
     updateUser,
     isLoading
   } = useAppContext();
@@ -55,12 +53,6 @@ const Profile = () => {
   const handleBlur = (e) => {
     const { name, value } = e.target;
     blurHelper(name, value, errs, showErrs, setShowErrs);
-    // if (e.target.value === '') {
-    //   setShowErrs({
-    //     ...showErrs,
-    //     [name]: true
-    //   })
-    // }
   }
 
   const handleFileUpload = async (e) => {
@@ -159,7 +151,12 @@ const Profile = () => {
       <form className='form' onSubmit={handleSubmit}>
         {showAlert && (!showErrs.name && !showErrs.email && !showErrs.lastName) && <Alert />}
         <div className="img-container">
-          <img id="prof-pic" className="user-pic" src={profPic?.compMed || defaultUser} />
+          <img
+            id="prof-pic"
+            className="user-pic"
+            src={profPic?.compMed || defaultUser}
+            alt="profile"
+          />
           <div className="prof-pic-btns">
             <div className="file-upload-btn">
               <button

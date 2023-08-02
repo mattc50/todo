@@ -1,6 +1,3 @@
-import { useEffect, useState } from "react";
-import { useAppContext } from "../context/appContext";
-
 const FormRow = ({
   type,
   name,

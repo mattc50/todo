@@ -1,43 +1,28 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import Wrapper from '../assets/wrappers/SetNameInput'
 import { useAppContext } from '../context/appContext';
 import { useLocation } from 'react-router-dom';
 
 const SetNameInput = ({ set }) => {
   const {
-    getSet,
     updateName,
-    isLoading,
-    set: stateSet
+    isLoading
   } = useAppContext()
 
   const location = useLocation();
   const state = set || location.state;
-  // console.log(state)
   const { name, _id: id } = state
-  // ? state : {};
 
   const [formName, setFormName] = useState(name);
-  // console.log(formName)
   const [validFormName, setValidFormName] = useState(name)
-  // console.log(formName)
-
-  // const location = useLocation().pathname;
-  // const splitLoc = location.split('/');
-  // const setId = splitLoc[splitLoc.length - 1]
-
-  // const style = {
-  //   width: isLoading || formName ? "auto" : formName.length
-  // }
 
   const handleChange = (e) => {
     setFormName(e.target.value)
-    // console.log(e.target.value)
   }
 
   const handleBlur = (e) => {
     setter()
-    if (!(validFormName == formName)) {
+    if (!(validFormName === formName)) {
       handleSubmit(e)
     }
   }
@@ -53,14 +38,12 @@ const SetNameInput = ({ set }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setter();
-    if (!(validFormName == formName)) {
+    if (!(validFormName === formName)) {
       const forSubmit = formName.trim() || validFormName;
       updateName(id, forSubmit);
     }
     return false;
   }
-
-
 
   useEffect(() => {
     if (name) {
@@ -68,8 +51,6 @@ const SetNameInput = ({ set }) => {
       setValidFormName(name);
     }
   }, [name])
-
-  // console.log('randered')
 
   return (
     <React.Fragment>
@@ -82,11 +63,9 @@ const SetNameInput = ({ set }) => {
       {!isLoading && <Wrapper>
         <form
           className="formName-form"
-          // autocomplete="off"
           onSubmit={handleSubmit}
           disabled={isLoading}
         >
-          {/* <h1>{formName}</h1> */}
           <input
             className="form-input"
             name="name"

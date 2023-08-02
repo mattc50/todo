@@ -1,5 +1,4 @@
 import Wrapper from "../assets/wrappers/SkeletonSet";
-// import { useAppContext } from "../context/appContext";
 
 const SkeletonSet = () => {
 

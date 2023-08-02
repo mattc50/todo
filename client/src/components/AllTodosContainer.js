@@ -4,27 +4,15 @@ import { useAppContext } from "../context/appContext";
 // import Alert from "./Alert"
 import Todo from "./Todo";
 import Wrapper from '../assets/wrappers/TodosContainer'
-import TodoNew from "./TodoNew";
-import { Navigate, useLocation, useParams } from "react-router-dom";
-
 import React from "react";
-import Loading from "./Loading";
-import SkeletonTodo from "./SkeletonTodo";
-import SkeletonLoad from "./SkeletonLoad";
+import { SkeletonLoad, SkeletonTodo } from "../components";
 
 const AllTodosContainer = ({ todos }) => {
   const {
     totalTodos,
-    getTodos,
     getAllTodos,
-    doneTodos,
-    isLoading,
-    setFound,
+    doneTodos
   } = useAppContext()
-
-  // const location = useLocation().pathname;
-  // const splitLoc = location.split('/');
-  // const setId = splitLoc[splitLoc.length - 1]
 
   const [initialLoad, setInitialLoad] = useState(true)
 
@@ -34,15 +22,8 @@ const AllTodosContainer = ({ todos }) => {
   }
 
   useEffect(() => {
-    // getSet(setId)
-    // getAllTodos()
     asyncFetch();
   }, [])
-  // console.log(todos)
-
-  // if (isLoading) {
-  //   return <Loading />
-  // }
 
   return (
     <Wrapper>

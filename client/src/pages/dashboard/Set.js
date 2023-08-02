@@ -14,7 +14,6 @@ const Set = () => {
   } = useAppContext()
 
   const [initialLoad, setInitialLoad] = useState(true)
-  console.log(initialLoad)
 
   const asyncFetch = async (setId) => {
     await getSet(setId)
@@ -26,8 +25,6 @@ const Set = () => {
   useEffect(() => {
     asyncFetch(setId);
   }, [setFound])
-
-  // console.log(set)
 
   return (
     <React.Fragment>
@@ -46,7 +43,7 @@ const Set = () => {
           <Loading center />
         </div>
       }
-      {initialLoad && !setLoading && !set &&
+      {initialLoad && !setLoading && // !set &&
         <SkeletonLoad context="setName" />
       }
       {!initialLoad && !setLoading && set &&

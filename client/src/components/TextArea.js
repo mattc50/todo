@@ -20,7 +20,6 @@ const TextArea = ({
   const [currentValue, setCurrentValue] = useState(initialFF);// you can manage data with it
 
   const handleResize = () => {
-    // console.log('ran')
     if (textareaRef.current) {
       textareaRef.current.style.height = '0px';
       if (textareaRef.current.scrollHeight < 200) {

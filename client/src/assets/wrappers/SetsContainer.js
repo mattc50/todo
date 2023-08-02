@@ -137,6 +137,10 @@ justify-content: space-between;
   border-left: 1px solid var(--grey-300)
 }
 
+h5 {
+  text-transform: none;
+}
+
 `
 
 export default Wrapper;

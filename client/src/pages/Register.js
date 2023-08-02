@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate, /* useNavigate */ } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { Logo, Alert, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
@@ -16,15 +16,11 @@ const initialState = {
 
 const Register = () => {
   const [values, setValues] = useState(initialState);
-  // const navigate = useNavigate();
 
   const {
     user,
-    // errors,
-    // userLoading,
     isLoading,
     showAlert,
-    // displayAlert,
     registerUser,
     loginUser,
     clearAlertInstant
@@ -96,14 +92,6 @@ const Register = () => {
     } else {
       registerUser(currentUser)
     }
-
-    // ADDITION:    This was added to set changed to false every time the 
-    //              form is submitted. This effectively resets the tracking 
-    //              of whether the email field is changed or not.
-    // setValues({
-    //   ...values,
-    //   changed: false
-    // })
   }
 
   const toggleMember = () => {

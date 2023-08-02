@@ -2,13 +2,12 @@ import { useAppContext } from "../context/appContext";
 import Wrapper from "../assets/wrappers/Todo";
 import { useState } from "react";
 import { MdAdd, MdDone } from "react-icons/md"
-import Loading from '../components/Loading'
 
 const TodoNew = ({ set }) => {
   const { createTodo, isLoading } = useAppContext();
   const [text, setText] = useState('');
 
-  const handleBlur = (e) => {
+  const handleBlur = () => {
     if (!text.trim()) {
       setText('')
     }
@@ -28,7 +27,6 @@ const TodoNew = ({ set }) => {
     <Wrapper className="todo-new">
       <form className="todo-item new" onSubmit={handleSubmit}>
         <div className="add">
-          {/*isLoading ? <Loading /> : <MdAdd />*/}
           <MdAdd />
         </div>
         {isLoading ?

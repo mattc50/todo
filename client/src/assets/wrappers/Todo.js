@@ -82,7 +82,6 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   -ms-user-select: none;
   user-select: none;
   background-color: var(--grey-300);
-  /* background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300)); */
   margin: 0;
   padding: 0;
 }
@@ -103,10 +102,8 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .checkbox-container:hover {
-  /* box-shadow: var(--input-shadow); */
   transition: 0.2s;
   background-color: var(--primary-200) !important;
-  /* background: linear-gradient(45deg, var(--primary-200) 50%, var(--primary-200)) !important; */
 
 }
 
@@ -118,7 +115,6 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 .checkbox-container:checked:is(:hover, :active) {
   transition: 0.5s;
   background-color: var(--primary-600);
-  /* background: linear-gradient(45deg, var(--primary-700) 50%, var(--primary-700)); */
 }
 
 .checkmark {
@@ -176,33 +172,30 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   color: var(--primary-400);
 }
 
-/* .checkbox-container:hover input ~ .checkmark {
-    background-color: #d4d4d4;
-} */
-
-/* .checkbox-container input:checked ~ .checkmark {
-    background-color: var(--primary-400);
-    background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));
-} */
-
 @keyframes checkInIn {
-  0% {background-color: var(--grey-300);/*background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300));*/}
-  100% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--grey-300) 50%, var(--grey-400));*/}
+  0% {background-color: var(--grey-300)};
+  100% {background-color: var(--primary-400)};
 }
 
 @keyframes checkOutIn {
-  0% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));*/}
-  100% {background-color: var(--primary-500);/*background: linear-gradient(45deg, var(--primary-700) 50%, var(--primary-700));*/}
+  0% {background-color: var(--primary-400)};
+  100% {background-color: var(--primary-500)};
 }
 
 @keyframes checkInOut {
-  0% {background-color: var(--primary-500);/*background: linear-gradient(45deg, var(--primary-700) 50%, var(--primary-700));*/}
-  100% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--primary-400) 50%, var(--primary-500));*/}
+  0% {
+    background-color: var(--primary-500);
+    box-shadow: var(--input-shadow);
+  }
+  100% {
+    background-color: var(--primary-400);
+    box-shadow: none;
+  }
 }
 
 @keyframes checkOutOut {
-  0% {background-color: var(--primary-400);/*background: linear-gradient(45deg, var(--grey-300) 50%, var(--grey-400));*/}
-  100% {background-color: var(--grey-300);/*background: linear-gradient(45deg, var(--grey-200) 50%, var(--grey-300));*/}
+  0% {background-color: var(--primary-400)};
+  100% {background-color: var(--grey-300)};
 }
 
 .c-in-in {
@@ -232,26 +225,23 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 @keyframes disabledLoad {
-  0% {
-    /* background-color: none; */
-    background: linear-gradient(45deg, var(--primary-100) 0%, var(--primary-300) 100%);
-    filter: saturate(25%);
-    background-size: 200% 200%;
-    background-position: 0% 50%;
-  }
-  100% {
-    /* background-color: none; */
-    background: linear-gradient(45deg, var(--primary-100) 0%, var(--primary-300) 100%);
-    filter: saturate(25%);
-    background-size: 200% 200%;
-    background-position: 100% 50%;
-  }
+  0% {background-position: 100% 50%;}
+  100% {background-position: 0% 50%;}
 }
 
 .checkbox-container input:disabled ~ .checkmark {
+  background: linear-gradient(
+    90deg,
+    var(--primary-100) 0%, 
+    var(--primary-100) 20%, 
+    var(--primary-200) 50%,
+    var(--primary-100) 80%,
+    var(--primary-100) 100%
+  ); 
+  filter: saturate(25%);
+  background-size: 800% 800%;
   background-color: none;
-  animation: disabledLoad 0.5s ease-in-out forwards !important;
-  /* filter: saturate(50%) */
+  animation: disabledLoad 1.5s ease-in-out infinite !important;
 }
 
 .checkbox-container .checkmark:after {
@@ -267,12 +257,8 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 @keyframes skeletonLoad {
-  0% {
-    background-position: right;
-  }
-  100% {
-    background-position: left;
-  }
+  0% {background-position: right};
+  100% {background-position: left};
 }
 
 .skeleton {
@@ -284,7 +270,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
     var(--grey-100)
   );
   background-size: 400% 400%;
-  animation: skeletonLoad 0.8s linear backwards infinite;
+  animation: skeletonLoad 1.5s linear backwards infinite;
   border-radius: var(--borderRadius);
   height: 2.5rem;
   width: 100%;
@@ -295,6 +281,6 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   color: var(--primary-400);
   text-decoration: underline;
 }
-
 `
+
 export default Wrapper

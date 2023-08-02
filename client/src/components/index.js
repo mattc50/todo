@@ -12,6 +12,9 @@ import SetsContainer from './SetsContainer.js'
 import Set from './Set.js'
 import AllTodosContainer from './AllTodosContainer.js'
 import SetNameInput from './SetNameInput.js'
+import SkeletonLoad from './SkeletonLoad.js'
+import SkeletonSet from './SkeletonSet.js'
+import SkeletonTodo from './SkeletonTodo.js'
 
 export {
   Logo,
@@ -27,5 +30,8 @@ export {
   SetsContainer,
   Set,
   AllTodosContainer,
-  SetNameInput
+  SetNameInput,
+  SkeletonLoad,
+  SkeletonSet,
+  SkeletonTodo
 }
