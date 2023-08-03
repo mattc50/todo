@@ -11,13 +11,25 @@ const AllTodosContainer = ({ todos }) => {
   const {
     totalTodos,
     getAllTodos,
-    doneTodos
+    doneTodos,
+    getSets,
+    sets
   } = useAppContext()
 
   const [initialLoad, setInitialLoad] = useState(true)
 
+  const setIds = sets.map(set => {
+    return {
+      id: set._id,
+      name: set.name
+    }
+  }
+  )
+  console.log(setIds)
+
   const asyncFetch = async () => {
     await getAllTodos();
+    if (sets.length === 0) await getSets();
     setInitialLoad(false);
   }
 
@@ -55,7 +67,18 @@ const AllTodosContainer = ({ todos }) => {
         </div>
       }
       {!initialLoad && todos.map((todo, index) => {
-        return <Todo key={todo._id} item={index} {...todo} />
+        console.log(todo.belongsTo[0])
+        return <Todo
+          key={todo._id}
+          item={index}
+          name={
+            setIds.find(set =>
+              // todo.belongsTo.find(el => el === set.id) === set.id
+              todo.belongsTo[0] === set.id
+            ).name
+
+          }
+          {...todo} />
       })}
     </Wrapper>
   )

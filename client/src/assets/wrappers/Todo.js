@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const Wrapper = styled.article`
 .todo-item {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto;
   gap: 0.5rem;
   align-items: center;
   padding: 0.5rem;
@@ -274,6 +275,10 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   border-radius: var(--borderRadius);
   height: 2.5rem;
   width: 100%;
+}
+
+.new {
+  display: flex;
 }
 
 .set-ref:hover small {

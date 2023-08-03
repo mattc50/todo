@@ -3,6 +3,7 @@ import { useAppContext } from "../../context/appContext"
 import { TextArea, TodosContainer, Loading, SetNameInput } from "../../components"
 import { useParams } from "react-router-dom"
 import SkeletonLoad from "../../components/SkeletonLoad"
+// import Wrapper from '../../assets/wrappers/SetPage'
 
 const Set = () => {
   const {
@@ -60,10 +61,12 @@ const Set = () => {
         !initialLoad && !setLoading &&
         <TextArea
           type='text'
-          name="Freeform"
+          name="Feel free to write any additional comments!"
         >
         </TextArea>
       }
+      <textarea
+        style={{ padding: "1rem" }}></textarea>
     </React.Fragment >
   )
 }

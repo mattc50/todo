@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { useLocation, Link } from "react-router-dom";
 
-const Todo = ({ item, _id, task, status, belongsTo }) => {
+const Todo = ({ item, _id, task, status, belongsTo, name }) => {
   const { updateStatus, updateTask, deleteTodo, isLoading, set } = useAppContext()
   const [state, setState] = useState(status)
   const [validTask, setValidTask] = useState(task)
@@ -13,9 +13,9 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
   // determines if the current page is /todos.
   // if it is, the the ID of the Set the todo belongs to is shown in place of the 
   // "remove todo" button.
-  const location = useLocation().pathname;
-  const splitLoc = location.split('/');
-  const page = splitLoc[splitLoc.length - 1]
+  // const location = useLocation().pathname;
+  // const splitLoc = location.split('/');
+  // const page = splitLoc[splitLoc.length - 1]
 
   const handleBlur = (e) => {
     setter()
@@ -101,12 +101,13 @@ const Todo = ({ item, _id, task, status, belongsTo }) => {
             disabled={isLoading}
           />
         </form>
-        {page === 'todos' ?
+        {/* {page === 'todos' ? */}
+        {name ?
           <Link
             className="set-ref"
             to={`/set/${belongsTo}`}
           >
-            <small>{belongsTo}</small>
+            <small>{name}</small>
           </Link> :
           <button
             className="form-action delete"

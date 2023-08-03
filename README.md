@@ -43,9 +43,9 @@ Fixed issue where the Set Name input was rendering before a truthy Set value was
 - Implementing a new condition `&& !set` for SkeletonLoad
 - Implementing a new condition `&& set` for name-container, to ensure that when a falsey Set exists, the name-container element (and more importantly, the SetNameInput component) does not render
 
-### August 1, 8:56 AM
+### August 2, 12:04 AM
 
-#### Commit hash: 
+#### Commit hash: f41251a
 
 Cleaned up eslint warnings, console logs, and comments from the following files:
 
@@ -83,3 +83,19 @@ Removed unused exported functions from convertToBase64.js, and changed export of
 ---
 
 Cleaned up animation of checked Todo items, and removed comments from Todo.js (wrappers)
+
+### August 2, 1:17 PM
+
+#### Commit hash: 
+
+Added getSets request to AllTodosContainer to retrieve Set IDs and names
+
+---
+
+Added functionality to display the Set name with the Todo item in the AllTodosContainer (previously the ID)
+
+---
+
+Added condition to getSets asyncFetch requests, which evaluates whether the sets context value is an array with 0 length
+- If it is _not_, then a request is _not_ made (since the list has already been retrieved)
+- This condition was added to both SetsContainer.js and AllTodosContainer.js (components)

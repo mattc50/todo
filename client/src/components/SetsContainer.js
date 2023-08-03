@@ -13,7 +13,7 @@ const SetsContainer = ({ sets }) => {
   const [initialLoad, setInitialLoad] = useState(true)
 
   const asyncFetch = async () => {
-    await getSets();
+    if (sets.length === 0) await getSets();
     setInitialLoad(false);
   }
 
