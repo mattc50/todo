@@ -7,15 +7,15 @@ align-items: center;
 gap: 0.5rem;
 
 .img {
-  max-width: 75px;
+  max-width: 4rem;
+  height: 4rem;
 }
 
-h4 {
+h5 {
   color: var(--primary-400);
   margin: 0; 
   font-family: "Poppins", sans-serif;
-  font-weight: bold;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   padding-right: 0.5rem;
 }
 

@@ -25,7 +25,6 @@ const AllTodosContainer = ({ todos }) => {
     }
   }
   )
-  console.log(setIds)
 
   const asyncFetch = async () => {
     await getAllTodos();
@@ -67,7 +66,6 @@ const AllTodosContainer = ({ todos }) => {
         </div>
       }
       {!initialLoad && todos.map((todo, index) => {
-        console.log(todo.belongsTo[0])
         return <Todo
           key={todo._id}
           item={index}
@@ -76,7 +74,6 @@ const AllTodosContainer = ({ todos }) => {
               // todo.belongsTo.find(el => el === set.id) === set.id
               todo.belongsTo[0] === set.id
             ).name
-
           }
           {...todo} />
       })}

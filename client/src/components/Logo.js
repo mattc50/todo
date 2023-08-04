@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <Wrapper>
       <img src={logo} alt="Jobify" className="logo img" />
-      <h4 className="logo name">Toto</h4>
+      <h5 className="logo name">Toto</h5>
     </Wrapper>
   )
 };

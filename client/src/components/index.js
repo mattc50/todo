@@ -15,6 +15,7 @@ import SetNameInput from './SetNameInput.js'
 import SkeletonLoad from './SkeletonLoad.js'
 import SkeletonSet from './SkeletonSet.js'
 import SkeletonTodo from './SkeletonTodo.js'
+import NavLinks from './NavLinks.js'
 
 export {
   Logo,
@@ -23,6 +24,7 @@ export {
   Navbar,
   SmallSidebar,
   BigSidebar,
+  NavLinks,
   Loading,
   TextArea,
   TodosContainer,

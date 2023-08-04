@@ -14,7 +14,7 @@ const SharedLayout = () => {
     <Wrapper>
       <main className="dashboard">
         <SmallSidebar />
-        <BigSidebar />
+        {/* <BigSidebar /> */}
         <div>
           {/* could change the initial value of sets to null rather than [] */}
           {page === 'set' ? (!setLoading || sets.length !== 0) && <Navbar /> : <Navbar />}

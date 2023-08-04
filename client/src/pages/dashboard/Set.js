@@ -65,8 +65,6 @@ const Set = () => {
         >
         </TextArea>
       }
-      <textarea
-        style={{ padding: "1rem" }}></textarea>
     </React.Fragment >
   )
 }

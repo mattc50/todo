@@ -26,10 +26,10 @@ const Landing = () => {
           {/*info*/}
           <div className="info">
             <h1>
-              job <span>tracking</span> app
+              Track your <span>Todos</span>
             </h1>
             <p>
-              Next '23 is our global exhibition of inspiration, innovation, and education. It’s where decision makers, developers, and anyone passionate about an accessible, scalable, socially responsible cloud come together to share challenges, solutions, 10x ideas, and game-changing technologies.
+              Stay on top of your tasks with an intuitive organization system and extensive flexibility.
             </p>
             <Link to="/register" className="btn btn-hero">
               Login/Register

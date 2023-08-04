@@ -11,11 +11,16 @@ const Wrapper = styled.section`
     padding: 2rem 0;
   }
   @media (min-width: 992px) {
-    .dashboard {
+    /* .dashboard {
       grid-template-columns: auto 1fr;
-    }
+    } */
     .dashboard-page {
       width: 90%;
+    }
+  }
+  @media (min-width: 1120px) {
+    .dashboard-page {
+      max-width: 1120px;
     }
   }
 `

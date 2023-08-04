@@ -40,16 +40,15 @@ const Wrapper = styled.aside`
     border-radius: 50%;
     border-color: transparent;
     font-size: 2rem;
-    color: var(--red-600);
+    color: var(--grey-700);
     cursor: pointer;
   }
   .close-btn:is(:hover, :active, :focus) {
     transition: 0.2s;
-    color: var(--red-700);
+    color: var(--grey-800);
     background: var(--grey-200)
   }
   .nav-links {
-    /* width: 100%; */
     padding-top: 2rem;
     display: flex;
     flex-direction: column;

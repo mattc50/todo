@@ -17,10 +17,7 @@
   src: url('../src/assets/fonts/SF-Pro-Text-Heavy.otf')
 }
 
-@font-face {
-  font-family: "Poppins";
-  src: url('https://fonts.googleapis.com/css2?family=Poppins')
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 html {
   font-size: 100%;
@@ -355,10 +352,14 @@ select:-webkit-autofill:hover {
 }
 
 .form-input:hover,
-.form-textarea:hover,
+/* .form-textarea:hover, */
 .form-select:hover {
   transition: background-color 0.1s linear;
   background-color: var(--grey-100)
+}
+
+.form-textarea:hover {
+  background-color: var(--white) !important
 }
 
 .form-input:is(:focus, :active, :focus-visible),

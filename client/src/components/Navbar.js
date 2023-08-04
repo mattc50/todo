@@ -3,7 +3,8 @@ import Wrapper from '../assets/wrappers/Navbar';
 import { MdMenu } from 'react-icons/md'
 import { FaCaretDown } from 'react-icons/fa';
 import { useAppContext } from '../context/appContext';
-import defaultUser from '../assets/images/defaultUser.svg'
+import defaultUser from '../assets/images/defaultUser.svg';
+import { NavLinks, Logo } from '../components';
 
 const Navbar = () => {
   const [showLogout, setShowLogout] = useState(false);
@@ -13,19 +14,24 @@ const Navbar = () => {
     <Wrapper>
       <div className="nav-center">
         {/* first column */}
-        <button
-          type="button"
-          className="toggle-btn"
-          onClick={toggleSidebar}
-        >
-          <MdMenu />
-        </button>
+        <div className="logo-container">
+          <button
+            type="button"
+            className="toggle-btn"
+            onClick={toggleSidebar}
+          >
+            <MdMenu />
+          </button>
+          <header>
+            <Logo />
+          </header>
+        </div>
 
         {/* second column */}
-        {/* <div>
+        <div className="nav-container">
+          <NavLinks />
           <Logo />
-          <h3 className="logo-text">Dashboard</h3>
-        </div> */}
+        </div>
 
         {/* third column */}
         <div className="btn-container">
