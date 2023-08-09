@@ -71,12 +71,12 @@ const TextArea = ({
           {labelText || name}
         </label>
         <div className="textarea-container">
-          < textarea
+          <textarea
             autoCorrect="off"
             type={type}
             ref={textareaRef}
             style={style}
-            value={currentValue}
+            defaultValue={currentValue}
             name={name}
             onChange={optimizedDebounce}
             id="textarea"

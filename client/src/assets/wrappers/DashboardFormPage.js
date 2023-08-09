@@ -20,24 +20,29 @@ const Wrapper = styled.section`
     max-width: 100%;
     width: 100%;
   }
+
   .form-row {
     margin-bottom: 0;
   }
+
   .form-center {
     display: grid;
     row-gap: 1rem;
   }
+
   .form-center button {
     align-self: end;
     height: 35px;
     margin-top: 1rem;
   }
+
   .btn-container {
     display: grid;
     grid-template-columns: 1fr;
     column-gap: 1rem;
     align-self: flex-end;
     margin-top: 0.5rem;
+
     button {
       height: 35px;
     }
@@ -67,7 +72,6 @@ const Wrapper = styled.section`
     display: flex;
     align-items: center;
     gap: 2rem;
-    /* margin-bottom: 1rem; */
   }
 
 
@@ -80,7 +84,6 @@ const Wrapper = styled.section`
   @media (min-width: 992px) {
     .form-center {
       grid-template-columns: 1fr;
-      /* align-items: center; */
       column-gap: 1rem;
     }
     .btn-container {

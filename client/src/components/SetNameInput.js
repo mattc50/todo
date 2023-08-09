@@ -56,7 +56,7 @@ const SetNameInput = ({ set }) => {
     <React.Fragment>
       {isLoading && <h1
         id="name-placeholder"
-        style={{ textTransform: "none", textOverflow: "clip", whiteSpace: "nowrap" }}
+        style={{ textTransform: "none", overflow: "hidden", whiteSpace: "nowrap" }}
       >
         {formName}
       </h1>}

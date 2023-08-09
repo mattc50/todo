@@ -78,10 +78,12 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   height: 2.5rem;
   border-radius: 50%;
   position: relative;
+
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+
   background-color: var(--grey-300);
   margin: 0;
   padding: 0;
@@ -92,6 +94,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none;
+
   cursor: pointer;
   z-index: 1;
   outline: none;
@@ -103,18 +106,28 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .checkbox-container:hover {
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
   transition: 0.2s;
   background-color: var(--primary-200) !important;
-
 }
 
 .checkbox-container:hover .checkmark {
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
   transition: 0.2s;
+
   opacity: 50% !important;
 }
 
 .checkbox-container:checked:is(:hover, :active) {
+  -webkit-transition: 0.5s;
+  -moz-transition: 0.5s;
+  -ms-transition: 0.5s;
   transition: 0.5s;
+
   background-color: var(--primary-600);
 }
 
@@ -123,6 +136,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none;   
+
   border-radius: 50%;
   position: absolute;
   top: 0;
@@ -153,20 +167,32 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .submit:enabled {
+  -webkit-transition: background-color 0.2s;
+  -moz-transition: background-color 0.2s;
+  -ms-transition: background-color 0.2s;
   transition: background-color 0.2s;
+
   outline: 2px solid var(--primary-200);
 }
 
 .submit:enabled * {
-  transition: 0.2s linear;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+  
   color: var(--primary-200);
 }
 
 .submit:enabled:is(:hover, :focus, :active, :focus-visible)  {
   background-color: white;
-  transition: 0.2s;
-  outline: 2px solid var(--primary-400);
   
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
+  transition: 0.2s;
+
+  outline: 2px solid var(--primary-400);
 }
 
 .submit:enabled:is(:hover, :focus, :active, :focus-visible) * {
@@ -200,34 +226,56 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .c-in-in {
+  -webkit-animation: checkInIn 1s linear forwards;
+  -moz-animation: checkInIn 1s linear forwards;
+  -ms-animation: checkInIn 1s linear forwards;
   animation: checkInIn 1s linear forwards;
 }
 
 .c-in-out, .checkbox-container input:checked ~ .checkmark {
+  -webkit-animation: checkInOut 0.2s ease-in forwards;
+  -moz-animation: checkInOut 0.2s ease-in forwards;
+  -ms-animation: checkInOut 0.2s ease-in forwards;
   animation: checkInOut 0.2s ease-in forwards;
 }
 
 .c-out-out {
+  -webkit-animation: checkOutOut 0.2s ease-in forwards;
+  -moz-animation: checkOutOut 0.2s ease-in forwards;
+  -ms-animation: checkOutOut 0.2s ease-in forwards;
   animation: checkOutOut 0.2s ease-in forwards;
 }
 
 .c-out-in {
+  -webkit-animation: checkOutIn 1s linear forwards;
+  -moz-animation: checkOutIn 1s linear forwards;
+  -ms-animation: checkOutIn 1s linear forwards;
   animation: checkOutIn 1s linear forwards;
 }
 
 .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
+  content: "";
+  position: absolute;
+  display: none;
 }
 
 .checkbox-container input:checked ~ .checkmark:after {
-    display: block;
+  display: block;
 }
 
 @keyframes disabledLoad {
-  0% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+  0% {
+    -webkit-background-position: 100% 50%;
+    -moz-background-position: 100% 50%;
+    -ms-background-position: 100% 50%;
+    background-position: 100% 50%;
+  }
+  100% {
+    -webkit-background-position: 0% 50%;
+    -moz-background-position: 0% 50%;
+    -ms-background-position: 0% 50%;
+    background-position: 0% 50%;
+  }
 }
 
 .checkbox-container input:disabled ~ .checkmark {
@@ -239,27 +287,52 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
     var(--primary-100) 80%,
     var(--primary-100) 100%
   ); 
+  
+  -webkit-filter: saturate(25%);
+  -moz-filter: saturate(25%);
+  -ms-filter: saturate(25%);
   filter: saturate(25%);
+
+  -webkit-background-size: 800% 800%;
+  -moz-background-size: 800% 800%;
+  -ms-background-size: 800% 800%;
   background-size: 800% 800%;
+  
   background-color: none;
+
+  -webkit-animation: disabledLoad 1.5s ease-in-out infinite !important;
+  -moz-animation: disabledLoad 1.5s ease-in-out infinite !important;
+  -ms-animation: disabledLoad 1.5s ease-in-out infinite !important;
   animation: disabledLoad 1.5s ease-in-out infinite !important;
 }
 
 .checkbox-container .checkmark:after {
-    left: 40%;
-    top: 22.5%;
-    width: 22.5%;
-    height: 45%;
-    border: solid white;
-    border-width: 0 4px 4px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
+  left: 40%;
+  top: 22.5%;
+  width: 22.5%;
+  height: 45%;
+  border: solid white;
+  border-width: 0 4px 4px 0;
+  
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 @keyframes skeletonLoad {
-  0% {background-position: right};
-  100% {background-position: left};
+  0% {
+    -webkit-background-position: right;
+    -moz-background-position: right;
+    -ms-background-position: right;
+    background-position: right;
+  };
+  100% {
+    -webkit-background-position: left;
+    -moz-background-position: left;
+    -ms-background-position: left;
+    background-position: left;
+  };
 }
 
 .skeleton {
@@ -270,8 +343,17 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
     var(--grey-100) 47%,
     var(--grey-100)
   );
+
+  -webkit-background-size: 400% 400%;
+  -moz-background-size: 400% 400%;
+  -ms-background-size: 400% 400%;
   background-size: 400% 400%;
+
+  -webkit-animation: skeletonLoad 1.5s linear backwards infinite;
+  -moz-animation: skeletonLoad 1.5s linear backwards infinite;
+  -ms-animation: skeletonLoad 1.5s linear backwards infinite;
   animation: skeletonLoad 1.5s linear backwards infinite;
+
   border-radius: var(--borderRadius);
   height: 2.5rem;
   width: 100%;
@@ -282,7 +364,11 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .set-ref:hover small {
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -ms-transition: 0.2s;
   transition: 0.2s;
+  
   color: var(--primary-400);
   text-decoration: underline;
 }

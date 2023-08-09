@@ -254,4 +254,28 @@ Implemented more installation scripts for deployment (above `build-client`)
 
 Cleaned up warnings in links.js
 
+---
+
 Moved incorrect `react-icons` dependency in server directory to the client directory
+
+---
+
+### August 9, 3:26 PM
+
+#### Commit hash: fb40a10
+
+Sent commit from server directory
+
+---
+
+### August 9, 4:32 PM
+
+#### Commit hash: 
+
+Changed textarea's `value` property to be a `defaultValue` property
+
+In progress with adding `-webkit`, `-moz`, and `-ms` prefixes to different CSS properties. Made style changes to the following wrappers:
+
+- BigSidebar.js
+- Todo.js
+- DashboardFormPage.js

@@ -11,8 +11,13 @@ const Wrapper = styled.aside`
       height: 100%;
       width: 250px;
       margin-left: -250px;
+      
+      -webkit-transition: var(--transition);
+      -moz-transition: var(--transition);
+      -ms-transition: var(--transition);
       transition: var(--transition);
     }
+
     .content {
       position: sticky;
       top: 0;
@@ -43,6 +48,10 @@ const Wrapper = styled.aside`
       text-transform: capitalize;
       outline-offset: 0;
       outline: 1px transparent;
+      
+      -webkit-transition: var(--transition);
+      -moz-transition: var(--transition);
+      -ms-transition: var(--transition);
       transition: var(--transition);
     }
     .nav-link:is(:hover, :active, :focus, :focus-visible) {
@@ -59,6 +68,10 @@ const Wrapper = styled.aside`
       margin-right: 1rem;
       display: grid;
       place-items: center;
+
+      -webkit-transition: var(--transition);
+      -moz-transition: var(--transition);
+      -ms-transition: var(--transition);
       transition: var(--transition);
     }
     .active {
