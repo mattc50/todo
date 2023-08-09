@@ -178,7 +178,7 @@ Implemented the database functionality of `deleteTodo` of `todoController` as a 
 
 ---
 
-### August 9. 12:12 AM
+### August 9. 12:12 PM
 
 #### Commit hash: b9cc320
 
@@ -232,9 +232,9 @@ Downloaded `express-rate-limit` package and implemented API request limiter for 
 
 ---
 
-### August 9. 12:15 AM
+### August 9. 12:29 PM
 
-#### Commit hash: 
+#### Commit hash: e46d884
 
 Implemented `build-client` script in server package.json
 
