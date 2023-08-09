@@ -268,9 +268,9 @@ Sent commit from server directory
 
 ---
 
-### August 9, 4:32 PM
+### August 9, 4:35 PM
 
-#### Commit hash: 
+#### Commit hash: d5626c3
 
 Changed textarea's `value` property to be a `defaultValue` property
 
@@ -279,3 +279,11 @@ In progress with adding `-webkit`, `-moz`, and `-ms` prefixes to different CSS p
 - BigSidebar.js
 - Todo.js
 - DashboardFormPage.js
+
+---
+
+### August 9, 5:27 PM
+
+#### Commit hash:
+
+Made changes in Todo.js, notably to `linear-gradient` properties

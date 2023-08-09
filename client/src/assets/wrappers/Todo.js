@@ -212,10 +212,18 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 @keyframes checkInOut {
   0% {
     background-color: var(--primary-500);
+
+    -webkit-box-shadow: var(--input-shadow);
+    -moz-box-shadow: var(--input-shadow);
+    -ms-box-shadow: var(--input-shadow);
     box-shadow: var(--input-shadow);
   }
   100% {
     background-color: var(--primary-400);
+
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
     box-shadow: none;
   }
 }
@@ -279,14 +287,24 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .checkbox-container input:disabled ~ .checkmark {
-  background: linear-gradient(
-    90deg,
-    var(--primary-100) 0%, 
-    var(--primary-100) 20%, 
-    var(--primary-200) 50%,
-    var(--primary-100) 80%,
-    var(--primary-100) 100%
-  ); 
+  background: 
+    linear-gradient(
+      90deg,
+      var(--primary-100) 0%, 
+      var(--primary-100) 20%, 
+      var(--primary-200) 50%,
+      var(--primary-100) 80%,
+      var(--primary-100) 100%
+    ),
+    -webkit-linear-gradient(
+      90deg,
+      var(--primary-100) 0%, 
+      var(--primary-100) 20%, 
+      var(--primary-200) 50%,
+      var(--primary-100) 80%,
+      var(--primary-100) 100%
+    )
+  ;
   
   -webkit-filter: saturate(25%);
   -moz-filter: saturate(25%);
@@ -336,13 +354,22 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .skeleton {
-  background-image: linear-gradient(
-    90deg,
-    var(--grey-100) 33%, 
-    var(--grey-200) 40%, 
-    var(--grey-100) 47%,
-    var(--grey-100)
-  );
+  background: 
+    linear-gradient(
+      90deg,
+      var(--grey-100) 33%, 
+      var(--grey-200) 40%, 
+      var(--grey-100) 47%,
+      var(--grey-100)
+    ),
+    -webkit-linear-gradient(
+      90deg,
+      var(--grey-100) 33%, 
+      var(--grey-200) 40%, 
+      var(--grey-100) 47%,
+      var(--grey-100)
+    )
+  ;
 
   -webkit-background-size: 400% 400%;
   -moz-background-size: 400% 400%;
