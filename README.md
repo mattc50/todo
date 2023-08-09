@@ -132,9 +132,9 @@ Removed BigSidebar from SharedLayout component, and revised grid layout styling 
 
 ---
 
-### August 7, 9:20 AM
+### August 9, 11:15 AM
 
-#### Commit hash: 
+#### Commit hash: d384681
 
 Removed call to popTodoFromSet, in `deleteTodo` of `appContext` due to the following:
 
@@ -175,3 +175,59 @@ Implemented the database functionality of `deleteTodo` of `todoController` as a 
   - Removes need for `pushTodoToSet` (`appContext`)
 - `deleteTodo`: now includes deletion of Todo, as well as updating the Set, whose ID is derived from the value of the string inside the Todo's `belongsTo` array, by passing in a new array which filters out the removed Todo's ID
   - Removes need for `popTodoFromSet` (`appContext`)
+
+---
+
+### August 9. 11:17 AM
+
+#### Commit hash:
+
+Added `eslint-disable-next-line` above useEffect/useMemo dependency arrays in
+**/components**
+
+- AllTodosContainer.js
+- SetsContainer.js
+- TextArea.js
+- TodosContainer.js
+
+**/pages**
+
+- Error.js
+- Register.js
+
+**/pages/dashboard**
+
+- Set.js
+
+---
+
+Removed unused/non-pertinent comments from
+**/components**
+
+- FormRow.js
+- Todo.js
+
+---
+
+Removed unused imports and made other miscellaneous changes in
+
+App.js
+
+**/components**
+
+- Todo.js
+- TodosContainer.js
+
+**/pages**
+
+- Landing.js
+
+**/pages/dashboard**
+
+- SharedLayout.js
+
+---
+
+Downloaded `express-rate-limit` package and implemented API request limiter for register and login
+
+---

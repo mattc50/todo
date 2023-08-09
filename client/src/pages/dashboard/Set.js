@@ -25,6 +25,7 @@ const Set = () => {
 
   useEffect(() => {
     asyncFetch(setId);
+    // eslint-disable-next-line
   }, [setFound])
 
   return (

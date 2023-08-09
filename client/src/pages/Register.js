@@ -113,9 +113,8 @@ const Register = () => {
       email: showErrs.email,
       password: showErrs.password
     })
-  }, [
-    setShowErrs
-  ])
+    // eslint-disable-next-line
+  }, [setShowErrs])
 
   return (
     <React.Fragment>

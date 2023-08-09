@@ -9,7 +9,8 @@ const Error = () => {
   const { clearFound, setFound } = useAppContext()
 
   useEffect(() => {
-    clearFound()
+    clearFound();
+    // eslint-disable-next-line
   }, [setFound])
 
   return (

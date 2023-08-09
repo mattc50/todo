@@ -34,6 +34,7 @@ const AllTodosContainer = ({ todos }) => {
 
   useEffect(() => {
     asyncFetch();
+    // eslint-disable-next-line
   }, [])
 
   return (

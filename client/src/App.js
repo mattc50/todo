@@ -2,9 +2,7 @@ import { Landing, Register, Error, ProtectedRoute, ProtectedLogReg, ProtectedSet
 import {
   BrowserRouter,
   Routes,
-  Route,
-  Link,
-  Navigate
+  Route
 } from 'react-router-dom'
 import {
   Set,

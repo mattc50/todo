@@ -1,6 +1,6 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import Wrapper from '../../assets/wrappers/SharedLayout'
-import { Navbar, SmallSidebar, BigSidebar } from '../../components'
+import { Navbar, SmallSidebar } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
 const SharedLayout = () => {
@@ -14,7 +14,6 @@ const SharedLayout = () => {
     <Wrapper>
       <main className="dashboard">
         <SmallSidebar />
-        {/* <BigSidebar /> */}
         <div>
           {/* could change the initial value of sets to null rather than [] */}
           {page === 'set' ? (!setLoading || sets.length !== 0) && <Navbar /> : <Navbar />}

@@ -42,6 +42,7 @@ const TextArea = ({
 
   useEffect(() => {
     handleResize()
+    // eslint-disable-next-line
   }, []);
 
   const debounce = () => {
@@ -58,7 +59,10 @@ const TextArea = ({
     }
   }
 
-  const optimizedDebounce = useMemo(() => debounce(), [])
+  const optimizedDebounce = useMemo(() => {
+    debounce();
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <Wrapper>

@@ -9,8 +9,7 @@ import SkeletonLoad from "./SkeletonLoad";
 
 import React from "react";
 
-const TodosContainer = ({
-}) => {
+const TodosContainer = () => {
   const {
     todos,
     totalTodos,
@@ -33,6 +32,7 @@ const TodosContainer = ({
 
   useEffect(() => {
     if (!setLoading) asyncFetch();
+    // eslint-disable-next-line
   }, [setLoading])
 
   return (

@@ -19,6 +19,7 @@ const SetsContainer = ({ sets }) => {
 
   useEffect(() => {
     asyncFetch();
+    // eslint-disable-next-line
   }, [])
 
   return (

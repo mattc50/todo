@@ -4,7 +4,7 @@ import main from '../assets/images/toto-landing.svg'
 // Curly braces are used only for import when export is named.
 // If the export is default then curly braces are not used for import.
 // For a default export we do not use { } when we import.
-import { Loading, Logo } from '../components';
+import { Logo } from '../components';
 import { Link, Navigate } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
 
