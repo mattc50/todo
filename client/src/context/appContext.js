@@ -277,14 +277,18 @@ const AppProvider = ({ children }) => {
   }
 
   const getAllTodos = async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     dispatch({ type: GET_TODOS_BEGIN })
     try {
-      const { data } = await authFetch(`/todo/all`)
+      const { data } = await authFetch(`/todo/all`, { signal: signal })
       const { todos, totalTodos, doneTodos } = data;
+      console.log('done')
       dispatch({
         type: GET_TODOS_SUCCESS,
         payload: { todos, totalTodos, doneTodos }
       })
+      controller.abort()
     } catch (error) {
       dispatch({ type: GET_TODOS_ERROR })
       if (error.response.status === 404) {
@@ -442,6 +446,7 @@ const AppProvider = ({ children }) => {
       const todos = response.data.set.todos;
       const filterOutTodo = todos.filter(todo => todo !== todoId)
       await authFetch.patch(`/set/${setId}`, { filterOutTodo })
+      // return filterOutTodo;
 
       // the SUCCESS dispatch has been commented out for functionality.
       // dispatch({ type: EDIT_SET_SUCCESS })
@@ -454,16 +459,35 @@ const AppProvider = ({ children }) => {
         payload: { msg: error.response.data.msg }
       })
     }
+    // dispatch({ type: EDIT_SET_BEGIN })
+    // try {
+    //   authFetch(`/set/${setId}`)
+    //     .then(response => {
+    //       const todos = response.data.set.todos;
+    //       const filterOutTodo = todos.filter(todo => todo !== todoId)
+    //       return authFetch.patch(`/set/${setId}`, { filterOutTodo })
+    //     })
+    // } catch (error) {
+    //   if (error.response.status === 401) return
+    //   dispatch({
+    //     type: EDIT_SET_ERROR,
+    //     payload: { msg: error.response.data.msg }
+    //   })
+    // }
+
   }
 
   const createTodo = async (task, setId) => {
     dispatch({ type: CREATE_TODO_BEGIN })
     try {
       const todo = await authFetch.post('/todo', { task, belongsTo: setId })
-      const todoId = todo.data.todo._id;
+      // const todoId = todo.data.todo._id;
 
-      await pushSetToTodo(todoId, setId)
-      await pushTodoToSet(todoId, setId)
+      // uncomment back pushSetToTodo when the ability to add Todos to other Sets is 
+      // introduced
+      // await pushSetToTodo(todoId, setId)
+
+      // await pushTodoToSet(todoId, setId)
       dispatch({ type: CREATE_TODO_SUCCESS })
       await getTodos(setId)
     } catch (error) {
@@ -496,7 +520,14 @@ const AppProvider = ({ children }) => {
       // }
 
       // if (setId) {
-      await popTodoFromSet(todoId, setId);
+
+      // popTodoFromSet has been commented out due to the following:
+      // when getTodos(setId) are retrieved after a Todo is deleted, no null Todos 
+      // will come with the response. Given that this happens, we can simply use the 
+      // getTodos response to determine which Todos should be filtered out of the 
+      // todos array sent when the Set is updated.
+      // await popTodoFromSet(todoId, setId);
+
       // }
 
       await authFetch.delete(`todo/${todoId}`);
@@ -534,14 +565,17 @@ const AppProvider = ({ children }) => {
   }
 
   const getSets = async () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
     dispatch({ type: GET_SETS_BEGIN })
     try {
-      const { data } = await authFetch('/set')
+      const { data } = await authFetch('/set', { signal: signal })
       const { sets } = data;
       dispatch({
         type: GET_SETS_SUCCESS,
         payload: { sets }
       })
+      controller.abort()
     } catch (error) {
       logoutUser()
     }
@@ -585,7 +619,7 @@ const AppProvider = ({ children }) => {
   const deleteSet = async (setId) => {
     dispatch({ type: DELETE_SET_BEGIN });
     try {
-      await authFetch.delete(`/todo/all/${setId}`);
+      // await authFetch.delete(`/todo/all/${setId}`);
       await authFetch.delete(`/set/${setId}`)
       dispatch({ type: DELETE_SET_SUCCESS })
       await getSets();

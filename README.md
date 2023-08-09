@@ -110,9 +110,9 @@ Currently working on improving the textarea field
 
 ---
 
-### August 3 9:52 AM
+### August 4, 12:20 PM
 
-#### Commit hash: 
+#### Commit hash: 863f105
 
 Finished revised implementation of textarea
 
@@ -129,3 +129,49 @@ Changed app to have a content max-width of 1120px on SharedLayout (`dashboard-pa
 ---
 
 Removed BigSidebar from SharedLayout component, and revised grid layout styling of `dashboard` in the SharedLayout Wrapper
+
+---
+
+### August 7, 9:20 AM
+
+#### Commit hash: 
+
+Removed call to popTodoFromSet, in `deleteTodo` of `appContext` due to the following:
+
+- When Todos are retrieved from the database, null Todos (Todo IDs which do not point to a Todo) are not returned.
+- Therefore, using the list of Todos returned from the GET request allows us to deal with only Todos which still exist.
+- In this case, we use that list to make a PATCH request and update the Set's list of Todos based on the IDs which exist from the GET request.
+
+---
+
+Implemented the database functionality of `deleteSet` of `setController` as a Transaction, which led to the followiong effects:
+
+- **appContext.js**: Removing `await authFetch.delete(`/todo/all/${setId}`)` in `deleteSet` of `appContext`, as this route/controller functionality was moved into `deleteSet` of `setController`
+- **todoRoutes.js**: Removed /todo/all/:id .delete controller action (`deleteTodos`)
+
+---
+
+Removed try-catch block from new implementation of `deleteSet` of `setController`
+
+---
+
+Implemented the database functionality of `createTodo` of `todoController` as a Transaction, which led to the following effects:
+
+- **appContext.js**: Removing call to `pushTodoToSet`, as the functionality to update the Set's `todos` array now exists within the `createTodo` controller action
+
+---
+
+Implemented the database functionality of `deleteTodo` of `todoController` as a Transaction.
+
+- The `getTodos` (in `appContext`) cleanup functionality, facilitated by `nullsFiltered`, has not been removed, but will not run in normal conditions since the new Set todos filtering takes place inside `deleteTodo` in `todosController`
+
+---
+
+**Summary of action compression**
+
+- `deleteSet`: now includes deletion of Set, as well as deletion of all Todos that contain the Set in its `belongsTo` array
+  - Removes need for command to delete Todos in `deleteSet` (`appContext`)
+- `createTodo`: now includes creation of Todo, as well as updating the Set, whose ID was passed in the request body, by pushing the new Todo's ID to its `todos` array
+  - Removes need for `pushTodoToSet` (`appContext`)
+- `deleteTodo`: now includes deletion of Todo, as well as updating the Set, whose ID is derived from the value of the string inside the Todo's `belongsTo` array, by passing in a new array which filters out the removed Todo's ID
+  - Removes need for `popTodoFromSet` (`appContext`)

@@ -99,8 +99,20 @@ const deleteSet = async (req, res) => {
   if (!set) {
     throw new NotFoundError(`No set with id ${setId}`);
   };
-  await set.deleteOne();
-  res.status(StatusCodes.OK).json({ msg: 'Success! Set removed' })
+
+  const session = await mongoose.startSession();
+
+  session.withTransaction(async () => {
+    await set.deleteOne();
+
+    // functionality of deleteTodos in todoController.js, now moved here to be 
+    // within the same transaction.
+    await Todo.deleteMany({ belongsTo: { $in: [setId] } })
+  });
+
+  await session.endSession();
+
+  res.status(StatusCodes.OK).json({ msg: 'Success! Set and related Todos removed' })
 }
 
 export {

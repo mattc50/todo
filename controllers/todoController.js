@@ -4,12 +4,9 @@ import Set from '../models/Set.js'
 import { StatusCodes } from 'http-status-codes'
 import {
   BadRequestError,
-  NotFoundError,
-  UnauthenticatedError
+  NotFoundError
 } from '../errors/index.js'
-import moment from 'moment'
 import mongoose from 'mongoose'
-const ObjectId = mongoose.Types.ObjectId;
 
 const createTodo = async (req, res) => {
   const { task } = req.body
@@ -18,9 +15,34 @@ const createTodo = async (req, res) => {
     throw new BadRequestError('Please provide task')
   }
 
-  req.body.createdBy = req.user.userId
-  const todo = await Todo.create(req.body)
-  res.status(StatusCodes.CREATED).json({ todo })
+  const session = await mongoose.startSession();
+
+  session.withTransaction(async () => {
+    req.body.createdBy = req.user.userId
+    const todo = await Todo.create(req.body)
+    const todoId = todo._id;
+
+    const setId = req.body.belongsTo;
+
+    // below functionality is pretty much copy-pasted from updateSet (setController)
+    const set = await Set.findOne({ _id: setId })
+    if (!set) {
+      throw new BadRequestError(`No set with id ${setId}`)
+    }
+
+    const todos = set.todos;
+    if (!todos.includes(todoId)) todos.push(todoId);
+    // console.log(todos)
+
+    const updatedSet = await (Set.findOneAndUpdate({ _id: setId }, { todos: todos }, {
+      new: true,
+      runValidators: true
+    }))
+  })
+
+  await session.endSession();
+
+  res.status(StatusCodes.CREATED).json({ msg: "Todo created" })
 }
 
 const getTodos = async (req, res) => {
@@ -115,7 +137,30 @@ const deleteTodo = async (req, res) => {
   if (!todo) {
     throw new NotFoundError(`No todo with id ${todoId}`);
   }
-  await todo.deleteOne();
+
+  const session = await mongoose.startSession()
+
+  session.withTransaction(async () => {
+    const setId = todo.belongsTo[0].toString()
+
+    const set = await Set.findOne({ _id: setId })
+
+    const todos = set.todos;
+
+    const newTodos = todos.filter(todo => todo.toString() !== todoId)
+
+    // console.log(newTodos)
+
+    await todo.deleteOne();
+
+    const updatedSet = await (Set.findOneAndUpdate({ _id: setId }, { todos: newTodos }, {
+      new: true,
+      runValidators: true
+    }))
+  })
+
+  await session.endSession()
+
   res.status(StatusCodes.OK).json({ msg: 'Success! Todo removed' })
 }
 
