@@ -287,25 +287,24 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .checkbox-container input:disabled ~ .checkmark {
-  background: 
-    linear-gradient(
-      90deg,
-      var(--primary-100) 0%, 
-      var(--primary-100) 20%, 
-      var(--primary-200) 50%,
-      var(--primary-100) 80%,
-      var(--primary-100) 100%
-    ),
-    -webkit-linear-gradient(
-      90deg,
-      var(--primary-100) 0%, 
-      var(--primary-100) 20%, 
-      var(--primary-200) 50%,
-      var(--primary-100) 80%,
-      var(--primary-100) 100%
-    )
-  ;
-  
+  background: -webkit-linear-gradient(
+    90deg,
+    var(--primary-100) 0%, 
+    var(--primary-100) 20%, 
+    var(--primary-200) 50%,
+    var(--primary-100) 80%,
+    var(--primary-100) 100%
+  );
+
+  background: linear-gradient(
+    90deg,
+    var(--primary-100) 0%, 
+    var(--primary-100) 20%, 
+    var(--primary-200) 50%,
+    var(--primary-100) 80%,
+    var(--primary-100) 100%
+  );
+
   -webkit-filter: saturate(25%);
   -moz-filter: saturate(25%);
   -ms-filter: saturate(25%);
@@ -354,22 +353,21 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
 }
 
 .skeleton {
-  background: 
-    linear-gradient(
-      90deg,
-      var(--grey-100) 33%, 
-      var(--grey-200) 40%, 
-      var(--grey-100) 47%,
-      var(--grey-100)
-    ),
-    -webkit-linear-gradient(
-      90deg,
-      var(--grey-100) 33%, 
-      var(--grey-200) 40%, 
-      var(--grey-100) 47%,
-      var(--grey-100)
-    )
-  ;
+  background: -webkit-linear-gradient(
+    90deg,
+    var(--grey-100) 33%, 
+    var(--grey-200) 40%, 
+    var(--grey-100) 47%,
+    var(--grey-100)
+  );
+
+  background: linear-gradient(
+    90deg,
+    var(--grey-100) 33%, 
+    var(--grey-200) 40%, 
+    var(--grey-100) 47%,
+    var(--grey-100)
+  );
 
   -webkit-background-size: 400% 400%;
   -moz-background-size: 400% 400%;
