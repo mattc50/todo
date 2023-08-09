@@ -178,9 +178,9 @@ Implemented the database functionality of `deleteTodo` of `todoController` as a 
 
 ---
 
-### August 9. 11:17 AM
+### August 9. 12:12 AM
 
-#### Commit hash:
+#### Commit hash: b9cc320
 
 Added `eslint-disable-next-line` above useEffect/useMemo dependency arrays in
 **/components**
@@ -229,5 +229,13 @@ App.js
 ---
 
 Downloaded `express-rate-limit` package and implemented API request limiter for register and login
+
+---
+
+### August 9. 12:15 AM
+
+#### Commit hash: 
+
+Implemented `build-client` script in server package.json
 
 ---

@@ -9,12 +9,15 @@ dotenv.config();
 
 import 'express-async-errors';
 import morgan from 'morgan';
-import helmet from 'helmet'
-import xss from 'xss-clean'
-import mongoSanitize from 'express-mongo-sanitize'
-import bodyParser from 'body-parser';
+import helmet from 'helmet';
+import xss from 'xss-clean';
+import mongoSanitize from 'express-mongo-sanitize';
 
-import cookieParser from 'cookie-parser'
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+import cookieParser from 'cookie-parser';
 
 // db
 import connectDB from './db/connect.js';
@@ -38,8 +41,13 @@ if (process.env.NODE_ENV !== 'production') {
 // makes JSON data available in the controllers
 // app.use(express.json())
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 app.use(express.json({ limit: '8mb', extended: true }))
 app.use(express.urlencoded({ limit: '8mb', extended: true }));
+
+// direct to where static assets are located (these are publicly-available assets)
+app.use(express.static(path.resolve(__dirname, './client/build')))
 
 app.use(cookieParser())
 
@@ -64,6 +72,10 @@ app.use(
   authenticateUser,
   setRouter
 )
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/build', 'index.html'))
+})
 
 // app.get('/api/v1', (req, res) => {
 //   res.json({ msg: 'API' });
