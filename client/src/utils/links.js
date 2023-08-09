@@ -1,4 +1,4 @@
-import { MdHome, MdViewList, MdOutlineBarChart, MdPerson, MdFolder } from 'react-icons/md';
+import { MdViewList, MdPerson, MdFolder } from 'react-icons/md';
 
 const links = [
   {
@@ -7,12 +7,6 @@ const links = [
     path: '/',
     icon: <MdFolder />,
   },
-  // {
-  //   id: 2,
-  //   text: 'progress',
-  //   path: 'progress',
-  //   icon: <MdOutlineBarChart />,
-  // },
   {
     id: 2,
     text: 'todos',
