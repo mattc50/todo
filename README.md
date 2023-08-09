@@ -239,3 +239,19 @@ Downloaded `express-rate-limit` package and implemented API request limiter for 
 Implemented `build-client` script in server package.json
 
 ---
+
+### August 9. 12:40 PM
+
+#### Commit hash: 11c10f0
+
+Implemented more installation scripts for deployment (above `build-client`)
+
+---
+
+### August 9, 12:55 PM
+
+#### Commit hash: 1bf11a5
+
+Cleaned up warnings in links.js
+
+Moved incorrect `react-icons` dependency in server directory to the client directory
