@@ -19,7 +19,11 @@ const TextArea = ({
   const [currentValue, setCurrentValue] = useState(initialFF || "");// you can manage data with it
 
   const handleResize = () => {
-    const maxHeight = Math.ceil((1.15 * 16 * 10));
+    const lineHeight = 1.15;
+    const fontSize = 16;
+    const lines = window.innerWidth <= 478 ? 10.5 : 10;
+
+    const maxHeight = Math.ceil((lineHeight * fontSize * lines));
     if (textareaRef.current) {
       textareaRef.current.style.height = '0px';
       if (textareaRef.current.scrollHeight < maxHeight) {
