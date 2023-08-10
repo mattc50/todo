@@ -286,6 +286,10 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   }
 }
 
+input:is([type="checkbox"], [type="radio"]):checked:disabled ~ .checkmark {
+  background-color: transparent;
+}
+
 .checkbox-container input:disabled ~ .checkmark {
   background: -webkit-linear-gradient(
     90deg,
