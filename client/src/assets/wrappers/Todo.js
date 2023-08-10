@@ -286,7 +286,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   }
 }
 
-input:is([type="checkbox"], [type="radio"]):checked:disabled ~ .checkmark {
+input:is([type="checkbox"], [type="radio"]):checked:disabled {
   background-color: transparent;
 }
 
