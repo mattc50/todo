@@ -19,6 +19,8 @@ const TextArea = ({
   const [currentValue, setCurrentValue] = useState(initialFF || "");// you can manage data with it
 
   const handleResize = () => {
+    console.log('run')
+
     const maxHeight = Math.ceil((1.15 * 16 * 10));
     if (textareaRef.current) {
       textareaRef.current.style.height = '0px';
@@ -37,8 +39,7 @@ const TextArea = ({
     };
   };
 
-  handleResize()
-
+  // handleResize()
 
   useEffect(() => {
     handleResize()
@@ -59,10 +60,10 @@ const TextArea = ({
     }
   }
 
-  const optimizedDebounce = useMemo(() => {
-    debounce();
-    // eslint-disable-next-line
-  }, [])
+  const optimizedDebounce = useMemo(() =>
+    debounce(),
+    //eslint-disable-next-line
+    [])
 
   return (
     <Wrapper>
@@ -76,7 +77,7 @@ const TextArea = ({
             type={type}
             ref={textareaRef}
             style={style}
-            defaultValue={currentValue}
+            value={currentValue}
             name={name}
             onChange={optimizedDebounce}
             id="textarea"

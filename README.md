@@ -274,6 +274,8 @@ Sent commit from server directory
 
 Changed textarea's `value` property to be a `defaultValue` property
 
+---
+
 In progress with adding `-webkit`, `-moz`, and `-ms` prefixes to different CSS properties. Made style changes to the following wrappers:
 
 - BigSidebar.js
@@ -282,8 +284,18 @@ In progress with adding `-webkit`, `-moz`, and `-ms` prefixes to different CSS p
 
 ---
 
-### August 9, 5:27 PM
+### August 9, 5:27 PM, 5:37 PM
+
+#### Commit hash: d05c2ca, c14bda8
+
+Made changes in Todo.js, notably to `linear-gradient` properties
+
+---
+
+### August 10, 10:28 AM
 
 #### Commit hash:
 
-Made changes in Todo.js, notably to `linear-gradient` properties
+Fixed issue in TextArea.js where when the `useMemo` callback function was not single line, it did not run, and therefore the textarea component interpreted that there was no onChange handler.
+
+The useMemo docs do say that the first thing to pass into a useMemo hook is _A calculation function that takes no arguments, like () =>, and returns what you wanted to calculate._ Therefore, it seems that since the function is technically a return value, `useMemo` can only accept a function call, and no multi-line logic.
