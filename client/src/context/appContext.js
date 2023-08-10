@@ -283,7 +283,6 @@ const AppProvider = ({ children }) => {
     try {
       const { data } = await authFetch(`/todo/all`, { signal: signal })
       const { todos, totalTodos, doneTodos } = data;
-      console.log('done')
       dispatch({
         type: GET_TODOS_SUCCESS,
         payload: { todos, totalTodos, doneTodos }

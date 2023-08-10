@@ -7,6 +7,7 @@ import blurHelper from '../../utils/blurHelper';
 import submitHelper from '../../utils/submitHelper';
 import compressToSizes from '../../utils/convertToBase64';
 import defaultUser from '../../assets/images/defaultUser.svg'
+import { MdFileUpload, MdImageNotSupported } from 'react-icons/md';
 
 const Profile = () => {
   const {
@@ -142,6 +143,19 @@ const Profile = () => {
     setNoChanges(true)
   }
 
+  const removePic = () => {
+    // the following 2 lines function to remove the selected file from the file input. 
+    // Following that, the local state is updated to reflect the fact that there is no 
+    // file currently selected.
+    // While this is not derived directly from the current file selection, both the 
+    // selection and state will update accordingly when the file selection is removed.
+    const fileInput = document.querySelector('#image');
+    fileInput.value = "";
+
+    setProfPic(null);
+    checkInitialVals("image", null);
+  };
+
   useEffect(() => {
   }, [profPic])
 
@@ -167,6 +181,13 @@ const Profile = () => {
               >
                 Choose Profile Picture
               </button>
+              <button
+                className="form-action img"
+                onClick={handleClick}
+              >
+                <MdFileUpload />
+              </button>
+
               <input
                 aria-label="image"
                 type="file"
@@ -181,21 +202,15 @@ const Profile = () => {
             <button
               className="btn btn-secondary"
               type="button"
-              onClick={() => {
-                // the following 2 lines function to remove the selected file from
-                // the file input. Following that, the local state is updated to
-                // reflect the fact that there is no file currently selected.
-                // While this is not derived directly from the current file
-                // selection, both the selection and state will update accordingly
-                // when the file selection is removed.
-                const fileInput = document.querySelector('#image')
-                fileInput.value = ""
-
-                setProfPic(null)
-                checkInitialVals("image", null)
-              }}
+              onClick={removePic}
             >
               Remove Profile Picture
+            </button>
+            <button
+              className="form-action img"
+              onClick={removePic}
+            >
+              <MdImageNotSupported />
             </button>
           </div>
         </div>

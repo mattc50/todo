@@ -19,8 +19,6 @@ const TextArea = ({
   const [currentValue, setCurrentValue] = useState(initialFF || "");// you can manage data with it
 
   const handleResize = () => {
-    console.log('run')
-
     const maxHeight = Math.ceil((1.15 * 16 * 10));
     if (textareaRef.current) {
       textareaRef.current.style.height = '0px';
@@ -38,8 +36,6 @@ const TextArea = ({
       window.removeEventListener('resize', handleResize);
     };
   };
-
-  // handleResize()
 
   useEffect(() => {
     handleResize()

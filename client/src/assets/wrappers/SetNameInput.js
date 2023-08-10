@@ -18,8 +18,22 @@ input:hover {
 }
 
 h1 {
+  width: auto;
   text-transform: none;
-  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  input, h1 {
+    font-size: 2.441rem;
+  }
+}
+
+@media (max-width: 478px) {
+  input, h1 {
+    font-size: 1.953rem;
+  }
 }
 
 `

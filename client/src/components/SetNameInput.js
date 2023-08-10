@@ -53,30 +53,27 @@ const SetNameInput = ({ set }) => {
   }, [name])
 
   return (
-    <React.Fragment>
+    <Wrapper>
       {isLoading && <h1
         id="name-placeholder"
-        style={{ textTransform: "none", overflow: "hidden", whiteSpace: "nowrap" }}
       >
         {formName}
       </h1>}
-      {!isLoading && <Wrapper>
-        <form
-          className="formName-form"
-          onSubmit={handleSubmit}
-          disabled={isLoading}
-        >
-          <input
-            className="form-input"
-            name="name"
-            type="text"
-            value={formName}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </form>
-      </Wrapper>}
-    </React.Fragment>
+      {!isLoading && <form
+        className="formName-form"
+        onSubmit={handleSubmit}
+        disabled={isLoading}
+      >
+        <input
+          className="form-input"
+          name="name"
+          type="text"
+          value={formName}
+          onChange={handleChange}
+          onBlur={handleBlur}
+        />
+      </form>}
+    </Wrapper>
   )
 }
 
