@@ -40,6 +40,7 @@ p {
 .task:disabled {
   pointer-events: none;
   color: var(--grey-400);
+  -webkit-text-fill-color: var(--grey-400);
   background-color: transparent;
 }
 
@@ -110,6 +111,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   -moz-transition: 0.2s;
   -ms-transition: 0.2s;
   transition: 0.2s;
+  
   background-color: var(--primary-200) !important;
 }
 
@@ -128,7 +130,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   -ms-transition: 0.5s;
   transition: 0.5s;
 
-  background-color: var(--primary-600);
+  /* background-color: var(--primary-600); */
 }
 
 .checkmark {
@@ -286,7 +288,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   }
 }
 
-input:is([type="checkbox"], [type="radio"]):checked:disabled {
+input:is([type="checkbox"], [type="radio"]):disabled {
   background-color: transparent;
 }
 
