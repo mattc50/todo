@@ -405,9 +405,10 @@ input:is([type="checkbox"], [type="radio"]):disabled {
 }
 
 @media (max-width: 478px) {
-  .checkbox-container {
+  .checkbox-container, .add {
     width: 1.75rem;
     height: 1.75rem;
+    min-width: 1.75rem;
   }
 
   .checkmark:after {
