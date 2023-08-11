@@ -72,6 +72,17 @@ small {
   border-radius: var(--borderRadius);
   background: linear-gradient(60deg, var(--primary-400), var(--primary-500));
 }
+
+@media (max-width: 478px) {
+  article {
+    margin-left: -5vw;
+    margin-right: -5vw;
+    border-radius: 0;
+    border-left: 0 solid transparent;
+    border-right: 0 solid transparent;
+
+  }
+}
 `
 
 export default Wrapper
