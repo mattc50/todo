@@ -183,6 +183,7 @@ const Profile = () => {
               </button>
               <button
                 className="form-action img"
+                type="button"
                 onClick={handleClick}
               >
                 <MdFileUpload />
@@ -208,6 +209,7 @@ const Profile = () => {
             </button>
             <button
               className="form-action img"
+              type="button"
               onClick={removePic}
             >
               <MdImageNotSupported />
