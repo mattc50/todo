@@ -20,7 +20,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
 
 html {
-  background: var(--backgroundColor);
   font-size: 100%;
 } /*16px*/
 
