@@ -25,7 +25,7 @@ h1 {
 }
 
 @media (max-width: 767px) {
-  input, h1 {
+  input {
     font-size: 2.441rem;
   }
 }

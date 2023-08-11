@@ -10,6 +10,18 @@ const Wrapper = styled.div`
   }
 }
 
+/*
+--h1-lg: 3.052rem;
+--h1-md: 2.441rem;
+--h1-sm: 1.953rem;
+
+--line-height: 1.15;
+--input-line-height: 1.3;
+
+--prog-bar-height: 1rem;
+--bar-num-gap: 0.25rem;
+--small-text-proxy: var(--small-text);
+*/
 
 .skeleton {
   background-image: linear-gradient(
@@ -23,28 +35,30 @@ const Wrapper = styled.div`
   animation: skeletonLoad 0.8s linear backwards infinite;
   border-radius: var(--borderRadius);
 }
-/* height: 2.5rem;
-width: 100%;
-
-border-radius: var(--borderRadius);
-height: calc(3.052rem * 1.3);
-width: 25%;
-margin: calc(-0.5rem) 0 calc(1.38rem - 0.5rem) -0.5rem; */
 
 .todo-progress {
-  /* --smallText */
-  height: calc((0.8rem * 1.15) * 1.15 + 0.25rem + 1rem);
+  height: calc((0.8rem * 1.15) + 0.25rem + 1rem);
   width: 20%;
   margin-bottom: 1rem;
 }
 
 .set-name {
-  height: calc(3.052rem * 1.3 + 1rem);
+  height: calc((3.052rem * 1.3) + 1rem);
   width: 25%;
   margin: calc(-0.5rem) 0 calc(1.38rem - 0.5rem) -0.5rem;
 }
 
+@media (max-width: 767px) {
+  .set-name {
+    height: calc((2.441rem * 1.3) + 1rem)
+  }
+}
 
+@media (max-width: 478px) {
+  .set-name {
+    height: calc((1.953rem * 1.3) + 1rem)
+  }
+}
 `
 
 export default Wrapper;
