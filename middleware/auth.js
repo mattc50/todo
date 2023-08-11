@@ -27,7 +27,6 @@ const auth = async (req, res, next) => {
   }
 
   if (!token) {
-    console.log('this ran')
     throw new UnauthenticatedError('Authentication Invalid')
   }
 

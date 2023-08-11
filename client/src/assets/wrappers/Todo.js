@@ -68,7 +68,7 @@ input:-webkit-autofill:disabled, input:-webkit-autofill:disabled:is(:focus, :act
   align-items: center;
 }
 
-.status-container:focus-within{
+.checkbox-container:focus-within {
   transition: box-shadow 0.2s;
   outline: 2px solid var(--primary-400);
   box-shadow: 0px 0px 10px 2px rgba(var(--grey-400-rgb), 0.20);
@@ -329,7 +329,7 @@ input:is([type="checkbox"], [type="radio"]):disabled {
   animation: disabledLoad 1.5s ease-in-out infinite !important;
 }
 
-.checkbox-container .checkmark:after {
+.checkmark:after {
   left: 40%;
   top: 22.5%;
   width: 22.5%;
@@ -402,6 +402,17 @@ input:is([type="checkbox"], [type="radio"]):disabled {
   
   color: var(--primary-400);
   text-decoration: underline;
+}
+
+@media (max-width: 478px) {
+  .checkbox-container {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  .checkmark:after {
+    border-width: 0 3px 3px 0;
+  }
 }
 `
 
