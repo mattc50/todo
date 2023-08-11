@@ -21,7 +21,7 @@ const TextArea = ({
   const handleResize = () => {
     const lineHeight = 1.15;
     const fontSize = 16;
-    const lines = window.innerWidth <= 478 ? 10.5 : 10;
+    const lines = window.innerWidth <= 478 ? 10.25 : 10;
 
     const maxHeight = Math.ceil((lineHeight * fontSize * lines));
     if (textareaRef.current) {
