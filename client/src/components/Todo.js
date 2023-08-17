@@ -55,7 +55,7 @@ const Todo = ({ item, _id, task, status, belongsTo, name }) => {
       updateTask(
         _id,
         forSubmit,
-        set._id
+        set ? set._id : null
       )
     }
     return false;

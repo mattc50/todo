@@ -30,7 +30,7 @@ const SetsContainer = ({ sets }) => {
           <SkeletonSet />
         </div>
       }
-      {sets.length === 0 && <h5>There are no Sets. Add a Set below!</h5>}
+      {!initialLoad && sets.length === 0 && <h5>There are no Sets. Add a Set below!</h5>}
       {!initialLoad && sets.map((set, index) => {
         return (
           <React.Fragment key={index}>

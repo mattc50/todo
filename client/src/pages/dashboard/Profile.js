@@ -161,7 +161,7 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <h3>profile </h3>
+      <h1>profile </h1>
       <form className='form' onSubmit={handleSubmit}>
         {showAlert && (!showErrs.name && !showErrs.email && !showErrs.lastName) && <Alert />}
         <div className="img-container">
