@@ -138,7 +138,7 @@ const Wrapper = styled.nav`
     .nav-link {
       display: flex;
       align-items: center;
-      color: var(--grey-500);
+      color: var(--grey-600);
       padding: 0.75rem;
       border-radius: var(--borderRadius);
       outline-offset: 0;
