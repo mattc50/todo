@@ -53,7 +53,6 @@ const Navbar = () => {
           </button>
           <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
             <button
-              aria-label="logout user"
               type="button"
               className="dropdown-btn"
               onClick={logoutUser}
