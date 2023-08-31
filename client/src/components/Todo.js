@@ -72,6 +72,7 @@ const Todo = ({ item, _id, task, status, belongsTo, name }) => {
               id={`todo-${item}`}
             >
               <input
+                aria-label="status"
                 type="checkbox"
                 name="status"
                 checked={status}

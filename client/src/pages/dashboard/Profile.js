@@ -182,6 +182,7 @@ const Profile = () => {
                 Choose Profile Picture
               </button>
               <button
+                aria-label="change profile picture"
                 className="form-action img"
                 type="button"
                 onClick={handleClick}
@@ -208,6 +209,7 @@ const Profile = () => {
               Remove Profile Picture
             </button>
             <button
+              aria-label="remove profile picture"
               className="form-action img"
               type="button"
               onClick={removePic}
@@ -271,7 +273,7 @@ const Profile = () => {
             className='btn btn-block'
             type='submit'
             disabled={noChanges || isLoading}>
-            {isLoading ? 'Please Wait...' : 'save changes'}
+            {isLoading ? 'Saving Changes...' : 'Save Changes'}
           </button>
         </div>
       </form>

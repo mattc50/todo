@@ -13,6 +13,7 @@ const SmallSidebar = () => {
       <div className={showSidebar ? 'sidebar-container show-sidebar' : 'sidebar-container'}>
         <div className="content">
           <button
+            aria-label="close sidebar"
             type="button"
             className="close-btn"
             onClick={toggleSidebar}

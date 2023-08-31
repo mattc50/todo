@@ -16,6 +16,7 @@ const Navbar = () => {
         {/* first column */}
         <div className="logo-container">
           <button
+            aria-label="toggle navbar"
             type="button"
             className="toggle-btn"
             onClick={toggleSidebar}
@@ -36,6 +37,7 @@ const Navbar = () => {
         {/* third column */}
         <div className="btn-container">
           <button
+            aria-label="open logout"
             type="button"
             className="btn"
             onClick={() => setShowLogout(!showLogout)}
@@ -51,6 +53,7 @@ const Navbar = () => {
           </button>
           <div className={showLogout ? "dropdown show-dropdown" : "dropdown"}>
             <button
+              aria-label="logout user"
               type="button"
               className="dropdown-btn"
               onClick={logoutUser}

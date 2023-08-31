@@ -17,6 +17,7 @@ const FormRow = ({
         type={type}
         value={value}
         name={name}
+        id={name}
         onChange={handleChange}
         onBlur={handleBlur}
         className={isError ? "form-input error" : "form-input"}

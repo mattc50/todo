@@ -165,7 +165,9 @@ const Register = () => {
             className="btn btn-block"
             disabled={isLoading}
           >
-            submit
+            {values.isMember && !isLoading && "Log In"}
+            {!values.isMember && !isLoading && "Register"}
+            {isLoading && "Please Wait..."}
           </button>
 
           {/*button to toggle login/register action*/}

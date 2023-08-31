@@ -51,6 +51,7 @@ const SetsContainer = ({ sets }) => {
                   </Link>
                   <div className="form-action-container">
                     <button
+                      aria-label="delete set"
                       className="form-action delete"
                       onClick={() => { deleteSet(set._id) }
                       }
