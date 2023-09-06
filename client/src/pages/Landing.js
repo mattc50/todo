@@ -9,6 +9,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
 
 import React from 'react';
+import LoginButton from '../components/LoginButton';
 
 const Landing = () => {
   const { user } = useAppContext()
@@ -34,6 +35,7 @@ const Landing = () => {
             <Link to="/register" className="btn btn-hero">
               Login/Register
             </Link>
+            {/* <LoginButton /> */}
           </div>
           <img src={main} alt="job hunt" className="img main-img" />
         </div>
