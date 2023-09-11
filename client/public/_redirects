@@ -1,2 +1,2 @@
-/api/*  https://toto-productivity.netlify.app/:splat  200
-/*      /index.html                                   200
+/api/*  https://toto-productivity.netlify.app/api/:splat  200
+/*      /index.html                                       200
