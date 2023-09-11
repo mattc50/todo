@@ -6,6 +6,10 @@ import {
   UnauthenticatedError
 } from '../errors/index.js'
 import attachCookies from '../utils/attachCookies.js';
+import sendEmail from '../utils/sendEmail.js'
+
+const baseUrl = process.env.BASE_URL;
+const url = process.env.NODE_ENV === 'production' ? 'toto-9ww4.onrender.com' : baseUrl
 
 const register = async (req, res) => {
   const { name, email, password } = req.body
@@ -30,6 +34,20 @@ const register = async (req, res) => {
 
   const token = user.createJWT();
   attachCookies({ res, token })
+
+  sendEmail(
+    user.email,
+    "Password Reset Successfully",
+    [{
+      filename: 'welcome-email.png',
+      cid: 'welcome-email'
+    }],
+    {
+      name: user.name,
+      link: url
+    },
+    "../utils/templates/register.handlebars"
+  );
 
   res.status(StatusCodes.CREATED).json({
     //select: false does not work with User.create; therefore, to omit the password from responses, we have to hard-code the values we want to retrieve

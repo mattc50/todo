@@ -4,6 +4,8 @@ import Register from './Register.js'
 import ProtectedRoute from './ProtectedRoute.js'
 import ProtectedLogReg from './ProtectedLogReg.js'
 import ProtectedSet from './ProtectedSet.js'
+import ForgotPassword from './ForgotPassword.js'
+import ResetPassword from './ResetPassword.js'
 
 export {
   Landing,
@@ -11,5 +13,7 @@ export {
   Register,
   ProtectedRoute,
   ProtectedLogReg,
-  ProtectedSet
+  ProtectedSet,
+  ForgotPassword,
+  ResetPassword
 }

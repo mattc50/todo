@@ -4,6 +4,9 @@
 import express from 'express';
 const app = express();
 
+app.set('trust proxy', 1)
+// app.get('/api/v1/ip', (req, res) => res.send(req.ip));
+
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -26,6 +29,8 @@ import connectDB from './db/connect.js';
 import authRouter from './routes/authRoutes.js';
 import todoRouter from './routes/todoRoutes.js';
 import setRouter from './routes/setRoutes.js';
+
+import passwordResetRouter from './routes/passwordReset.js';
 
 // middleware
 import notFoundMiddleWare from './middleware/not-found.js';
@@ -62,15 +67,22 @@ app.use(
   '/api/v1/auth',
   authRouter
 )
+
 app.use(
   '/api/v1/todo',
   authenticateUser,
   todoRouter
 )
+
 app.use(
   '/api/v1/set',
   authenticateUser,
   setRouter
+)
+
+app.use(
+  '/api/v1/forgot-password',
+  passwordResetRouter
 )
 
 app.get('*', (req, res) => {

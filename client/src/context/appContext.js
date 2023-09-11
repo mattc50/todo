@@ -48,7 +48,11 @@ import {
 
   CLEAR_FOUND,
   SET_INVALID,
-  SET_LOADING
+  SET_LOADING,
+  REQUEST_RESET_ERROR,
+  CHECK_TOKEN_BEGIN,
+  CHECK_TOKEN_SUCCESS,
+  CHECK_TOKEN_ERROR
 } from './actions';
 import axios from 'axios';
 
@@ -74,7 +78,9 @@ export const initialState = {
   editTodoId: '',
   isEditing: false,
   setFound: true,
-  setLoading: true
+  setLoading: true,
+  tokenLoading: true,
+  tokenFound: true
 }
 
 const AppProvider = ({ children }) => {
@@ -638,6 +644,46 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_FOUND })
   }
 
+  const requestPasswordReset = async (email) => {
+    try {
+      await authFetch.post('/forgot-password/request-reset', { email })
+    } catch (error) {
+      dispatch({
+        type: REQUEST_RESET_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+    clearAlert();
+  }
+
+  const resetPassword = async (userId, token, password) => {
+    try {
+      await authFetch.post('/forgot-password/reset-password', { userId, token, password })
+    } catch (error) {
+      dispatch({
+        type: REQUEST_RESET_ERROR,
+        payload: { msg: error.response.data.msg }
+      })
+    }
+    clearAlert();
+  }
+
+  const checkToken = async (token, userId) => {
+    try {
+      dispatch({ type: CHECK_TOKEN_BEGIN })
+      // token and userId are sent in as query parameters, since GET requests do not 
+      // have bodies
+      const { data } = await authFetch(`/forgot-password/reset-password/${token}/${userId}`)
+      if (data) {
+        dispatch({ type: CHECK_TOKEN_SUCCESS })
+        return true;
+      }
+    } catch (error) {
+      dispatch({ type: CHECK_TOKEN_ERROR })
+      return false;
+    }
+  }
+
   useEffect(() => {
     getCurrentUser()
   }, [])
@@ -668,7 +714,11 @@ const AppProvider = ({ children }) => {
         deleteSet,
 
         clearFound,
-        isSetLoading
+        isSetLoading,
+
+        requestPasswordReset,
+        resetPassword,
+        checkToken
       }}
     >
       {children}

@@ -11,6 +11,14 @@ const Wrapper = styled.section`
     margin-bottom: 1.38rem;
   }
 
+  a {
+    color: var(--primary-500);
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .form {
     max-width: 400px;
     border-top: 5px solid var(--primary-500);
@@ -34,6 +42,10 @@ const Wrapper = styled.section`
     color: var(--primary-500);
     cursor: pointer;
     letter-spacing: var(--letterSpacing);
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 `
 export default Wrapper

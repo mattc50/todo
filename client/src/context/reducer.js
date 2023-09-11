@@ -51,7 +51,11 @@ import {
 
   CLEAR_FOUND,
   SET_INVALID,
-  SET_LOADING
+  SET_LOADING,
+  REQUEST_RESET_ERROR,
+  CHECK_TOKEN_BEGIN,
+  CHECK_TOKEN_SUCCESS,
+  CHECK_TOKEN_ERROR
 
 } from "./actions";
 
@@ -419,6 +423,39 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false
+    }
+  }
+
+  if (action.type === REQUEST_RESET_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === CHECK_TOKEN_BEGIN) {
+    return {
+      ...state,
+      // isLoading: true
+    }
+  }
+
+  if (action.type === CHECK_TOKEN_SUCCESS) {
+    return {
+      ...state,
+      tokenLoading: false,
+      tokenFound: true
+    }
+  }
+
+  if (action.type === CHECK_TOKEN_ERROR) {
+    return {
+      ...state,
+      tokenLoading: false,
+      tokenFound: false
     }
   }
 

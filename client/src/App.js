@@ -12,6 +12,7 @@ import {
   Profile,
   SharedLayout
 } from './pages/dashboard'
+import { ForgotPassword, ResetPassword } from './pages'
 
 function App() {
   return (
@@ -44,6 +45,16 @@ function App() {
         <Route path="/landing" element={
           <ProtectedLogReg>
             <Landing />
+          </ProtectedLogReg>
+        } />
+        <Route path="/forgot-password" element={
+          <ProtectedLogReg>
+            <ForgotPassword />
+          </ProtectedLogReg>
+        } />
+        <Route path="/reset-password" element={
+          <ProtectedLogReg>
+            <ResetPassword />
           </ProtectedLogReg>
         } />
         <Route path="/404" element={<Error />} />

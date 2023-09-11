@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 import { Logo, Alert, FormRow } from '../components';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { useAppContext } from '../context/appContext';
@@ -181,6 +181,9 @@ const Register = () => {
               {values.isMember ? "Register" : "Login"}
             </button>
           </p>
+          <Link to='/forgot-password'>
+            <p>Forgot Password?</p>
+          </Link>
         </form>
       </Wrapper>
     </React.Fragment>
