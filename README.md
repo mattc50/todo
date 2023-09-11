@@ -309,3 +309,23 @@ The useMemo docs do say that the first thing to pass into a useMemo hook is _A c
 Added styles to fix checkbox appearance on mobile
 
 ---
+
+### August 11, 
+
+#### Commit hash: 
+
+Removed errors from appContext.js:
+
+- Removed `pushSetToTodo` function
+- Removed `popSetToTodo` function
+- Removed `pushTodoToSet` function
+- Removed `popTodoFromSet` function
+- Removed `todo` declaration from `createTodo`
+- Added `//eslint-disable-next-line` to useEffect
+
+---
+
+Removed errors from ResetPassword.js (pages):
+
+- Removed `setSearchParams` from `useSearchParams` hook declaration
+- Added `//eslint-disable-next-line` to useEffect

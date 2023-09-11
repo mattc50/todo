@@ -363,129 +363,10 @@ const AppProvider = ({ children }) => {
     }
   }
 
-  // ADDITION:  this function will push a Todo to the array of Sets it belongs to.
-  //            it will first fetch a Todo by the provided todoId.
-  //            then, the response is parsed, and the belongsTo array of the Todo 
-  //            object is stored in belongsTo.
-  //            next, the provided setId is pushed to the belongsTo array, adding a 
-  //            new Set to it.
-  //            last, the Todo object is updated with the new Set array in belongsTo.
-  const pushSetToTodo = async (todoId, setId) => {
-    dispatch({ type: EDIT_TODO_BEGIN })
-
-    try {
-      const response = await authFetch(`/todo/${todoId}`)
-
-      let belongsTo = response.data.todo.belongsTo;
-
-      // search in the belongsTo array to see if the Set already exists in it
-      if (!belongsTo.includes(setId)) {
-        belongsTo.push(setId);
-        await authFetch.patch(`/todo/${todoId}`, { belongsTo })
-      }
-      dispatch({ type: EDIT_TODO_SUCCESS })
-
-    } catch (error) {
-      if (error.response.status === 401) {
-        return
-      }
-      dispatch({
-        type: EDIT_TODO_ERROR,
-        payload: { msg: error.response.data.msg }
-      })
-    }
-  }
-
-  // ADDITION:  * not sure of revelance right now *
-  //            takes in a Todo and Set, and removes the Set from the Todo's 
-  //            belongsTo array.
-  const popSetFromTodo = async (todoId, setId) => {
-    dispatch({ type: EDIT_TODO_BEGIN })
-    try {
-      const response = await authFetch(`/todo/${todoId}`)
-      const belongsTo = response.data.todo.belongsTo;
-      const filterOutSet = belongsTo.filter(set => set !== setId)
-      await authFetch.patch(`/todo/${todoId}`, { filterOutSet })
-      dispatch({ type: EDIT_TODO_SUCCESS })
-
-    } catch (error) {
-      if (error.response.status === 401) {
-        return
-      }
-      dispatch({
-        type: EDIT_TODO_ERROR,
-        payload: { msg: error.response.data.msg }
-      })
-    }
-  }
-
-  const pushTodoToSet = async (todoId, setId) => {
-    dispatch({ type: EDIT_SET_BEGIN })
-
-    try {
-      const response = await authFetch(`/set/${setId}`)
-      const todos = response.data.set.todos;
-      if (!todos.includes(todoId)) {
-        todos.push(todoId);
-        await authFetch.patch(`/set/${setId}`, { todos })
-      }
-      dispatch({ type: EDIT_SET_SUCCESS })
-
-
-    } catch (error) {
-      if (error.response.status === 401) {
-        return
-      }
-      dispatch({
-        type: EDIT_SET_ERROR,
-        payload: { msg: error.response.data.msg }
-      })
-    }
-  }
-
-  const popTodoFromSet = async (todoId, setId) => {
-
-    dispatch({ type: EDIT_SET_BEGIN })
-    try {
-      const response = await authFetch(`/set/${setId}`)
-      const todos = response.data.set.todos;
-      const filterOutTodo = todos.filter(todo => todo !== todoId)
-      await authFetch.patch(`/set/${setId}`, { filterOutTodo })
-      // return filterOutTodo;
-
-      // the SUCCESS dispatch has been commented out for functionality.
-      // dispatch({ type: EDIT_SET_SUCCESS })
-    } catch (error) {
-      if (error.response.status === 401) {
-        return
-      }
-      dispatch({
-        type: EDIT_SET_ERROR,
-        payload: { msg: error.response.data.msg }
-      })
-    }
-    // dispatch({ type: EDIT_SET_BEGIN })
-    // try {
-    //   authFetch(`/set/${setId}`)
-    //     .then(response => {
-    //       const todos = response.data.set.todos;
-    //       const filterOutTodo = todos.filter(todo => todo !== todoId)
-    //       return authFetch.patch(`/set/${setId}`, { filterOutTodo })
-    //     })
-    // } catch (error) {
-    //   if (error.response.status === 401) return
-    //   dispatch({
-    //     type: EDIT_SET_ERROR,
-    //     payload: { msg: error.response.data.msg }
-    //   })
-    // }
-
-  }
-
   const createTodo = async (task, setId) => {
     dispatch({ type: CREATE_TODO_BEGIN })
     try {
-      const todo = await authFetch.post('/todo', { task, belongsTo: setId })
+      await authFetch.post('/todo', { task, belongsTo: setId })
       // const todoId = todo.data.todo._id;
 
       // uncomment back pushSetToTodo when the ability to add Todos to other Sets is 
@@ -686,6 +567,7 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     getCurrentUser()
+    //eslint-disable-next-line
   }, [])
 
   return (

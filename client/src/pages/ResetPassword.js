@@ -16,7 +16,7 @@ const ResetPassword = () => {
   const { isLoading, tokenLoading, tokenFound, showAlert, resetPassword, checkToken } = useAppContext()
 
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const params = {};
 
@@ -73,6 +73,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     asyncFetch(token, id)
+    //eslint-disable-next-line
   }, [tokenFound])
 
   return (
