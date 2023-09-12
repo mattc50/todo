@@ -1,8 +1,6 @@
-import Joi from 'joi';
 import User from '../models/User.js';
 import { StatusCodes } from 'http-status-codes'
 import attachCookies from '../utils/attachCookies.js';
-import passwordComplexity from 'joi-password-complexity';
 // import { logout } from './authController.js';
 import BadRequestError from '../errors/bad-request.js';
 import Token from '../models/Token.js';
@@ -98,85 +96,4 @@ const checkToken = async (token, userId) => {
   return isValid;
 }
 
-
-// const sendLink = async (req, res) => {
-//   try {
-//     const emailSchema = Joi.object({
-//       email: Joi.string().email().required().label("Email")
-//     });
-//     const { error } = emailSchema.validate(req.body);
-//     if (error) {
-//       return res.status(StatusCodes.BAD_REQUEST).send({ message: error.details[0].message });
-//     }
-
-//     const user = await User.findOne({ email: req.body.email });
-//     if (!user) {
-//       return res.status(StatusCodes.CONFLICT).send({ message: "User with given email does not exist." })
-//     }
-
-//     const token = req.cookies.token;
-//     if (!token) {
-//       const newToken = user.createJWT();
-//       attachCookies(res, newToken);
-//     }
-
-//     const url = `${process.env.BASE_URL}password-reset/${user._id}`
-//     await sendEmail(user.email, "Password Reset", url);
-
-//     res.status(StatusCodes.OK).send({ message: "Password reset link sent to your email." })
-
-//   } catch (error) {
-//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: "Internal server error" })
-//   }
-// }
-
-// const verifyUrl = async (req, res) => {
-//   try {
-//     const user = await User.findOne({ _id: req.params.id });
-//     if (!user) {
-//       return res.status(StatusCodes.BAD_REQUEST).send({ message: "Invalid link" });
-//     }
-
-//     const token = req.cookies.token;
-//     if (!token) {
-//       return res.status(StatusCodes.BAD_REQUEST).send({ message: "Invalid link" });
-//     }
-
-//     res.status(StatusCodes.OK).send({ message: "Valid URL" });
-//   } catch (error) {
-//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: "Internal server error" });
-//   }
-// }
-
-// const resetPassword = async (req, res) => {
-//   try {
-//     const passwordSchema = Joi.object({
-//       password: passwordComplexity().required().label("Password")
-//     });
-
-//     const { error } = passwordSchema.validate(req.body);
-//     if (error) {
-//       return res.status(StatusCodes.BAD_REQUEST).send({ message: error.details[0].message })
-//     }
-
-//     const user = await User.findOne({ _id: req.params.id });
-//     if (!user) {
-//       return res.status(StatusCodes.BAD_REQUEST).send({ message: "Invalid link" });
-//     }
-
-//     const token = req.cookies.token;
-//     if (!token) {
-//       return res.status(StatusCodes.BAD_REQUEST).send({ message: "Invalid link" });
-//     }
-
-//     await user.save();
-//     await logout();
-
-//   } catch (error) {
-//     res.status(StatusCodes.INTERNAL_SERVER_ERROR).send({ message: "Internal server error" });
-
-//   }
-// }
-
-// export { sendLink, verifyUrl, resetPassword };
 export { requestPasswordReset, resetPassword, checkToken }
