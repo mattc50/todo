@@ -56,7 +56,7 @@ const requestPasswordReset = async (email) => {
   }
 
   try {
-    axios.post('https://api.emailjs.com/api/v1.0/email/send', data, {
+    await axios.post('https://api.emailjs.com/api/v1.0/email/send', data, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
