@@ -6,7 +6,8 @@ import BadRequestError from '../errors/bad-request.js';
 import Token from '../models/Token.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import sendEmail from '../utils/sendEmail.js'
+// import sendEmail from '../utils/sendEmail.js';
+import axios from 'axios'
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -41,17 +42,40 @@ const requestPasswordReset = async (email) => {
 
   // const env = window.location.origin;
   const link = `${url}/reset-password?token=${resetToken}&id=${user._id}`;
-  sendEmail(
-    user.email,
-    "Password Reset Request",
-    [],
-    {
-      name: user.name,
-      link: link
-    },
-    // "../utils/templates/requestResetPassword.handlebars"
-    "../utils/templates/requestResetPassword.handlebars"
-  )
+
+  const data = {
+    service_id: process.env.SERVICE_ID,
+    template_id: process.env.TEMPLATE_ID_PW,
+    user_id: process.env.PUBLIC_KEY,
+    accessToken: process.env.PRIVATE_KEY,
+    template_params: {
+      'email': user.email,
+      'name': user.name,
+      'link': link,
+    }
+  }
+
+  try {
+    axios.post('https://api.emailjs.com/api/v1.0/email/send', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    })
+  } catch (error) {
+    console.log(error);
+  }
+  // sendEmail(
+  //   user.email,
+  //   "Password Reset Request",
+  //   [],
+  //   {
+  //     name: user.name,
+  //     link: link
+  //   },
+  //   // "../utils/templates/requestResetPassword.handlebars"
+  //   "../utils/templates/requestResetPassword.handlebars"
+  // )
   return link;
 }
 
@@ -65,16 +89,16 @@ const resetPassword = async (userId, token, password) => {
   const user = await User.findOne({ _id: userId });
   user.password = password;
 
-  sendEmail(
-    user.email,
-    "Password Reset Successfully",
-    [],
-    {
-      name: user.name,
-      link: url
-    },
-    "../utils/templates/passwordReset.handlebars"
-  );
+  // sendEmail(
+  //   user.email,
+  //   "Password Reset Successfully",
+  //   [],
+  //   {
+  //     name: user.name,
+  //     link: url
+  //   },
+  //   "../utils/templates/passwordReset.handlebars"
+  // );
 
   await user.save();
 

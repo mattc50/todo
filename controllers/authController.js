@@ -6,7 +6,10 @@ import {
   UnauthenticatedError
 } from '../errors/index.js'
 import attachCookies from '../utils/attachCookies.js';
-import sendEmail from '../utils/sendEmail.js'
+// import sendEmail from '../utils/sendEmail.js'
+import axios from 'axios'
+import dotenv from 'dotenv';
+dotenv.config();
 
 const baseUrl = process.env.BASE_URL;
 const url = process.env.NODE_ENV === 'production' ? 'toto-9ww4.onrender.com' : baseUrl
@@ -35,19 +38,42 @@ const register = async (req, res) => {
   const token = user.createJWT();
   attachCookies({ res, token })
 
-  sendEmail(
-    user.email,
-    "Password Reset Successfully",
-    [{
-      filename: 'welcome-email.png',
-      cid: 'welcome-email'
-    }],
-    {
-      name: user.name,
-      link: url
-    },
-    "../utils/templates/register.handlebars"
-  );
+  const data = {
+    service_id: process.env.SERVICE_ID,
+    template_id: process.env.TEMPLATE_ID_REG,
+    user_id: process.env.PUBLIC_KEY,
+    accessToken: process.env.PRIVATE_KEY,
+    template_params: {
+      'email': user.email,
+      'name': user.name,
+      'link': url,
+    }
+  }
+
+  try {
+    axios.post('https://api.emailjs.com/api/v1.0/email/send', data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+    })
+  } catch (error) {
+    console.log(error);
+  }
+
+  // sendEmail(
+  //   user.email,
+  //   "Password Reset Successfully",
+  //   [{
+  //     filename: 'welcome-email.png',
+  //     cid: 'welcome-email'
+  //   }],
+  //   {
+  //     name: user.name,
+  //     link: url
+  //   },
+  //   "../utils/templates/register.handlebars"
+  // );
 
   res.status(StatusCodes.CREATED).json({
     //select: false does not work with User.create; therefore, to omit the password from responses, we have to hard-code the values we want to retrieve
